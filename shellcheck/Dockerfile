@@ -2,9 +2,9 @@ FROM ubuntu:16.04
 MAINTAINER soulmachine <soulmachine@gmail.com>
 
 # 更新源
-RUN apt-get update -qqy
+RUN apt-get -qy update
 
-RUN apt-get -qqy install haskell-platform
+RUN apt-get -qy install haskell-platform
 
 RUN cabal update
 RUN cabal install shellcheck
