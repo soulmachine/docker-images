@@ -1,19 +1,19 @@
 FROM ubuntu:16.04
 MAINTAINER soulmachine <soulmachine@gmail.com>
 
-# 更新源
-RUN apt-get -qy update
 
-RUN apt-get -qy install haskell-platform
+RUN apt-get update -y && apt-get -y --no-install-recommends install \
+    git \
+    cabal-install \
+ && apt-get clean \
+ && apt-get autoremove && \
+ && rm -rf /var/lib/apt/lists/*
 
-RUN cabal update
-RUN cabal install shellcheck
 
-# 删除不必要的软件和Apt缓存包列表
-RUN apt-get clean && \
-    apt-get autoremove && \
-    rm -rf /var/lib/apt/lists/* \
-    rm -rf /var/cache/*.tar.gz \
-    rm -rf /var/cache/*/*.tar.gz
+RUN git config --global http.sslVerify false
+WORKDIR /root
+RUN git clone https://github.com/koalaman/shellcheck.git
+WORKDIR /root/shellcheck
+RUN cabal update && cabal install
 
 ENTRYPOINT ["/root/.cabal/bin/shellcheck"]
