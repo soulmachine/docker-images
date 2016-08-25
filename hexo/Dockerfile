@@ -2,7 +2,7 @@ FROM ubuntu:xenial
 MAINTAINER soulmachine <soulmachine@gmail.com>
 
 
-RUN apt-get update -y && apt-get -y --no-install-recommends install \
+RUN apt-get update -qy && apt-get -qy --no-install-recommends install \
     wget \
     build-essential \
  && apt-get clean \
@@ -14,6 +14,8 @@ RUN apt-get update -y && apt-get -y --no-install-recommends install \
 RUN wget --no-check-certificate -qO- https://deb.nodesource.com/setup_6.x | bash \
  && apt-get -qy install nodejs \
  && npm install hexo-cli -g \
+ && npm install hexo-generator-feed -g \
+ && npm install hexo-deployer-git -g \
  && apt-get clean \
  && apt-get autoremove \
  && rm -rf /var/lib/apt/lists/*
