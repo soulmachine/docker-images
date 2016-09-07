@@ -15,7 +15,7 @@ This docker image wraps RStudio Server as a single executable.
 
     docker run -d -p 8787:8787 rstudio
 
-Then open <http://localhost:8087> in browser, the username and password are both `rstudio`.
+Then open <http://localhost:8787> in browser, the username and password are both `rstudio`.
 
 
 ## Reference
