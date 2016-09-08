@@ -5,17 +5,31 @@ services:
 
 ## Make sure all containers build without error.
 before_install: 
+  - docker build -t soulmachine/gitbook gitbook
+  - docker build -t soulmachine/hexo hexo
+  - docker build -t soulmachine/markdown2confluence markdown2confluence
   - docker build -t soulmachine/r-base r-base
   - docker build -t soulmachine/rstudio rstudio
+  - docker build -t soulmachine/shellcheck shellcheck
 
 ## A few simple / crude tests
 script:
-  - docker run -ti soulmachine/r-base R --version
+  - docker run --rm -it soulmachine/gitbook --version
+  - docker run -d --name gitbook soulmachine/gitbook serve
+  - sleep 5 && docker ps | grep gitbook
+  - docker rm -f $(docker ps -a -q)
+  - docker run --rm -it soulmachine/hexo --version
+  - docker run -d --name hexo soulmachine/hexo server
+  - sleep 5 && docker ps | grep hexo
+  - docker rm -f $(docker ps -a -q)
+  - docker run --rm -it soulmachine/r-base R --version
   - docker run -d --name rstudio soulmachine/rstudio
   - sleep 5 && docker ps | grep rstudio
   - docker rm -f $(docker ps -a -q)
+  - docker run --rm -it soulmachine/shellcheck --version
 
-after_success:
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker push $DOCKER_USERNAME/r-base
-  - docker push $DOCKER_USERNAME/rstudio
+# Use Docker official Automated Build instead
+#after_success:
+#  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+#  - docker push $DOCKER_USERNAME/r-base
+#  - docker push $DOCKER_USERNAME/rstudio

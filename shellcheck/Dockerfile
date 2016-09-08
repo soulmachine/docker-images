@@ -2,11 +2,11 @@ FROM ubuntu:16.04
 MAINTAINER soulmachine <soulmachine@gmail.com>
 
 
-RUN apt-get update -y && apt-get -y --no-install-recommends install \
+RUN apt-get -qy update && apt-get -qy --no-install-recommends install \
     git \
     cabal-install \
- && apt-get clean \
- && apt-get autoremove && \
+ && apt-get -qy clean \
+ && apt-get -qy autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 
