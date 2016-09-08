@@ -6,6 +6,10 @@ This docker image wraps R as a single executable.
     cd rstudio/r-base
     docker build -t soulmachine/r-base .
 
+Also, this images is already published to Docker Hub, so you can pull it directly,
+
+    docker pull soulmachine/r-base
+
 
 ## How to use it
 

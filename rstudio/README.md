@@ -7,6 +7,10 @@ This docker image wraps RStudio Server as a single executable.
     docker build -t soulmachine/r-base r-base/
     docker build -t soulmachine/rstudio rstudio/
 
+Also, this images is already published to Docker Hub, so you can pull it directly,
+
+    docker pull soulmachine/rstudio
+
 
 ## How to use it
 
