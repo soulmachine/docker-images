@@ -22,8 +22,11 @@ script:
   - docker rm -f $(docker ps -a -q)
   - docker run --rm -it soulmachine/shellcheck --version
 
-# Use Docker official Automated Build instead
-#after_success:
-#  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-#  - docker push $DOCKER_USERNAME/r-base
-#  - docker push $DOCKER_USERNAME/rstudio
+after_success:
+  - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push $DOCKER_USERNAME/gitbook
+  - docker push $DOCKER_USERNAME/hexo
+  - docker push $DOCKER_USERNAME/markdown2confluence
+  - docker push $DOCKER_USERNAME/r-base
+  - docker push $DOCKER_USERNAME/rstudio
+  - docker push $DOCKER_USERNAME/shellcheck
