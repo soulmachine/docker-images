@@ -15,9 +15,6 @@ before_install:
 ## A few simple / crude tests
 script:
   - docker run --rm -it soulmachine/gitbook --version
-  - docker run -d --name gitbook soulmachine/gitbook serve
-  - sleep 5 && docker ps | grep gitbook
-  - docker rm -f $(docker ps -a -q)
   - docker run --rm -it soulmachine/hexo --version
   - docker run --rm -it soulmachine/r-base R --version
   - docker run -d --name rstudio soulmachine/rstudio
