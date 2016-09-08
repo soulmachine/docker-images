@@ -1,4 +1,4 @@
-FROM r-base:latest
+FROM soulmachine/r-base:latest
 MAINTAINER soulmachine <soulmachine@gmail.com>
 
 # This Dockfile is inspired by https://github.com/rocker-org/rocker/tree/master/rstudio
@@ -14,8 +14,8 @@ RUN apt update -qy && apt -qy --no-install-recommends install \
  && wget -q http://download2.rstudio.org/rstudio-server-${VER}-amd64.deb \
  && gdebi -n rstudio-server-${VER}-amd64.deb \
  && rm rstudio-server-*-amd64.deb \
- && apt clean \
- && apt autoremove \
+ && apt -qy clean \
+ && apt -qy autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 

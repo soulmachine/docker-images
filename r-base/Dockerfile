@@ -36,8 +36,8 @@ RUN echo "deb http://cloud.r-project.org/bin/linux/ubuntu xenial/" | tee --appen
     r-base \
     r-base-dev \
     r-recommended \
- && apt clean \
- && apt autoremove \
+ && apt -qy clean \
+ && apt -qy autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 
@@ -51,16 +51,16 @@ RUN apt update -qy && apt -qy install \
     libcurl4-openssl-dev \
     libxml2-dev \
  && Rscript -e 'if(!require("RCurl")) install.packages("RCurl", dependencies = TRUE)' \
- && apt clean \
- && apt autoremove \
+ && apt -qy clean \
+ && apt -qy autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 RUN apt update -qy && apt -qy install \
     libpq-dev \
     libmysqlclient-dev \
  && Rscript -e 'if(!require("dplyr")) install.packages("dplyr", dependencies = TRUE)' \
- && apt clean \
- && apt autoremove \
+ && apt -qy clean \
+ && apt -qy autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 RUN Rscript -e 'if(!require("devtools")) install.packages("devtools", dependencies = TRUE)'
@@ -73,8 +73,8 @@ RUN apt update -qy && apt -qy install \
     libxt-dev \
     libcairo2-dev \
  && Rscript -e 'if(!require("shiny")) install.packages("shiny", dependencies = TRUE)' \
- && apt clean \
- && apt autoremove \
+ && apt -qy clean \
+ && apt -qy autoremove \
  && rm -rf /var/lib/apt/lists/*
 
 

@@ -14,4 +14,8 @@ script:
   - docker run -d --name rstudio soulmachine/rstudio
   - sleep 5 && docker ps | grep rstudio
   - docker rm -f $(docker ps -a -q)
- 
+
+after_success:
+  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+  - docker push $DOCKER_USERNAME/r-base
+  - docker push $DOCKER_USERNAME/rstudio
