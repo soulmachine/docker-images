@@ -19,9 +19,6 @@ script:
   - sleep 5 && docker ps | grep gitbook
   - docker rm -f $(docker ps -a -q)
   - docker run --rm -it soulmachine/hexo --version
-  - docker run -d --name hexo soulmachine/hexo server
-  - sleep 5 && docker ps | grep hexo
-  - docker rm -f $(docker ps -a -q)
   - docker run --rm -it soulmachine/r-base R --version
   - docker run -d --name rstudio soulmachine/rstudio
   - sleep 5 && docker ps | grep rstudio
