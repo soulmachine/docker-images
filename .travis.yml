@@ -8,6 +8,7 @@ before_install:
   - docker build -t soulmachine/gitbook gitbook
   - docker build -t soulmachine/hexo hexo
   - docker build -t soulmachine/markdown2confluence markdown2confluence
+  - docker build -t soulmachine/openjdk openjdk
   - docker build -t soulmachine/r-base r-base
   - docker build -t soulmachine/rstudio rstudio
   - docker build -t soulmachine/shellcheck shellcheck
@@ -16,6 +17,7 @@ before_install:
 script:
   - docker run --rm -it soulmachine/gitbook --version
   - docker run --rm -it soulmachine/hexo --version
+  - docker run --rm -it soulmachine/openjdk javac -version
   - docker run --rm -it soulmachine/r-base R --version
   - docker run -d --name rstudio soulmachine/rstudio
   - sleep 5 && docker ps | grep rstudio
@@ -27,6 +29,7 @@ after_success:
   - docker push $DOCKER_USERNAME/gitbook
   - docker push $DOCKER_USERNAME/hexo
   - docker push $DOCKER_USERNAME/markdown2confluence
+  - docker push $DOCKER_USERNAME/openjdk
   - docker push $DOCKER_USERNAME/r-base
   - docker push $DOCKER_USERNAME/rstudio
   - docker push $DOCKER_USERNAME/shellcheck
