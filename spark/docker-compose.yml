@@ -1,0 +1,30 @@
+version: '2'
+services:
+  spark-base:
+    build: ./spark-base
+    image: soulmachine/spark-base:latest
+    # a little hacky, from https://github.com/docker/compose/issues/663
+    command: /bin/true
+
+  spark-master:
+    build: ./spark-master
+    image: soulmachine/spark-master
+    hostname: spark-master
+    depends_on:
+      - spark-base
+    expose:
+      - "7077"
+      - "8080"
+    ports:
+      - "7077:7077"
+      - "8080:8080"
+
+  spark-worker:
+    build: ./spark-worker
+    image: soulmachine/spark-worker
+    links:
+      - spark-master
+    expose:
+      - "8081"
+    ports:
+      - "8081:8081"
