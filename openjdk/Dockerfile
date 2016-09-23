@@ -7,7 +7,7 @@ MAINTAINER soulmachine <soulmachine@gmail.com>
 ENV LANG C.UTF-8
 
 RUN apt -qy update && apt -qy install \
-    openjdk-8-jdk \
+    openjdk-8-jdk-headless \
  && apt-get clean \
  && apt-get autoremove \
  && rm -rf /var/lib/apt/lists/*
