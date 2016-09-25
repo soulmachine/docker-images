@@ -1,15 +1,16 @@
+# can not re-use ../spark/docker-compose.yml due to this bug https://github.com/docker/compose/issues/3568
 version: '2'
 services:
   spark-base:
     # You can choose pre-built package or build from source
-    # build: ./spark-base/pre-built
-    build: ./spark-base/from-source
+    # build: ../spark/spark-base/pre-built
+    build: ../spark/spark-base/from-source
     image: soulmachine/spark-base
     # a little hacky, from https://github.com/docker/compose/issues/663
     command: /bin/true
 
   spark-master:
-    build: ./spark-master
+    build: ../spark/spark-master
     image: soulmachine/spark-master
     hostname: spark-master
     depends_on:
@@ -22,7 +23,7 @@ services:
       - "8080:8080"
 
   spark-worker:
-    build: ./spark-worker
+    build: ../spark/spark-worker
     image: soulmachine/spark-worker
     links:
       - spark-master
@@ -30,3 +31,13 @@ services:
       - "8081"
     ports:
       - "8081:8081"
+  apache-zeppelin:
+    build: ./
+    image: soulmachine/apache-zeppelin
+    hostname: apache-zeppelin
+    links:
+      - spark-master
+    expose:
+      - "8082"
+    ports:
+      - "8082:8082"

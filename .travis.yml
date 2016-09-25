@@ -12,9 +12,10 @@ before_install:
   - docker build -t soulmachine/r-base r-base
   - docker build -t soulmachine/rstudio rstudio
   - docker build -t soulmachine/shellcheck shellcheck
-  - docker build -t soulmachine/spark-base spark/spark-base
+  - docker build -t soulmachine/spark-base spark/spark-base/from-source
   - docker build -t soulmachine/spark-master spark/spark-master
   - docker build -t soulmachine/spark-worker spark/spark-worker
+  - docker build -t soulmachine/apache-zeppelin apache-zeppelin
 
 ## A few simple / crude tests
 script:
@@ -43,4 +44,5 @@ after_success:
   - docker push $DOCKER_USERNAME/spark-base
   - docker push $DOCKER_USERNAME/spark-master
   - docker push $DOCKER_USERNAME/spark-worker
+  - docker push $DOCKER_USERNAME/apache-zeppelin
 
