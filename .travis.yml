@@ -16,6 +16,7 @@ before_install:
   - docker build -t soulmachine/spark-master spark/spark-master
   - docker build -t soulmachine/spark-worker spark/spark-worker
   - docker build -t soulmachine/apache-zeppelin apache-zeppelin
+  - docker build -t soulmachine/youcompleteme youcompleteme
 
 ## A few simple / crude tests
 script:
@@ -31,6 +32,7 @@ script:
   - sleep 5 && docker ps | grep spark-master
   - sleep 5 && curl -s http://localhost:8080 | grep ALIVE
   - docker-compose down
+  - docker run --rm -it soulmachine/youcompleteme vim --version
 
 after_success:
   - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
@@ -45,4 +47,5 @@ after_success:
   - docker push $DOCKER_USERNAME/spark-master
   - docker push $DOCKER_USERNAME/spark-worker
   - docker push $DOCKER_USERNAME/apache-zeppelin
+  - docker push $DOCKER_USERNAME/youcompleteme
 
