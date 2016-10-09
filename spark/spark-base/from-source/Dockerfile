@@ -11,6 +11,7 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
  && cd /root \
  && git clone -b branch-2.0 --single-branch  https://github.com/apache/spark.git \
  && cd spark/ \
+ && export MAVEN_OPTS="-B -Xmx2g -XX:MaxPermSize=512M -XX:ReservedCodeCacheSize=512m" \
  && ./dev/make-distribution.sh --tgz -Phadoop-2.7 -Pyarn -Phive -Phive-thriftserver -Psparkr \
  && tar -zxf spark-*-SNAPSHOT-bin-*.tgz -C /opt/ \
  && ln -s /opt/spark-*-SNAPSHOT-bin-* /opt/spark \

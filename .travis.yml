@@ -11,6 +11,7 @@ before_install:
   - docker build -t soulmachine/openjdk openjdk
   - docker build -t soulmachine/r-base r-base
   - docker build -t soulmachine/rstudio rstudio
+  - docker build -t soulmachine/scrapy scrapy
   - docker build -t soulmachine/shellcheck shellcheck
   - docker build -t soulmachine/spark-base spark/spark-base/from-source
   - docker build -t soulmachine/spark-master spark/spark-master
@@ -28,6 +29,7 @@ script:
   - sleep 5 && docker ps | grep rstudio
   - docker rm -f $(docker ps -a -q)
   - docker run --rm -it soulmachine/shellcheck --version
+  - docker run --rm -it soulmachine/scrapy version
   - cd spark/ && docker-compose up -d
   - sleep 5 && docker ps | grep spark-master
   - sleep 5 && curl -s http://localhost:8080 | grep ALIVE
@@ -43,6 +45,7 @@ after_success:
   - docker push $DOCKER_USERNAME/r-base
   - docker push $DOCKER_USERNAME/rstudio
   - docker push $DOCKER_USERNAME/shellcheck
+  - docker push $DOCKER_USERNAME/scrapy
   - docker push $DOCKER_USERNAME/spark-base
   - docker push $DOCKER_USERNAME/spark-master
   - docker push $DOCKER_USERNAME/spark-worker

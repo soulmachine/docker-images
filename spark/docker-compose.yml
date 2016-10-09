@@ -2,8 +2,8 @@ version: '2'
 services:
   spark-base:
     # You can choose pre-built package or build from source
-    # build: ./spark-base/pre-built
-    build: ./spark-base/from-source
+    build: ./spark-base/pre-built
+    # build: ./spark-base/from-source
     image: soulmachine/spark-base
     # a little hacky, from https://github.com/docker/compose/issues/663
     command: /bin/true
