@@ -1,0 +1,16 @@
+[client]
+default-character-set = utf8mb4
+
+[mysql]
+default-character-set = utf8mb4
+
+[mysqld]
+# Make the server ignore character set information sent by the client (e.g. if the client requests a connection in utf8, it would still use utf8mb4). By using it you can rest assured that the default server character set will be used at all times.
+character-set-client-handshake = FALSE
+default_time_zone = '+00:00'
+character_set_filesystem = utf8mb4
+character_set_server = utf8mb4
+collation_server = utf8mb4_unicode_ci
+default_storage_engine=InnoDB
+sql_mode=STRICT_ALL_TABLES
+
