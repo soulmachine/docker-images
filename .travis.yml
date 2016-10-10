@@ -33,7 +33,7 @@ script:
   - sleep 5 && docker ps | grep rstudio
   - docker rm -f $(docker ps -a -q)
   - docker run --rm -it soulmachine/shellcheck --version
-  - docker run --rm -it soulmachine/scrapy version
+  - docker run --rm -it soulmachine/scrapy scrapy version
   - cd spark/ && docker-compose up -d
   - sleep 5 && docker ps | grep spark-master
   - sleep 5 && curl -s http://localhost:8080 | grep ALIVE
