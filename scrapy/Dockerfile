@@ -7,6 +7,7 @@ ENV LANG C.UTF-8
 
 # Install Scrapy
 # See http://scrapy.readthedocs.io/en/latest/intro/install.html#ubuntu-12-04-or-above
+# Also install some essential scrapy plugins such as scrapy-deltafetch
 RUN apt -qy update && apt -qy dist-upgrade && apt -qy --no-install-recommends install \
     build-essential \
     python3 \
@@ -17,11 +18,16 @@ RUN apt -qy update && apt -qy dist-upgrade && apt -qy --no-install-recommends in
     zlib1g-dev \
     libffi-dev \
     libssl-dev \
+    libdb-dev \
  && pip3 install --upgrade pip \
  && pip3 install setuptools wheel \
  && pip3 install scrapy \
+ && pip3 install bsddb3 \
+ && pip3 install scrapy-deltafetch \
  && apt -qy purge build-essential \
  && apt -qy autoremove \
  && apt -qy clean \
  && rm -rf /var/lib/apt/lists/*
 
+# Telnet Console
+EXPOSE 6023
