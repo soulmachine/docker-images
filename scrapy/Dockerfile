@@ -24,6 +24,7 @@ RUN apt -qy update && apt -qy dist-upgrade && apt -qy --no-install-recommends in
  && pip3 install scrapy \
  && pip3 install bsddb3 \
  && pip3 install scrapy-deltafetch \
+ && pip3 install pillow \
  && apt -qy purge build-essential \
  && apt -qy autoremove \
  && apt -qy clean \
