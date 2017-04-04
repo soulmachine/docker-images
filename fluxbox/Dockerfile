@@ -1,8 +1,8 @@
-FROM soulmachine/uibase:latest
+FROM soulmachine/desktop-base:latest
 MAINTAINER soulmachine <soulmachine@gmail.com>
 
 # 更新源
-RUN apt-get update -qqy
+RUN apt -qy update
 
 # 安装 VNC、Xvfb 和 Fluxbox
-RUN apt-get -qqy install fluxbox
+RUN apt -qy install fluxbox

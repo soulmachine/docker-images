@@ -2,18 +2,13 @@ FROM soulmachine/xubuntu:latest
 MAINTAINER soulmachine <soulmachine@gmail.com>
 
 # 更新源
-RUN apt-get update -qqy
+RUN apt -qy update
 
 # 安装 VNC、Xvfb
-RUN apt-get -qqy install x11vnc xvfb
+RUN apt -qy install x11vnc xvfb
 
 # 生成Hash过的密码文件
-RUN mkdir -p ~/.vnc \
-  && x11vnc -storepasswd programmer123 ~/.vnc/passwd
-
-# 屏蔽交互界面
-ENV DEBIAN_FRONTEND noninteractive
-ENV DEBCONF_NONINTERACTIVE_SEEN true
+RUN mkdir -p ~/.vnc && x11vnc -storepasswd programmer123 ~/.vnc/passwd
 
 # 屏幕尺寸和颜色深度
 ENV SCREEN_WIDTH 1360
@@ -27,8 +22,8 @@ ENV DISPLAY :99.0
 EXPOSE 5900
 
 # 删除不必要的软件和Apt缓存包列表
-RUN apt-get clean && \
-    apt-get autoremove && \
+RUN apt clean && \
+    apt autoremove && \
     rm -rf /var/lib/apt/lists/* \
     rm -rf /var/cache/*.tar.gz \
     rm -rf /var/cache/*/*.tar.gz
