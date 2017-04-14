@@ -44,7 +44,7 @@ In one word, both `t-addr` and `z-addr` can send and receive coins, but if you w
 
 Backup all your keys, for both `t-addr` and `z-addr`:
 
-    docker exec -it zcash zcash-cli z_exportwallet wallet.txt
+    docker exec -it zcash zcash-cli z_exportwallet MyZCashWallet
 
 This would give an error:
 
