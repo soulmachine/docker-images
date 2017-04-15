@@ -23,7 +23,8 @@ RUN ZCASH_CONF=/root/.zcash/zcash.conf && \
 	echo "addnode=mainnet.z.cash" >> $ZCASH_CONF && \
 	echo "datadir=/data/zcash" >> $ZCASH_CONF
 
-# Generate a random password every time the container boots
-RUN echo 'grep -q -F "rpcpassword=" /root/.zcash/zcash.conf || echo "rpcpassword=$(head -c 32 /dev/urandom | base64)" >> /root/.zcash/zcash.conf' >> /etc/bash.bashrc
+COPY entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 
 VOLUME ["/data/zcash"]
