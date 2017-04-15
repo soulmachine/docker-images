@@ -52,6 +52,7 @@ Import it,
 
 Inside `MyBitcoinWallet.txt` you will see many pairs of private keys and public keys, `reserve=1` means the address is allocated but not used yet, you can ignore these addresses.
 
+Actually the most important thing is private key, as long as you have the private key, you can restore the public key, ie., the Bitcoin address.
 
 <!--
 ## Import wallet
