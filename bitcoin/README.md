@@ -10,7 +10,7 @@ This image has the official Bitcoin Core client installed, thus it can be used a
 
     docker exec -it bitcoin bitcoin-cli listreceivedbyaddress 0 true
 
-Or
+Or,
 
     docker exec -it bitcoin bitcoin-cli getaddressesbyaccount ""
 
@@ -20,6 +20,7 @@ Or
     docker exec -it bitcoin bitcoin-cli getnewaddress
 
 
+<!--
 ## Encrypt a wallet
 
     docker exec -it bitcoin bitcoin-cli encryptwallet YOUR_PASS_PHRASE
@@ -38,13 +39,21 @@ Unlock the wallet for 30 seconds,
     docker exec -it bitcoin bitcoin-cli walletpassphrase YOUR_PASS_PHRASE 30
 
 Run `bitcoin-cli getinfo` you will see `unlocked_until` has an expiration timestamp now.
+-->
 
 
 ## Backup wallet
 
-    docker exec -it bitcoin bitcoin-cli backupwallet /data/bitcoin/MyBitcoinWallet.bak
+    docker exec -it bitcoin bitcoin-cli dumpwallet /data/bitcoin/MyBitcoinWallet.txt
+
+Import it,
+
+    docker exec -it bitcoin bitcoin-cli importwallet /data/bitcoin/MyBitcoinWallet.txt
+
+Inside `MyBitcoinWallet.txt` you will see many pairs of private keys and public keys, `reserve=1` means the address is allocated but not used yet, you can ignore these addresses.
 
 
+<!--
 ## Import wallet
 
     docker exec -it bitcoin bitcoin-cli importwallet /data/bitcoin/MyBitcoinWallet.bak
@@ -52,13 +61,7 @@ Run `bitcoin-cli getinfo` you will see `unlocked_until` has an expiration timest
 If your wallet is encrypted, you need to unlock it before importing it,
 
     docker exec -it bitcoin bitcoin-cli walletpassphrase YOUR_PASS_PHRASE 30
-
-
-## Dump wallet
-
-Dump your wallet into a human readable text file,
-
-    docker exec -it bitcoin bitcoin-cli dumpwallet /data/bitcoin/MyBitcoinWallet.txt
+-->
 
 
 ## Query balance
