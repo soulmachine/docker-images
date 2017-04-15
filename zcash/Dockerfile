@@ -13,8 +13,15 @@ RUN apt -qy update && apt -qy --no-install-recommends install apt-transport-http
     rm -rf /var/lib/apt/lists/*
 
 # wget and ca-certificates are needed by zcash-fetch-params, do NOT uninstall it
-
 # Download ZCash parameters
-# RUN zcash-fetch-params
+RUN zcash-fetch-params
 
-VOLUME ["/root/.zcash", "/root/.zcash-params"]
+RUN ZCASH_CONF=/root/.zcash/zcash.conf && \
+    mkdir /root/.zcash && \
+    echo "rpcuser=zcash" > $ZCASH_CONF && \
+	echo "rpcpassword=$(head -c 32 /dev/urandom | base64)" >> $ZCASH_CONF && \
+	echo "mainnet=1" >> $ZCASH_CONF && \
+	echo "addnode=mainnet.z.cash" >> $ZCASH_CONF && \
+	echo "datadir=/data/zcash" >> $ZCASH_CONF
+
+VOLUME ["/data/zcash"]
