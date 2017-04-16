@@ -48,7 +48,7 @@ Run `bitcoin-cli getinfo` you will see `unlocked_until` has an expiration timest
 -->
 
 
-## Backup wallet
+## Backup your wallet
 
 
 ### Method 1
@@ -72,15 +72,15 @@ Show your private key,
 
 This will print your private to screen,
 
-* You can print your private to a paper via a printer and hide this paper in a secret place, this is so called "paper wallet"
-* You can memorize this private key in your own brain and never tell it to other people, this is so called ["brain wallet"](https://en.bitcoin.it/wiki/Brainwallet)
-* You can save this private key to Everynote, OneNote, a text file, etc.
+* You can print your private to a paper via a printer and hide this paper in a secret place, this is so called [Paper Wallet](https://en.bitcoin.it/wiki/Paper_wallet)
+* You can memorize this private key in your own brain and never tell it to other people, this is so called [Brain Wallet](https://en.bitcoin.it/wiki/Brainwallet)
+* You can save this private key to Evernote, OneNote, etc.
 
 Import a private key,
 
     docker exec -it bitcoin bitcoin-cli importprivkey YOUR_PRIVATE_KEY
 
-Usually I prefer the second method because it has better compatibility(compatible with your brain, your printer, Evernote, etc.).
+Usually I prefer the second method because it has better compatibility(compatible human brain, printers, Evernote, etc.).
 
 
 <!--
