@@ -19,6 +19,12 @@ Or,
 
     docker exec -it bitcoin bitcoin-cli getnewaddress
 
+This will generate a "Bitcoin address", which is actually a public key in [Asymmetric Cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography),
+
+* Each Bitcoin address has a corresponding private key
+* You can calculate your Bitcoin address with the private key, not vice versa
+* As long as you have the private key, you control the funds.
+
 
 <!--
 ## Encrypt a wallet
@@ -44,15 +50,38 @@ Run `bitcoin-cli getinfo` you will see `unlocked_until` has an expiration timest
 
 ## Backup wallet
 
+
+### Method 1
+
     docker exec -it bitcoin bitcoin-cli dumpwallet /data/bitcoin/MyBitcoinWallet.txt
+
+Then backup this text file to anywhere you like, for example Dropbox, Google Drive, Microsoft OneDrive, Evernote, etc.
 
 Import it,
 
     docker exec -it bitcoin bitcoin-cli importwallet /data/bitcoin/MyBitcoinWallet.txt
 
-Inside `MyBitcoinWallet.txt` you will see many pairs of private keys and public keys, `reserve=1` means the address is allocated but not used yet, you can ignore these addresses.
 
-Actually the most important thing is private key, as long as you have the private key, you can restore the public key, ie., the Bitcoin address.
+### Method2
+
+To backup your wallet, actually the only important thing is your private key, as long as you have the private key, you can restore the public key, ie., the Bitcoin address.
+
+Show your private key,
+
+    docker exec -it bitcoin bitcoin-cli dumpprivkey 1BoZttJg99TjJxyYFcGvgqfCV3dnwSLsZm
+
+This will print your private to screen,
+
+* You can print your private to a paper via a printer and hide this paper in a secret place, this is so called "paper wallet"
+* You can memorize this private key in your own brain and never tell it to other people, this is so called ["brain wallet"](https://en.bitcoin.it/wiki/Brainwallet)
+* You can save this private key to Everynote, OneNote, a text file, etc.
+
+Import a private key,
+
+    docker exec -it bitcoin bitcoin-cli importprivkey YOUR_PRIVATE_KEY
+
+Usually I prefer the second method because it has better compatibility(compatible with your brain, your printer, Evernote, etc.).
+
 
 <!--
 ## Import wallet
