@@ -3,7 +3,7 @@ This image has the official ZCash client installed, thus it can be used as a wal
 ## Run a ZCash node
 
     mkdir zcash
-    docker run -d -v $(pwd)/zcash:/data/zcash --name zcash soulmachine/zcash zcashd -exportdir=/data/zcash
+    docker run -d --name zcash -v $(pwd)/zcash:/data/zcash soulmachine/zcash zcashd -exportdir=/data/zcash
 
 If you don't set the `-exportdir` option, when you run `dumpwallet`, `backupwallet` and `z_exportwallet`, you will get an error:
 

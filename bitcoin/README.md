@@ -3,7 +3,7 @@ This image has the official Bitcoin Core client installed, thus it can be used a
 ## Run a Bitcoin full node
 
     mkdir bitcoin
-    docker run -d -v $(pwd)/bitcoin:/data/bitcoin --name bitcoin soulmachine/bitcoin bitcoind
+    docker run -d --name bitcoin -v $(pwd)/bitcoin:/data/bitcoin soulmachine/bitcoin bitcoind
 
 
 ## List all wallet addresses
