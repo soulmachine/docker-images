@@ -4,7 +4,7 @@ This image has the official `geth` client installed, thus it can be used as a wa
 ## Run a full Ethereum node
 
     mkdir ethereum
-    docker run -d --name ethereum -v $(pwd)/ethereum:/data/.ethereum -P soulmachine/ethereum geth --fast --cache=512 --datadir=/data/.ethereum
+    docker run -d --name ethereum -v $(pwd)/ethereum:/root/.ethereum -P soulmachine/ethereum geth --fast --cache=512
 
 
 ## List all accounts
