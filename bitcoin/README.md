@@ -14,6 +14,8 @@ Or,
 
     docker exec -it bitcoin bitcoin-cli getaddressesbyaccount ""
 
+When a new Bitcoin node starts, it will pre-generate a Bitcoin address, that's why you can see an address above.
+
 
 ## Generate a wallet address
 
@@ -21,8 +23,8 @@ Or,
 
 This will generate a "Bitcoin address", which is actually a public key in [Asymmetric Cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography),
 
-* Each Bitcoin address has a corresponding private key
-* You can calculate your Bitcoin address with the private key, not vice versa
+* Each Bitcoin address has a corresponding private key(`bitcoin-cli dumpprivkey <btc-address>`)
+* You can calculate your Bitcoin address with the private key(`bitcoin-cli importprivkey <private-key>`), not vice versa
 * As long as you have the private key, you control the funds.
 
 
@@ -55,22 +57,24 @@ Run `bitcoin-cli getinfo` you will see `unlocked_until` has an expiration timest
 
     docker exec -it bitcoin bitcoin-cli dumpwallet /data/bitcoin/MyBitcoinWallet.txt
 
-Then backup this text file to anywhere you like, for example Dropbox, Google Drive, Microsoft OneDrive, Evernote, etc.
+This command will backup all your private keys and Bitcoin addresses to a text file. You can store this text file to anywhere you like, for example Dropbox, Google Drive, Microsoft OneDrive, Evernote, etc.
 
 Import it,
 
     docker exec -it bitcoin bitcoin-cli importwallet /data/bitcoin/MyBitcoinWallet.txt
 
+There is another command `backupwallet` that is very similar to `dumpwallet`, the only difference is that `backupwallet` generates a binary file instead of a text file. Since binary files are not friendly to other tools such as Evernote, I rarely use `backupwallet`.
+
 
 ### Method2
 
-To backup your wallet, actually the only important thing is your private key, as long as you have the private key, you can restore the public key, ie., the Bitcoin address.
+To backup your wallet, actually the only important thing is your private key, as long as you have the private key, you can restore its corresponding Bitcoin address.
 
 Show your private key,
 
     docker exec -it bitcoin bitcoin-cli dumpprivkey 1BoZttJg99TjJxyYFcGvgqfCV3dnwSLsZm
 
-This will print your private to screen,
+This will print your private key to screen,
 
 * You can print your private to a paper via a printer and hide this paper in a secret place, this is so called [Paper Wallet](https://en.bitcoin.it/wiki/Paper_wallet)
 * You can memorize this private key in your own brain and never tell it to other people, this is so called [Brain Wallet](https://en.bitcoin.it/wiki/Brainwallet)
