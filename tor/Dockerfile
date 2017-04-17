@@ -15,7 +15,12 @@ RUN echo "SocksPort 0.0.0.0:9050" >> /etc/tor/torrc && \
     sed -i '/^listen-address/d' /etc/privoxy/config && \
     echo "listen-address  0.0.0.0:8118\nforward-socks5t / 127.0.0.1:9050 ." >> /etc/privoxy/config
 
-EXPOSE 9050 8118
+# Configure for Relay
+RUN sed -i 's/^#ControlPort.*$/ControlPort 0.0.0.0:9051/g' /etc/tor/torrc && \
+    password=$(tor --hash-password tor123456 | sed -n 2p) && \
+    sed -i "s/^#HashedControlPassword.*$/HashedControlPassword $password/g" /etc/tor/torrc
+
+EXPOSE 9050 9051 8118
 
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
