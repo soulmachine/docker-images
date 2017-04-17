@@ -24,7 +24,7 @@ Basically you need to use [stem](https://stem.torproject.org/). First install st
 
     sudo pip3 install stem
 
-And change the IP address with the foloowing code:
+And change the IP address with the following code:
 
 ```python
 from stem import Signal
@@ -36,7 +36,7 @@ def change_ip():
         controller.signal(Signal.NEWNYM)
 ```
 
-Let's do some experiments,
+Let's make an experiment,
 
 ```python
 import requests
@@ -54,7 +54,7 @@ socks_proxies = { 'http': 'socks5://localhost:9050', 'https': 'socks5://localhos
 
 show_my_ip(socks_proxies)
 change_ip()
-show_my_ip(socks_proxies)  ## CHANGED
+show_my_ip(socks_proxies)  # CHANGED
 ```
 
 
