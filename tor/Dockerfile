@@ -2,6 +2,7 @@ FROM ubuntu:16.04
 MAINTAINER soulmachine - https://github.com/soulmachine/docker-images/tree/master/tor
 
 # References:
+# https://github.com/sledigabel/docker-tor-privoxy
 # https://github.com/np1/docker-tor-clientonly
 # https://help.ubuntu.com/community/Privoxy
 

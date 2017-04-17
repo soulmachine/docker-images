@@ -21,3 +21,4 @@ Configure your browser/client to use the HTTP proxy server at at `127.0.0.1:8118
 * [jgamblin/tor](https://github.com/jgamblin/tor)
 * [np1/docker-tor-clientonly](https://github.com/np1/docker-tor-clientonly)
 * [sledigabel/docker-tor-privoxy](https://github.com/sledigabel/docker-tor-privoxy)
+* [Setting up privoxy](https://help.ubuntu.com/community/Privoxy)
