@@ -11,4 +11,6 @@ RUN apt -qy update && \
     apt -qy autoremove && \
     rm -rf /var/lib/apt/lists/*
 
+EXPOSE 4000
+
 ENTRYPOINT ["/usr/bin/gitbook"]
