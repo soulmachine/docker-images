@@ -4,7 +4,7 @@ This image has the official `geth` client installed, thus it can be used as a wa
 ## Run a full Ethereum node
 
     mkdir ethereum
-    docker run -d --name ethereum -v $(pwd)/ethereum:/root/.ethereum -P soulmachine/ethereum geth --fast --cache=512
+    docker run -d --name ethereum -v $(pwd)/ethereum:/root/.ethereum -P soulmachine/ethereum geth --fast --cache 512
 
 
 ## List all accounts
@@ -42,6 +42,12 @@ Then query balance,
     eth.getBalance(eth.coinbase)
 
 You can also type other commands, such as `eth.accounts` and `eth.coinbase`.
+
+
+## Send ETH
+
+    web3.personal.unlockAccount(eth.coinbase, "PASSPHASE")
+    eth.sendTransaction({from:eth.coinbase, to:"0xADDRESS", value: web3.toWei(AMOUNT, "ether")-30000*web3.eth.gasPrice, gas:30000})
 
 
 ## Get help
