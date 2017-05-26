@@ -124,6 +124,11 @@ Import a wallet,
 For more commands please read [ZCash 1.0 User Guide](https://github.com/zcash/zcash/wiki/1.0-User-Guide)
 
 
+## Send Coin
+
+    zcash-cli sendtoaddress YOUR_ADDRESS AMOUNT "" "" true
+
+
 ## Get help
 
     docker exec -it zcash zcashd -help
