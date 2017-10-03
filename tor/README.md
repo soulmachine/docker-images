@@ -29,11 +29,13 @@ And change the IP address with the following code:
 ```python
 from stem import Signal
 from stem.control import Controller
+import time
 
 def change_ip():
     with Controller.from_port(port = 9051) as controller:
         controller.authenticate(password = 'tor123456')
         controller.signal(Signal.NEWNYM)
+    time.sleep(5)  # wait for the tor node to change IP
 ```
 
 Let's make an experiment,
