@@ -6,7 +6,7 @@ RUN apt -qy update && apt -qy --no-install-recommends install apt-transport-http
     wget -qO - https://apt.z.cash/zcash.asc | apt-key add - && \
     echo "deb https://apt.z.cash/ jessie main" | tee /etc/apt/sources.list.d/zcash.list && \
     apt -qy update && \
-    apt -qy --no-install-recommends install zcash && \
+    apt -qy install zcash && \
     apt purge -qy apt-transport-https && \
     apt-get -qy clean && \
     apt-get -qy autoremove && \
@@ -19,9 +19,9 @@ RUN zcash-fetch-params
 RUN ZCASH_CONF=/root/.zcash/zcash.conf && \
     mkdir /root/.zcash && \
     echo "rpcuser=zcash" > $ZCASH_CONF && \
-	echo "mainnet=1" >> $ZCASH_CONF && \
-	echo "addnode=mainnet.z.cash" >> $ZCASH_CONF && \
-	echo "datadir=/data/zcash" >> $ZCASH_CONF
+    echo "mainnet=1" >> $ZCASH_CONF && \
+    echo "addnode=mainnet.z.cash" >> $ZCASH_CONF && \
+    echo "datadir=/data/zcash" >> $ZCASH_CONF
 
 COPY entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
