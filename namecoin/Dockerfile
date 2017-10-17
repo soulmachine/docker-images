@@ -20,7 +20,8 @@ RUN apt -qy update && apt -qy install wget && \
 RUN NAMECOIN_CONF=/root/.namecoin/namecoin.conf && \
     mkdir /root/.namecoin && \
     echo "rpcuser=`whoami`" > $NAMECOIN_CONF && \
-    echo "rpcport=8336" >> $NAMECOIN_CONF
+    echo "rpcport=8336" >> $NAMECOIN_CONF && \
+    echo "server=1" >> $NAMECOIN_CONF
 
 EXPOSE 8336 8334
 
