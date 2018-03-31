@@ -1,0 +1,28 @@
+version: '2.2'
+services:
+  eth1:
+    image: ethereum/client-go
+    container_name: eth1
+    volumes:
+      - .:/ethconf
+      - ethereum_datadir1:/root/.ethereum
+    networks:
+      - testnet
+    entrypoint: sh /ethconf/start_node.sh eth1
+  eth2:
+    image: ethereum/client-go
+    container_name: eth2
+    volumes:
+      - .:/ethconf
+      - ethereum_datadir2:/root/.ethereum
+    networks:
+      - testnet
+    entrypoint: sh /ethconf/start_node.sh eth2
+volumes:
+  ethereum_datadir1:
+    driver: local
+  ethereum_datadir2:
+    driver: local
+
+networks:
+  testnet:
