@@ -29,3 +29,10 @@ There is already an account builtin in this private network on every node, the a
 ### Check your balance
 
     web3.fromWei(eth.getBalance(eth.coinbase), "ether")
+
+
+## References
+
+* [Setting up a local private testnet geth (Go client)](http://www.ethdocs.org/en/latest/network/test-networks.html#id3)
+* [params/config.go](https://github.com/ethereum/go-ethereum/blob/master/params/config.go)
+* [Common useful JavaScript snippets for geth](https://ethereum.stackexchange.com/questions/2531/common-useful-javascript-snippets-for-geth)
