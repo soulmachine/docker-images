@@ -4,6 +4,7 @@ ROLE=$2
 datadir="/root/.ethereum"
 if [ ! -d "$datadir/geth" ]; then
   geth --datadir $datadir init /ethconf/genesis.json
+  cp /ethconf/f6de496ec5601d74937ddd77af09c8cd4ba41ab5.json /root/.ethereum/keystore
 fi
 
 if [[ $ROLE == "bootnode" ]]; then  # A normal full node without mining, acts as a bootnode

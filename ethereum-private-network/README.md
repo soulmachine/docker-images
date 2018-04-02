@@ -7,29 +7,25 @@ Launch a private Ethereum network with docker compose
     docker-compose up
 
 
-## Add peers
+## Play in geth console
 
-First, attach to node `eth1`,
+First, attach to any running container,
 
-    docker exec -it eth1 /bin/sh
+    docker exec -it bootnode /bin/sh
 
-Second, take note of its IP address,
-
-    ifconfig
-
-Attach to geth console,
+Then attach to geth console,
 
     geth attach
 
-Run `> admin.nodeInfo.enode` command to get this node's URL,
+Now you can write JavaScript code in the geth console.
 
-    enode://c743e5aba2ffc806456916a0314ed9430913e63e5c529889d6b6d20f5707019e519096e720f6d377c0a9d8d63d5e08818f1a1e4202075a70f4671b483dc2d4d3@[::]:30303
+### Unlock the account
 
-Replace `[::]` with the real IP address, then it becomes a complete URL:
+There is already an account builtin in this private network on every node, the address is "0xf6de496ec5601d74937ddd77af09c8cd4ba41ab5" and the passphrase of its wallet file is `password`. So you can unlock it using the following command:
 
-    enode://c743e5aba2ffc806456916a0314ed9430913e63e5c529889d6b6d20f5707019e519096e720f6d377c0a9d8d63d5e08818f1a1e4202075a70f4671b483dc2d4d3@172.20.0.2:30303
+    web3.personal.unlockAccount("0xf6de496ec5601d74937ddd77af09c8cd4ba41ab5", "password")
 
 
-Attach to another container and run`admin.addPeer("enode://c743e5aba2ffc806456916a0314ed9430913e63e5c529889d6b6d20f5707019e519096e720f6d377c0a9d8d63d5e08818f1a1e4202075a70f4671b483dc2d4d3@172.20.0.2:30303")` to add a peer.
+### Check your balance
 
-Run `admin.peers` in both nodes and you will see they know each other now!
+    web3.fromWei(eth.getBalance(eth.coinbase), "ether")
