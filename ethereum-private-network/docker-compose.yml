@@ -1,27 +1,31 @@
-version: '2.2'
+version: '3.6'
 services:
-  eth1:
+  bootnode:
     image: ethereum/client-go
-    container_name: eth1
+    container_name: bootnode
     volumes:
       - .:/ethconf
-      - ethereum_datadir1:/root/.ethereum
+      - ethereum_bootnode:/root/.ethereum
     networks:
       - testnet
-    entrypoint: sh /ethconf/start_node.sh eth1
-  eth2:
+    ports:
+      - 8081:8081
+    entrypoint: sh /ethconf/start_node.sh bootnode bootnode
+  miner:
     image: ethereum/client-go
-    container_name: eth2
+    container_name: miner
     volumes:
       - .:/ethconf
-      - ethereum_datadir2:/root/.ethereum
+      - ethereum_miner:/root/.ethereum
     networks:
       - testnet
-    entrypoint: sh /ethconf/start_node.sh eth2
+    entrypoint: sh /ethconf/start_node.sh miner miner
+    depends_on:
+      - bootnode
 volumes:
-  ethereum_datadir1:
+  ethereum_bootnode:
     driver: local
-  ethereum_datadir2:
+  ethereum_miner:
     driver: local
 
 networks:
