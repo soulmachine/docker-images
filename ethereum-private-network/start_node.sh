@@ -20,7 +20,7 @@ else
   done
   bootnode_url=$(head -n 1 /ethconf/bootnode.txt)
   if [[ $ROLE == "miner" ]]; then  # A full node runs in mining mode
-    geth --identity "$NODE" --bootnodes $bootnode_url --rpc --rpcaddr "0.0.0.0" --rpcport "8545" --rpccorsdomain "*" --datadir $datadir --port "30303" --rpcapi "db,eth,net,web3,personal" --networkid 1999 --preload /ethconf/start_miner.js
+    geth --identity "$NODE" --bootnodes $bootnode_url --rpc --rpcaddr "0.0.0.0" --rpcport "8545" --rpccorsdomain "*" --datadir $datadir --port "30303" --rpcapi "db,eth,net,web3,personal" --networkid 1999 --mine --minerthreads 1
   else # A normal full node without mining by default
     geth --identity "$NODE" --bootnodes $bootnode_url --rpc --rpcaddr "0.0.0.0" --rpcport "8545" --rpccorsdomain "*" --datadir $datadir --port "30303" --rpcapi "db,eth,net,web3,personal" --networkid 1999
   fi
