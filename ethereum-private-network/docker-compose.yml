@@ -9,7 +9,7 @@ services:
     networks:
       - testnet
     ports:
-      - 8081:8081
+      - "8545:8545"
     entrypoint: sh /ethconf/start_node.sh bootnode bootnode
   miner:
     image: ethereum/client-go
