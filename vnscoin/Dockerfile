@@ -25,4 +25,6 @@ RUN unzip vnsRelease.zip && rm vnsRelease.zip && mv ./vnsRelease/gvns /usr/local
 
 COPY start.sh /root
 
+EXPOSE 30322
+
 ENTRYPOINT  ["/root/start.sh"]
