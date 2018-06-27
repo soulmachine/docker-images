@@ -35,8 +35,9 @@ docker cp d9fe419028e25adb407208719e0d0aaef92898d4.json vnscoin:/root/.vnscoin/k
 
 # Attach to the interactive console
 docker exec -it vnscoin gvns attach
+```
 
-
+```javascript
 // Send the entire balance to another address
 var sender = "0xd9fe419028e25adb407208719e0d0aaef92898d4";
 var receiver = "0xa6dc8628706cef8113ea4d5d231bbe89856cdf4b";
