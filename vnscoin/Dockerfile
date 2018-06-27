@@ -27,4 +27,4 @@ COPY start.sh /root
 
 EXPOSE 30322
 
-ENTRYPOINT  ["/root/start.sh"]
+ENTRYPOINT  ["gvns"]
