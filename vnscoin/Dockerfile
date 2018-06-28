@@ -21,9 +21,7 @@ RUN wget --no-check-certificate -O boost_1_55_0.tar.gz https://sourceforge.net/p
  && rm -rf boost*
 
 COPY vnsRelease.zip vnsRelease.zip
-RUN unzip vnsRelease.zip && rm vnsRelease.zip && mv ./vnsRelease/gvns /usr/local/bin/ && rm -rf ./vnsRelease
-
-COPY start.sh /root
+RUN unzip vnsRelease.zip && rm vnsRelease.zip && mv ./gvns /usr/local/bin/ && rm -rf ./vns-install.txt
 
 EXPOSE 30322
 
