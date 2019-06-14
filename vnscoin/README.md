@@ -1,5 +1,7 @@
 This docker image wraps vnsRelease as a single executable.
 
+**This docer image is public available at <https://hub.docker.com/r/soulmachine/vnscoin>**
+
 
 ## Build the image
 
