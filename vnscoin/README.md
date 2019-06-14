@@ -16,7 +16,7 @@ This docker image wraps vnsRelease as a single executable.
 
 ## Start miner
 
-    docker run -d --name vnscoin -v vnscoin:/root/.vnscoin soulmachine/vnscoin --mine --vnsbase d9fe419028e25adb407208719e0d0aaef92898d4
+    docker run -d --name vnscoin -v vnscoin:/root/.vnscoin soulmachine/vnscoin --mine --vnsbase 2f42dc7e84a771ceefdb7e293e567ef3a8f9a17b
 
 
 ## Query balance
@@ -26,14 +26,14 @@ This docker image wraps vnsRelease as a single executable.
 docker exec -it vnscoin gvns attach
 
 # query balance
-vns.getBalance("0xd9fe419028e25adb407208719e0d0aaef92898d4")
+vns.getBalance("0x2f42dc7e84a771ceefdb7e293e567ef3a8f9a17b")
 ```
 
 ## Send VNS to another address
 
 ```bash
 # Copy your wallet file to this volume
-docker cp d9fe419028e25adb407208719e0d0aaef92898d4.json vnscoin:/root/.vnscoin/keystore/
+docker cp 2f42dc7e84a771ceefdb7e293e567ef3a8f9a17b.json vnscoin:/root/.vnscoin/keystore/
 
 # Attach to the interactive console
 docker exec -it vnscoin gvns attach
@@ -41,7 +41,7 @@ docker exec -it vnscoin gvns attach
 
 ```javascript
 // Send the entire balance to another address
-var sender = "0xd9fe419028e25adb407208719e0d0aaef92898d4";
+var sender = "0x2f42dc7e84a771ceefdb7e293e567ef3a8f9a17b";
 var receiver = "0xa6dc8628706cef8113ea4d5d231bbe89856cdf4b";
 var totalBalance = vns.getBalance(sender);
 var transactionObject = {
