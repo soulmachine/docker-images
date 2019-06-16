@@ -40,14 +40,14 @@ docker exec -it vnscoin gvns attach
 ```
 
 ```javascript
-// Send the entire balance to another address
+// Send coins to another address
 var sender = "0x2f42dc7e84a771ceefdb7e293e567ef3a8f9a17b";
 var receiver = "0xa6dc8628706cef8113ea4d5d231bbe89856cdf4b";
-var totalBalance = vns.getBalance(sender);
+var coinsToSend = 200  // 200 VNS coins, CHANGE THIS
 var transactionObject = {
   from: sender,
   to: receiver,
-  value: totalBalance
+  value: coinsToSend * 1e+18 // multiplied by WEI
 };
 
 var estimatedGas= vns.estimateGas(transactionObject);
