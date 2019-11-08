@@ -1,19 +1,48 @@
 FROM ubuntu:latest
 MAINTAINER soulmachine
 
+# Avoid warnings by switching to noninteractive
+ENV DEBIAN_FRONTEND=noninteractive
 
 # Install NodeJS
 # See https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04
 
-RUN apt-get -y update && apt-get -y install \
-  curl \
-  build-essential \
-&& echo '########## Install NodeJS ##########' \
-  && curl -sL https://deb.nodesource.com/setup_12.x | bash -  \
-  && apt-get -y install nodejs  \
-&& echo '########## Install yarn ##########' \
-  && curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
-  && apt-get -y update &&  apt-get -y install yarn \
-&& echo '########## Clean up APT when done ##########' \
-  && apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/* /var/cache/*.tar.gz /var/cache/*/*.tar.gz /tmp/* /var/tmp/*
+RUN apt-get -y update && apt-get -y --no-install-recommends install \
+    apt-utils \
+    apt-transport-https \
+    sudo \
+    dialog \
+    gnupg2 \
+    curl \
+    #
+    # Install NodeJS
+    && curl -sL https://deb.nodesource.com/setup_12.x | bash -  \
+    && apt-get -y install nodejs  \
+    #
+    # Install yarn
+    && curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+    && echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list \
+    && apt-get -y update &&  apt-get -y install yarn \
+    #
+    # Clean up
+    && apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
+
+# Switch back to dialog for any ad-hoc use of apt-get
+ENV DEBIAN_FRONTEND=
+
+# Create a new user 'node' with passwordless sudo
+ARG USERNAME=node
+# On Linux, replace with your actual UID, GID if not the default 1000
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+
+RUN groupadd -g $USER_GID noroot \
+  && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME --shell /bin/bash --create-home \
+  #
+  # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
+  && echo '$USERNAME ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
+
+USER $USERNAME
+ENV HOME /home/$USERNAME
+ENV USER $USERNAME
+WORKDIR /home/$USERNAME
