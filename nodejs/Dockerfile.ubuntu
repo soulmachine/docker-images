@@ -4,9 +4,8 @@ MAINTAINER soulmachine
 # Avoid warnings by switching to noninteractive
 ENV DEBIAN_FRONTEND=noninteractive
 
-# Install NodeJS
-# See https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04
 
+# Reducing Dockerfile build warnings, see https://code.visualstudio.com/docs/remote/containers-advanced#_reducing-dockerfile-build-warnings
 RUN apt-get -y update && apt-get -y --no-install-recommends install \
     apt-utils \
     apt-transport-https \
@@ -15,7 +14,7 @@ RUN apt-get -y update && apt-get -y --no-install-recommends install \
     gnupg2 \
     curl \
     #
-    # Install NodeJS
+    # Install NodeJS, see https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04
     && curl -sL https://deb.nodesource.com/setup_12.x | bash -  \
     && apt-get -y install nodejs  \
     #
@@ -28,7 +27,7 @@ RUN apt-get -y update && apt-get -y --no-install-recommends install \
     && apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/*
 
 # Switch back to dialog for any ad-hoc use of apt-get
-ENV DEBIAN_FRONTEND=
+ENV DEBIAN_FRONTEND=dialog
 
 # Create a new user 'node' with passwordless sudo
 ARG USERNAME=node
