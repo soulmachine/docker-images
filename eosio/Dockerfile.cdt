@@ -1,0 +1,50 @@
+FROM ubuntu:18.04
+
+WORKDIR /root
+
+RUN apt-get -y update && apt-get -y --no-install-recommends install \
+    ca-certificates \
+    curl \
+    build-essential && \
+    curl -LJO https://github.com/EOSIO/eos/releases/download/v1.8.6/eosio_1.8.6-1-ubuntu-18.04_amd64.deb && \
+    apt-get -y install ./eosio_1.8.6-1-ubuntu-18.04_amd64.deb && \
+    #
+    # Install CDT
+    curl -LJO https://github.com/EOSIO/eosio.cdt/releases/download/v1.6.3/eosio.cdt_1.6.3-1-ubuntu-18.04_amd64.deb && \
+    apt-get -y install ./eosio.cdt_1.6.3-1-ubuntu-18.04_amd64.deb && \
+    #
+    # Clean up
+    rm *.deb && \
+    apt-get -y clean && apt-get -y autoremove && rm -rf /var/lib/apt/lists/* && \
+    #
+    # Launch keosd and nodeos
+    (keosd &) && \
+    (nodeos -e -p eosio \
+        --plugin eosio::producer_plugin \
+        --plugin eosio::chain_api_plugin \
+        --plugin eosio::http_plugin \
+        --plugin eosio::history_plugin \
+        --plugin eosio::history_api_plugin \
+        --filter-on="*" \
+        --access-control-allow-origin='*' \
+        --contracts-console \
+        --http-validate-host=false \
+        --verbose-http-errors >> nodeos.log 2>&1 &) && \
+    # Wait for nodeos to launch
+    sleep 3 && \
+    #
+    # Create Development Wallet
+    cleos wallet create --file password.txt && password=$(cat password.txt) && \
+    cleos wallet open && cleos wallet unlock --password $password && \
+    #
+    # Import the Development Key
+    cleos wallet import --private-key 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3 && \
+    #
+    # Create Test Accounts
+    cleos create key -f private_key_bob.txt && \
+    bob_pub_key=$(cat private_key_bob.txt | grep -Po 'Public key: \K.*') && \
+    cleos create account eosio bob $bob_pub_key && \
+    #
+    cleos create key -f private_key_alice.txt && \
+    alice_pub_key=$(cat private_key_alice.txt | grep -Po 'Public key: \K.*') && \
+    cleos create account eosio alice $alice_pub_key
