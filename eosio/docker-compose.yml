@@ -3,6 +3,9 @@ version: "3"
 
 services:
   nodeos:
+    build:
+      context: ./eos
+      dockerfile: Dockerfile
     image: soulmachine/eosio.eos:latest
     command: >
       nodeos -e -p eosio
@@ -32,6 +35,9 @@ services:
     stop_grace_period: 10m
 
   keosd:
+    build:
+      context: ./cdt
+      dockerfile: Dockerfile
     image: soulmachine/eosio.cdt:latest
     command: keosd --wallet-dir /eosio/keosd/eosio-wallet --http-server-address=127.0.0.1:8900 --http-alias=keosd:8900 --http-alias=127.0.0.1:8900 --http-alias=localhost:8900
     container_name: keosd
@@ -48,6 +54,6 @@ services:
 
 volumes:
  nodeos-data-dir:
-   external: true
+   external: false
  keosd-wallet-dir:
-   external: true
+   external: false
