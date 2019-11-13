@@ -147,3 +147,8 @@ If you don't need keosd afterwards, you can stop the keosd service using
 ```bash
 docker-compose stop keosd
 ```
+
+## References
+
+- [EOS API Endpoints](https://www.eosdocs.io/resources/apiendpoints/)
+- [EOS Network Monitor.io](https://eosnetworkmonitor.io/)
