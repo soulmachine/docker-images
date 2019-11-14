@@ -14,6 +14,9 @@ RUN apt-get -y update && apt-get -y --no-install-recommends install \
     gnupg2 \
     curl \
     #
+    # Verify git and needed tools are installed
+    && apt-get install -y git procps \
+    #
     # Install NodeJS, see https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-18-04
     && curl -sL https://deb.nodesource.com/setup_12.x | bash -  \
     && apt-get -y install nodejs  \
@@ -41,7 +44,10 @@ RUN groupadd -g $USER_GID noroot \
   # [Optional] Add sudo support. Omit if you don't need to install software after connecting.
   && echo '$USERNAME ALL = (ALL) NOPASSWD: ALL' >> /etc/sudoers
 
-USER $USERNAME
-ENV HOME /home/$USERNAME
-ENV USER $USERNAME
-WORKDIR /home/$USERNAME
+# Switch back to dialog for any ad-hoc use of apt-get
+ENV DEBIAN_FRONTEND=dialog
+
+USER node
+ENV HOME /home/node
+ENV USER node
+WORKDIR /home/node

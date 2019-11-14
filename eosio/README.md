@@ -4,9 +4,11 @@
 ## Build docker images
 
 ```bash
-docker build -t soulmachine/eosio.eos - < Dockerfile.eos
+cd ./eos
+docker build -t soulmachine/eosio.eos .
 
-docker build -t soulmachine/eosio.cdt - < Dockerfile.cdt
+cd ../cdt
+docker build -t soulmachine/eosio.cdt .
 ```
 
 ## How to use
