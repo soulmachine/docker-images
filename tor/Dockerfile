@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:20.04
 MAINTAINER soulmachine - https://github.com/soulmachine/docker-images/tree/master/tor
 
 # References:
