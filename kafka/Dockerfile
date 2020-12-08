@@ -6,9 +6,11 @@ ENV SCALA_VERSION 2.13
 ENV KAFKA_VERSION 2.6.0
 ENV KAFKA_HOME /opt/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION"
 
-# Install Kafka and Zookeeper
+ENV KAFKA_HEAP_OPTS "-Xms256M -Xmx512M"
+
+# Install Kafka
 RUN apt-get -qy update && apt-get -qy --no-install-recommends install \
-    wget zookeeper supervisor \
+    wget supervisor procps htop \
  && FILENAME="kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" \
  && wget "https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/${FILENAME}" -O "/tmp/${FILENAME}" \
  && tar zxf /tmp/${FILENAME} -C /opt \

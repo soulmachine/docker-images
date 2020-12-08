@@ -14,7 +14,7 @@ docker build -t soulmachine/kafka .
 docker run -d --name kafka  -p 9092:9092 -p 2181:2181 soulmachine/kafka
 ```
 
-Use [CMAK](https://github.com/yahoo/CMAK) to manage a Kafka cluster:
+Use [CMAK](https://github.com/yahoo/CMAK) to manage the Kafka cluster:
 
 ```bash
 docker run -d --name kafka-manager -p 9000:9000 -e ZK_HOSTS="kafka:2181" --link kafka hlebalbau/kafka-manager
@@ -46,5 +46,7 @@ $ $KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe -
 
 ## References
 
+- [ZOOKEEPER & KAFKA INSTALL : A SINGLE NODE AND A SINGLE BROKER CLUSTER - 2016](https://www.bogotobogo.com/Hadoop/BigData_hadoop_Zookeeper_Kafka_single_node_single_broker_cluster.php)
 - [Yikes! KeeperErrorCode = Unimplemented for /kafka-manager/mutex Try again](https://github.com/yahoo/CMAK/issues/731#issuecomment-643880544)
 - [yahoo/CMAK](https://github.com/yahoo/CMAK)
+- [kafkacat](https://github.com/edenhill/kafkacat)
