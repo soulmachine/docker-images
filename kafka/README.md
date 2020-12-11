@@ -51,3 +51,4 @@ $ $KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe -
 - [yahoo/CMAK](https://github.com/yahoo/CMAK)
 - [kafkacat](https://github.com/edenhill/kafkacat)
 - [--memory and --memory-swap limits not honored by Docker on Linux #953](https://github.com/docker/for-linux/issues/953)
+- [Need to understand kafka broker property “log.flush.interval.messages”](https://stackoverflow.com/a/59572897/381712)
