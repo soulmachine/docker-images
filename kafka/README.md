@@ -11,7 +11,7 @@ docker build -t soulmachine/kafka .
 ## Run
 
 ```bash
-docker run -d --name kafka  -p 9092:9092 -p 2181:2181 soulmachine/kafka
+docker run -d --name kafka -p 9092:9092 -p 2181:2181 soulmachine/kafka
 ```
 
 Use [CMAK](https://github.com/yahoo/CMAK) to manage the Kafka cluster:
@@ -50,3 +50,4 @@ $ $KAFKA_HOME/bin/kafka-topics.sh --bootstrap-server localhost:9092 --describe -
 - [Yikes! KeeperErrorCode = Unimplemented for /kafka-manager/mutex Try again](https://github.com/yahoo/CMAK/issues/731#issuecomment-643880544)
 - [yahoo/CMAK](https://github.com/yahoo/CMAK)
 - [kafkacat](https://github.com/edenhill/kafkacat)
+- [--memory and --memory-swap limits not honored by Docker on Linux #953](https://github.com/docker/for-linux/issues/953)

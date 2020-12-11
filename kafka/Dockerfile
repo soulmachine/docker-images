@@ -6,11 +6,9 @@ ENV SCALA_VERSION 2.13
 ENV KAFKA_VERSION 2.6.0
 ENV KAFKA_HOME /opt/kafka_"$SCALA_VERSION"-"$KAFKA_VERSION"
 
-ENV KAFKA_HEAP_OPTS "-Xms256M -Xmx512M"
-
 # Install Kafka
 RUN apt-get -qy update && apt-get -qy --no-install-recommends install \
-    wget supervisor procps htop \
+    wget supervisor procps htop lsof \
  && FILENAME="kafka_${SCALA_VERSION}-${KAFKA_VERSION}.tgz" \
  && wget "https://archive.apache.org/dist/kafka/${KAFKA_VERSION}/${FILENAME}" -O "/tmp/${FILENAME}" \
  && tar zxf /tmp/${FILENAME} -C /opt \
