@@ -26,7 +26,7 @@ docker run -d --name kafka-manager -p 9000:9000 -e ZK_HOSTS="kafka:2181" --link 
 # Attach to the running container
 $ docker exec -it kafka /bin/bash
 # Test ZooKeeper
-$ /usr/share/zookeeper/bin/zkCli.sh
+$ $KAFKA_HOME/bin/zookeeper-shell.sh localhost:2181
 > ls /brokers/ids
 [0]
 $ quit
