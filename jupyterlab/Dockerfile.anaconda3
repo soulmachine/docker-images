@@ -25,7 +25,7 @@ RUN apt-get install -y --no-install-recommends \
     conda update -y --all
 
 # Install JupyterLab and necessary plugins
-RUN conda activate base && conda install -y \
+RUN conda install -y \
     ipywidgets \
     jupyterlab \
     nbconvert \
@@ -61,7 +61,7 @@ RUN conda activate base && conda install -y \
 COPY .jupyter/ /root/.jupyter
 
 # Install necessary libraries including pandas, numpy, scipy, etc.
-RUN conda activate base && conda install -y -c conda-forge \
+RUN conda install -y \
     dask \
     matplotlib \
     numpy \
@@ -75,7 +75,8 @@ RUN conda activate base && conda install -y -c conda-forge \
     tqdm
 
 # Cleanup
-RUN conda clean -afy && apt-get autoremove && apt-get autoclean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+RUN conda update -y --all && conda clean -afy && \
+    apt-get autoremove && apt-get autoclean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 RUN mkdir /notebooks
 WORKDIR /notebooks
