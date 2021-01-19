@@ -1,15 +1,14 @@
-FROM ubuntu:20.04
-MAINTAINER soulmachine - https://github.com/soulmachine/docker-images/tree/master/tor
+FROM debian:buster-slim
+LABEL maintainer=soulmachine
 
 # References:
 # https://github.com/sledigabel/docker-tor-privoxy
 # https://github.com/np1/docker-tor-clientonly
 # https://help.ubuntu.com/community/Privoxy
 
-RUN apt -qy update && apt -qy --no-install-recommends install tor tor-arm tor-geoipdb privoxy && \
-    apt -qy autoremove && \
-    apt -qy clean && \
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get -qy update && apt-get -qy --no-install-recommends install \
+    tor tor-geoipdb nyx privoxy curl \
+ && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 RUN echo "SocksPort 0.0.0.0:9050" >> /etc/tor/torrc && \
     sed -i '/^listen-address/d' /etc/privoxy/config && \
@@ -19,6 +18,9 @@ RUN echo "SocksPort 0.0.0.0:9050" >> /etc/tor/torrc && \
 RUN sed -i 's/^#ControlPort.*$/ControlPort 0.0.0.0:9051/g' /etc/tor/torrc && \
     password=$(tor --hash-password tor123456 | sed -n 2p) && \
     sed -i "s/^#HashedControlPassword.*$/HashedControlPassword $password/g" /etc/tor/torrc
+
+HEALTHCHECK --interval=60s --timeout=15s --start-period=20s \
+    CMD curl -s --socks5 127.0.0.1:9050 'https://check.torproject.org/' | grep -qm1 Congratulations
 
 EXPOSE 9050 9051 8118
 

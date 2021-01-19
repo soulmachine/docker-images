@@ -1,20 +1,30 @@
-Simpe TOR container as a Socks&HTTP Proxy
-
+# Simpe TOR container as a Socks&HTTP Proxy
 
 ## Run
 
     docker run -d --name tor -p 9050:9050 -p 9051:9051 -p 8118:8118 soulmachine/tor
 
-
 ## Connect to the SOCKS Proxy
 
 Configure your browser/client to use the SOCKS proxy server at at `127.0.0.1:9050`
 
+Validate the SOCKS proxy:
+
+```bash
+curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
+{"IsTor":true,"IP":"45.64.186.122"}
+```
 
 ## Connect to the HTTP Proxy
 
 Configure your browser/client to use the HTTP proxy server at at `127.0.0.1:8118`
 
+Validate the HTTP proxy:
+
+```bash
+curl --proxy 127.0.0.1:8118 https://check.torproject.org/api/ip
+{"IsTor":true,"IP":"54.39.50.28"}
+```
 
 ## Change IP Addresses Dynamically
 
@@ -59,13 +69,13 @@ change_ip()
 show_my_ip(socks_proxies)  # CHANGED
 ```
 
-
 ## References
 
-* [jgamblin/tor](https://github.com/jgamblin/tor)
-* [np1/docker-tor-clientonly](https://github.com/np1/docker-tor-clientonly)
-* [sledigabel/docker-tor-privoxy](https://github.com/sledigabel/docker-tor-privoxy)
-* [Setting up privoxy](https://help.ubuntu.com/community/Privoxy)
-* [vdaubry/tor-privoxy](https://github.com/vdaubry/tor-privoxy)
-* [mattes/rotating-proxy](https://github.com/mattes/rotating-proxy)
-* [Crawling anonymously with Tor in Python](http://sacharya.com/crawling-anonymously-with-tor-in-python/)
+- [jgamblin/tor](https://github.com/jgamblin/tor)
+- [np1/docker-tor-clientonly](https://github.com/np1/docker-tor-clientonly)
+- [sledigabel/docker-tor-privoxy](https://github.com/sledigabel/docker-tor-privoxy)
+- [Setting up privoxy](https://help.ubuntu.com/community/Privoxy)
+- [vdaubry/tor-privoxy](https://github.com/vdaubry/tor-privoxy)
+- [mattes/rotating-proxy](https://github.com/mattes/rotating-proxy)
+- [Crawling anonymously with Tor in Python](http://sacharya.com/crawling-anonymously-with-tor-in-python/)
+- [Running Tor Proxy with Docker](https://dev.to/nabarun/running-tor-proxy-with-docker-56n9)
