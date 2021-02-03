@@ -1,0 +1,7 @@
+FROM rustembedded/cross:x86_64-pc-windows-gnu
+LABEL maintainer=soulmachine
+
+# The openssl crate needs pkg-config and openssl
+RUN apt-get -qy update && apt-get -qy --no-install-recommends install \
+    pkg-config libssl-dev \
+ && apt-get -qy autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
