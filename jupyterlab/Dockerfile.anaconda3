@@ -47,7 +47,6 @@ RUN conda install -y \
     jupyter serverextension enable jupyterlab_git --py --sys-prefix && \
     jupyter labextension install @jupyterlab/git --no-build  && \
     jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build  && \
-    jupyter labextension install @jupyterlab/celltags --no-build  && \
     jupyter labextension install nbdime-jupyterlab --no-build  && \
     jupyter labextension install jupyterlab-plotly --no-build  && \
     jupyter labextension install plotlywidget --no-build  && \
