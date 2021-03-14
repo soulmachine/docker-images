@@ -50,7 +50,7 @@ RUN conda install -y \
     jupyter labextension install nbdime-jupyterlab --no-build  && \
     jupyter labextension install jupyterlab-plotly --no-build  && \
     jupyter labextension install plotlywidget --no-build  && \
-    jupyter lab build && \
+    jupyter lab build --minimize=False && \
     jupyter lab clean && \
     jlpm cache clean && \
     npm cache clean --force && \
