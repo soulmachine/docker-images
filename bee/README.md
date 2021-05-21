@@ -5,7 +5,7 @@ This docker compose file launches one clef node, one full node and multiple bee 
 
 First, change everything in the `.env` to yours.
 
-Then, run `docker compose up` to launch all nodes.
+Then, run `docker-compose up` to launch all nodes.
 
 ## How to add more bee nodes
 
