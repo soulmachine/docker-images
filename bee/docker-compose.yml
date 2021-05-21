@@ -1,0 +1,64 @@
+# Modified from https://github.com/ethersphere/bee/blob/master/packaging/docker/docker-compose.yml
+version: "3"
+
+services:
+  clef:
+    image: ethersphere/clef:latest
+    restart: unless-stopped
+    environment:
+      - CLEF_CHAINID=5
+    volumes:
+      - clef:/app/data
+    command: full
+  ethereum:
+    image: ethereum/client-go:latest
+    restart: unless-stopped
+    command: --http --ws --http.addr 0.0.0.0 --ws.addr 0.0.0.0 --http.vhosts * --signer http://clef:8550 --verbosity 2 --goerli
+    ports:
+      - 8545:8545
+      - 8546:8546
+    volumes:
+      - "ethereum:/root/.ethereum"
+    depends_on:
+      - clef
+  bee-1:
+    image: ethersphere/bee:beta
+    restart: unless-stopped
+    environment:
+      - BEE_PASSWORD
+      - BEE_SWAP_ENDPOINT
+      - BEE_CLEF_SIGNER_ENABLE=true
+      - BEE_CLEF_SIGNER_ENDPOINT=http://clef:8550
+    ports:
+      - "${API_ADDR:-1633}${BEE_API_ADDR:-:1633}"
+      - "${P2P_ADDR:-1634}${BEE_P2P_ADDR:-:1634}"
+      - "${DEBUG_API_ADDR:-127.0.0.1:1635}${BEE_DEBUG_API_ADDR:-:1635}"
+    volumes:
+      - bee-1:/home/bee/.bee
+    command: start
+    depends_on:
+      - clef
+      - ethereum
+  bee-2:
+    image: ethersphere/bee:beta
+    restart: unless-stopped
+    environment:
+      - BEE_PASSWORD
+      - BEE_SWAP_ENDPOINT
+      - BEE_CLEF_SIGNER_ENABLE=true
+      - BEE_CLEF_SIGNER_ENDPOINT=http://clef:8550
+    ports:
+      - "${API_ADDR:-1733}${BEE_API_ADDR:-:1733}"
+      - "${P2P_ADDR:-1734}${BEE_P2P_ADDR:-:1734}"
+      - "${DEBUG_API_ADDR:-127.0.0.1:1735}${BEE_DEBUG_API_ADDR:-:1735}"
+    volumes:
+      - bee-2:/home/bee/.bee
+    command: start
+    depends_on:
+      - clef
+      - ethereum
+volumes:
+  ethereum:
+  clef:
+  bee-1:
+  bee-2:

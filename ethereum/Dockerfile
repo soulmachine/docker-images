@@ -1,8 +1,8 @@
-FROM ubuntu:16.04
+FROM ubuntu:latest
 MAINTAINER soulmachine https://github.com/soulmachine/docker-images/tree/master/ethereum
 
 # Reference:
-# https://www.ethereum.org/cli
+# https://geth.ethereum.org/docs/install-and-build/installing-geth#install-on-ubuntu-via-ppas
 
 RUN apt -qy update && \
     apt -qy --no-install-recommends install software-properties-common && \
