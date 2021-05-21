@@ -25,3 +25,17 @@ volumes:
 DO backup the data volume of clef!!!
 
 First use `docker volume ls` to find the volume, then backup it following [the Docker official doc](https://docs.docker.com/storage/volumes/#backup-restore-or-migrate-data-volumes).
+
+Backup:
+
+```bash
+docker run --rm -v bee_clef:/data -v $(pwd):/backup ubuntu tar cvf /backup/clef.tar /data
+```
+
+
+Restore on another host:
+
+```bash
+docker volume create bee_clef
+docker run --rm -v bee_clef:/data -v $(pwd):/backup ubuntu bash -c "cd /data && tar xvf /backup/clef.tar --strip 1"
+```
