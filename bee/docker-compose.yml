@@ -13,7 +13,7 @@ services:
   ethereum:
     image: ethereum/client-go:latest
     restart: unless-stopped
-    command: --http --ws --http.addr 0.0.0.0 --ws.addr 0.0.0.0 --http.vhosts * --signer http://clef:8550 --verbosity 2 --goerli
+    command: --http --ws --http.addr 0.0.0.0 --ws.addr 0.0.0.0 --http.vhosts * --signer http://clef:8550 --verbosity 2 --goerli --syncmode "light"
     ports:
       - 8545:8545
       - 8546:8546
