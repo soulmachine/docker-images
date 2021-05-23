@@ -3,7 +3,7 @@ version: "3"
 
 services:
   clef:
-    image: ethersphere/clef:latest
+    image: ethersphere/clef:beta
     restart: unless-stopped
     environment:
       - CLEF_CHAINID=5
