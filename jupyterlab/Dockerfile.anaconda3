@@ -6,7 +6,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV CONDA_HOME="/opt/conda"
 ENV PATH="${CONDA_HOME}/bin:${PATH}"
 
-ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2020.11-Linux-x86_64.sh"
+ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh"
 
 # Security updates
 RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
@@ -25,14 +25,13 @@ RUN apt-get install -y --no-install-recommends \
     conda update -y --all
 
 # Install JupyterLab and necessary plugins
-RUN conda install -y \
+RUN conda install nodejs -y -c conda-forge --repodata-fn=repodata.json \
+ && conda install -y -c conda-forge \
     ipywidgets \
     jupyterlab \
     nbconvert \
     nb_conda \
     nb_conda_kernels \
-    nodejs && \
-    conda install -y -c conda-forge \
     jupyterlab-git \
     jupyter_http_over_ws \
     nbdime && \
@@ -44,9 +43,6 @@ RUN conda install -y \
     jupyter serverextension enable nb_conda --py --sys-prefix && \
     jupyter serverextension enable nbdime --py --sys-prefix && \
     jupyter serverextension enable jupyter_http_over_ws --py --sys-prefix && \
-    jupyter serverextension enable jupyterlab_git --py --sys-prefix && \
-    jupyter labextension install @jupyterlab/git --no-build  && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build  && \
     jupyter labextension install nbdime-jupyterlab --no-build  && \
     jupyter labextension install jupyterlab-plotly --no-build  && \
     jupyter labextension install plotlywidget --no-build  && \
