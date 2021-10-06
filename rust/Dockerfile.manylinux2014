@@ -6,7 +6,7 @@ LABEL maintainer=soulmachine
 
 # The openssl crate needs pkg-config and openssl
 RUN yum update -y && yum install -y pkgconfig openssl-devel curl \
-  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y \
+  && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly \
   && /opt/python/cp36-cp36m/bin/pip3 install setuptools cffi milksnake twine \
   && yum clean all && rm -rf /var/cache/yum
 
