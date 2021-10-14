@@ -55,8 +55,8 @@ I choose `clangd` as the language server and accordingly the [vscode-clangd](htt
 
    ```bash
    # on Ubuntu
-   sudo apt install clang-12
-   sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-12 100
+   sudo apt install clang-14
+   sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-14 100
    # on macOS
    brew install llvm
    export PATH="/usr/local/opt/llvm/bin:$PATH"
@@ -131,8 +131,8 @@ I prefer `lldb` over `gdb` for debugging because `lldb` is more accurate, and mo
 
    ```bash
    # on Ubuntu
-   sudo apt install lldb-12
-   sudo update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-12 100
+   sudo apt install lldb-14
+   sudo update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-14 100
    # on macOS
    brew install llvm
    export PATH="/usr/local/opt/llvm/bin:$PATH"
@@ -148,8 +148,8 @@ Use clang-tidy as the c++ linter.
 
    ```bash
    # on Ubuntu
-   sudo apt install clang-tidy-12
-   sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-12 100
+   sudo apt install clang-tidy-14
+   sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-14 100
    # on macOS
    brew install llvm
    ```
@@ -200,4 +200,6 @@ Use clang-tidy as the c++ linter.
 
 ## References
 
+- <https://apt.llvm.org/>
+- <https://apt.llvm.org/llvm.sh>
 - <https://github.com/linuxserver/docker-code-server>

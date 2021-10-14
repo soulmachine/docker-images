@@ -8,12 +8,15 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
     ca-certificates \
     curl \
     git \
+    gpg \
+    gpg-agent \
     locales \
     lsb-release \
     man \
     openssh-client \
     pkg-config \
     procps \
+    software-properties-common \
     sudo \
     wget \
  && apt -qy autoremove && apt clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
