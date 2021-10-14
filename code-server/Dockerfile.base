@@ -1,29 +1,29 @@
-# FROM debian:buster-slim
-FROM ubuntu:16.04
+FROM debian:stable-slim
 
 # References:
 # https://github.com/cdr/code-server/blob/main/ci/release-image/Dockerfile
 
-RUN apt-get -qy update && apt-get -qy --no-install-recommends install \
-    ca-certificates \
+RUN apt -qy update && apt -qy --no-install-recommends install \
     apt-transport-https \
-    wget \
+    ca-certificates \
     curl \
-    locales \
-    man \
     git \
-    procps \
-    openssh-client \
-    sudo \
+    locales \
     lsb-release \
- && apt-get -qy autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
-
+    man \
+    openssh-client \
+    pkg-config \
+    procps \
+    sudo \
+    wget \
+ && apt -qy autoremove && apt clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 # https://wiki.debian.org/Locale#Manually
 RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen \
   && locale-gen
 ENV LANG=en_US.UTF-8
 
-ARG USERNAME=werider
+# the new user to create
+ARG USERNAME=coder
 
 RUN adduser --gecos '' --disabled-password $USERNAME && \
   echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME
@@ -34,7 +34,7 @@ RUN VERSION="3.12.0" && curl -fOL https://github.com/cdr/code-server/releases/do
 
 # Install fixuid
 RUN ARCH="$(dpkg --print-architecture)" && \
-    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5/fixuid-0.5-linux-$ARCH.tar.gz | tar -C /usr/local/bin -xzf - && \
+    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5.1/fixuid-0.5.1-linux-$ARCH.tar.gz | tar -C /usr/local/bin -xzf - && \
     chown root:root /usr/local/bin/fixuid && \
     chmod 4755 /usr/local/bin/fixuid && \
     mkdir -p /etc/fixuid && \
