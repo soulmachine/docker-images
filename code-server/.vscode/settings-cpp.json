@@ -1,0 +1,39 @@
+{
+  "breadcrumbs.enabled": true,
+  "editor.defaultFormatter": "xaver.clang-format",
+  "clang-format.fallbackStyle": "Google",
+  "clang-format.style": "file",
+  "bazel.buildifierFixOnFormat": true,
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2,
+  "files.autoSave": "onFocusChange",
+  "files.autoSaveDelay": 1000,
+  "files.exclude": {
+    "bazel-bin/": true,
+    "bazel-gibraltar": true,
+    "bazel-out/": true,
+    "bazel-testlogs": true
+  },
+  "files.trimFinalNewlines": true,
+  "workbench.editor.highlightModifiedTabs": true,
+  "editor.inlineSuggest.enabled": true,
+  "C_Cpp.intelliSenseEngine": "Disabled",
+  "C_Cpp.autocomplete": "Disabled",
+  "C_Cpp.errorSquiggles": "Disabled",
+  "clangd.arguments": [
+    "-log=verbose",
+    "-pretty",
+    "--background-index",
+    "--compile-commands-dir=."
+  ],
+  "docker.explorerRefreshInterval": 3000,
+  "security.workspace.trust.untrustedFiles": "open",
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "terminal.integrated.profiles.linux": {
+    "bash": {
+      "path": "bash",
+      "args": ["--rcfile", "/tmp/workflow/.bashrc"]
+    }
+  },
+  "cmake.configureOnOpen": false
+}

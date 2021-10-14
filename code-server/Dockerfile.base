@@ -1,0 +1,48 @@
+# FROM debian:buster-slim
+FROM ubuntu:16.04
+
+# References:
+# https://github.com/cdr/code-server/blob/main/ci/release-image/Dockerfile
+
+RUN apt-get -qy update && apt-get -qy --no-install-recommends install \
+    ca-certificates \
+    apt-transport-https \
+    wget \
+    curl \
+    locales \
+    man \
+    git \
+    procps \
+    openssh-client \
+    sudo \
+    lsb-release \
+ && apt-get -qy autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+
+# https://wiki.debian.org/Locale#Manually
+RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen \
+  && locale-gen
+ENV LANG=en_US.UTF-8
+
+RUN adduser --gecos '' --disabled-password werider && \
+  echo "werider ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/werider
+
+# Install code-server
+RUN VERSION="3.12.0" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
+ && dpkg -i code-server_"$VERSION"_amd64.deb && rm code-server_"$VERSION"_amd64.deb
+
+# Install fixuid
+RUN ARCH="$(dpkg --print-architecture)" && \
+    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5/fixuid-0.5-linux-$ARCH.tar.gz | tar -C /usr/local/bin -xzf - && \
+    chown root:root /usr/local/bin/fixuid && \
+    chmod 4755 /usr/local/bin/fixuid && \
+    mkdir -p /etc/fixuid && \
+    printf "user: werider\ngroup: werider\n" > /etc/fixuid/config.yml
+ENTRYPOINT ["fixuid", "-q"]
+
+EXPOSE 8080
+
+USER werider:werider
+ENV USER werider
+WORKDIR /home/werider
+
+CMD ["/usr/bin/code-server", "--bind-addr", "0.0.0.0:8080", "/project"]
