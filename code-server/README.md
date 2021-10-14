@@ -39,11 +39,13 @@ docker build -t soulmachine/code-server:rust -f Dockerfile.rust .
 docker push soulmachine/code-server:rust
 ```
 
+If you're interested in what the container has done, keep reading.
+
 ## C++
 
 ### clangd
 
-I choose `clangd` as the language server and accordingly the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) plugin as the IDE. Bedause `vscode-clangd` is more accurate than the official `vscode-cpptools` plugin from Microsoft and uses less memory.
+I choose `clangd` as the language server and accordingly the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) plugin as the IDE. Because `vscode-clangd` is more accurate than the official `vscode-cpptools` plugin from Microsoft and uses less memory.
 
 1. Install the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd)
 
@@ -53,7 +55,7 @@ I choose `clangd` as the language server and accordingly the [vscode-clangd](htt
 
    ```bash
    # on Ubuntu
-   sudo apt install clang-l2
+   sudo apt install clang-12
    sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-12 100
    # on macOS
    brew install llvm
@@ -137,6 +139,22 @@ I prefer `lldb` over `gdb` for debugging because `lldb` is more accurate, and mo
    ```
 
 2. Install the [vscode-lldb](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) plugin
+
+### clang-tidy
+
+Use clang-tidy as the c++ linter.
+
+1. Install `clang-tidy`
+
+   ```bash
+   # on Ubuntu
+   sudo apt install clang-tidy-12
+   sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-12 100
+   # on macOS
+   brew install llvm
+   ```
+
+2. Install the [notskm.clang-tidy](https://marketplace.visualstudio.com/items?itemName=notskm.clang-tidy) plugin
 
 ### Bazel
 
