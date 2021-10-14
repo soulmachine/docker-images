@@ -37,7 +37,8 @@ RUN ARCH="$(dpkg --print-architecture)" && \
     chmod 4755 /usr/local/bin/fixuid && \
     mkdir -p /etc/fixuid && \
     printf "user: werider\ngroup: werider\n" > /etc/fixuid/config.yml
-ENTRYPOINT ["fixuid", "-q"]
+
+COPY entrypoint.sh /usr/bin/entrypoint.sh
 
 COPY --chown=werider:werider config.yaml /home/werider/.config/code-server/config.yaml
 
@@ -47,4 +48,4 @@ USER werider:werider
 ENV USER werider
 WORKDIR /home/werider
 
-CMD ["/usr/bin/code-server", "--bind-addr", "0.0.0.0:8080", "/project"]
+CMD ["/usr/bin/entrypoint.sh", "--bind-addr", "0.0.0.0:8080", "/project"]

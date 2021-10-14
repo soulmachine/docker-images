@@ -10,7 +10,7 @@ Then open the root directory using this docker image,
 
 ```bash
 # cd to the root directoty of your C++ project first
-docker run -d --name code-server -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp
+docker run -d --name code-server --init -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp
 ```
 
 And open <ip:8080> in browser, password is `passw0rd`.
