@@ -4,12 +4,16 @@ This docker image is a out-of-the-box web-based vscode.
 
 ## How to use
 
+First, generate a `compile_commands.json` file at the root directory of your C++ project.
+
+Then open the root directory using this docker image,
+
 ```bash
 # cd to the root directoty of your C++ project first
 docker run -d --name code-server -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp
 ```
 
-Then open <ip:8080> in browser, the password is in `~.config/code-server/config.yaml` in the container.
+And open <ip:8080> in browser, password is `passw0rd`.
 
 ## Build
 

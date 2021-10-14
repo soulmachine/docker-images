@@ -39,6 +39,8 @@ RUN ARCH="$(dpkg --print-architecture)" && \
     printf "user: werider\ngroup: werider\n" > /etc/fixuid/config.yml
 ENTRYPOINT ["fixuid", "-q"]
 
+COPY --chown=werider:werider config.yaml /home/werider/.config/code-server/config.yaml
+
 EXPOSE 8080
 
 USER werider:werider
