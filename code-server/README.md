@@ -179,3 +179,7 @@ I prefer `lldb` over `gdb` for debugging because `lldb` is more accurate, and mo
 
 2. Install the [rust-analyzer](https://github.com/rust-analyzer/rust-analyzer) plugin
 3. Install the [TabNine](https://marketplace.visualstudio.com/items?itemName=TabNine.tabnine-vscode) plugin
+
+## References
+
+- <https://github.com/linuxserver/docker-code-server>
