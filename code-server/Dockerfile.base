@@ -23,8 +23,10 @@ RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen \
   && locale-gen
 ENV LANG=en_US.UTF-8
 
-RUN adduser --gecos '' --disabled-password werider && \
-  echo "werider ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/werider
+ARG USERNAME=werider
+
+RUN adduser --gecos '' --disabled-password $USERNAME && \
+  echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME
 
 # Install code-server
 RUN VERSION="3.12.0" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
@@ -36,16 +38,16 @@ RUN ARCH="$(dpkg --print-architecture)" && \
     chown root:root /usr/local/bin/fixuid && \
     chmod 4755 /usr/local/bin/fixuid && \
     mkdir -p /etc/fixuid && \
-    printf "user: werider\ngroup: werider\n" > /etc/fixuid/config.yml
+    printf "user: $USERNAME\ngroup: $USERNAME\n" > /etc/fixuid/config.yml
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
-COPY --chown=werider:werider config.yaml /home/werider/.config/code-server/config.yaml
+COPY --chown=$USERNAME:$USERNAME config.yaml /home/$USERNAME/.config/code-server/config.yaml
 
 EXPOSE 8080
 
-USER werider:werider
-ENV USER werider
-WORKDIR /home/werider
+USER $USERNAME:$USERNAME
+ENV USER $USERNAME
+WORKDIR /home/$USERNAME
 
 CMD ["/usr/bin/entrypoint.sh", "--bind-addr", "0.0.0.0:8080", "/project"]

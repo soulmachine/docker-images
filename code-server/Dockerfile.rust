@@ -1,0 +1,22 @@
+FROM soulmachine/code-server:base
+
+ARG USERNAME=werider
+
+# Install Rust
+RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly --component rust-src
+
+# Fix linker `cc` not found
+RUN sudo apt-get -qy update && sudo apt-get -qy --no-install-recommends install \
+ pkg-config \
+ libssl-dev \
+ build-essential \
+ && sudo apt-get -qy autoremove && sudo apt-get clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
+
+# Download rust-analyzer Language Server Binary, optional
+RUN mkdir -p ~/.local/bin \
+ && curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer-linux \
+ && chmod +x ~/.local/bin/rust-analyzer-linux
+
+COPY --chown=$USERNAME:$USERNAME ./.vscode/settings-rust.json /home/$USERNAME/.local/share/code-server/User/settings.json
+RUN code-server --install-extension matklad.rust-analyzer \
+ && code-server --install-extension TabNine.tabnine-vscode # GitHub.copilot

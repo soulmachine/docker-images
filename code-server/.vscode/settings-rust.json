@@ -1,0 +1,21 @@
+{
+  "breadcrumbs.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": true,
+    "source.fixAll.eslint": true
+  },
+  "editor.formatOnSave": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.tabSize": 2,
+  "files.autoSave": "onFocusChange",
+  "files.autoSaveDelay": 1000,
+  "files.exclude": {
+    "node_modules/": true
+  },
+  "files.trimFinalNewlines": true,
+  "rust-analyzer.server.path": "~/.local/bin/rust-analyzer-linux",
+  "rust-analyzer.updates.askBeforeDownload": false,
+  "tabnine.experimentalAutoImports": true,
+  "workbench.colorTheme": "Default Dark+",
+  "workbench.editor.highlightModifiedTabs": true
+}

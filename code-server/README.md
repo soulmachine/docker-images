@@ -1,19 +1,30 @@
 # vscode in container
 
-This docker image is a out-of-the-box web-based vscode.
+This docker image is an out-of-the-box web-based vscode.
 
 ## How to use
+
+### For C++ projects
 
 First, generate a `compile_commands.json` file at the root directory of your C++ project.
 
 Then open the root directory using this docker image,
 
 ```bash
-# cd to the root directoty of your C++ project first
-docker run -d --name code-server --init -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp
+# First, cd to the root directoty of your C++ project
+docker run -d --name code-server-cpp --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp
 ```
 
-And open <ip:8080> in browser, password is `passw0rd`.
+And open <http://localhost:8080> in browser, password is `passw0rd`.
+
+### For Rust projects
+
+```bash
+# First, cd to the root directoty of your Rust project
+docker run -d --name code-server-rust --init -u "$(id -u):$(id -g)" -p 8081:8080 -v $(pwd):/project soulmachine/code-server:rust
+```
+
+And open <http://localhost:8081> in browser, password is `passw0rd`.
 
 ## Build
 
@@ -23,6 +34,9 @@ docker push soulmachine/code-server:base
 
 docker build -t soulmachine/code-server:cpp -f Dockerfile.cpp .
 docker push soulmachine/code-server:cpp
+
+docker build -t soulmachine/code-server:rust -f Dockerfile.rust .
+docker push soulmachine/code-server:rust
 ```
 
 ## C++
@@ -163,4 +177,5 @@ I prefer `lldb` over `gdb` for debugging because `lldb` is more accurate, and mo
    rustup default nightly
    ```
 
-2. Install the [rust-analyzer plugin](https://github.com/rust-analyzer/rust-analyzer)
+2. Install the [rust-analyzer](https://github.com/rust-analyzer/rust-analyzer) plugin
+3. Install the [TabNine](https://marketplace.visualstudio.com/items?itemName=TabNine.tabnine-vscode) plugin

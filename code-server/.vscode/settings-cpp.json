@@ -15,6 +15,7 @@
     "bazel-testlogs": true
   },
   "files.trimFinalNewlines": true,
+  "workbench.colorTheme": "Default Dark+",
   "workbench.editor.highlightModifiedTabs": true,
   "editor.inlineSuggest.enabled": true,
   "C_Cpp.intelliSenseEngine": "Disabled",
@@ -26,8 +27,6 @@
     "--background-index",
     "--compile-commands-dir=."
   ],
-  "docker.explorerRefreshInterval": 3000,
-  "security.workspace.trust.untrustedFiles": "open",
   "terminal.integrated.defaultProfile.linux": "bash",
   "terminal.integrated.profiles.linux": {
     "bash": {
