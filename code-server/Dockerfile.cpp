@@ -26,4 +26,5 @@ RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
  && code-server --install-extension clang-tidy-0.5.1.vsix \
  && rm clang-tidy-0.5.1.vsix \
  && code-server --install-extension vadimcn.vscode-lldb \
- && code-server --install-extension BazelBuild.vscode-bazel
+ && code-server --install-extension BazelBuild.vscode-bazel \
+ && code-server --install-extension TabNine.tabnine-vscode # GitHub.copilot

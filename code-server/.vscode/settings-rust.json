@@ -1,8 +1,7 @@
 {
   "breadcrumbs.enabled": true,
   "editor.codeActionsOnSave": {
-    "source.organizeImports": true,
-    "source.fixAll.eslint": true
+    "source.organizeImports": true
   },
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
@@ -10,7 +9,7 @@
   "files.autoSave": "onFocusChange",
   "files.autoSaveDelay": 1000,
   "files.exclude": {
-    "node_modules/": true
+    "target/": true
   },
   "files.trimFinalNewlines": true,
   "rust-analyzer.server.path": "~/.local/bin/rust-analyzer-linux",

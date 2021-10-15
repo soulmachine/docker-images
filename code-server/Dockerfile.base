@@ -3,6 +3,8 @@ FROM debian:stable-slim
 # References:
 # https://github.com/cdr/code-server/blob/main/ci/release-image/Dockerfile
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt -qy update && apt -qy --no-install-recommends install \
     apt-transport-https \
     ca-certificates \
@@ -20,10 +22,10 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
     sudo \
     wget \
  && apt -qy autoremove && apt clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+
 # https://wiki.debian.org/Locale#Manually
-RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen \
-  && locale-gen
-ENV LANG=en_US.UTF-8
+RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen
+ENV LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8
 
 # the new user to create
 ARG USERNAME=coder
