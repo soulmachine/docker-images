@@ -5,6 +5,7 @@ ARG LLVM_VERSION=14
 RUN wget https://apt.llvm.org/llvm.sh \
  && chmod +x llvm.sh \
  && sudo ./llvm.sh $LLVM_VERSION \
+ && rm ./llvm.sh \
  && sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     clang-format-$LLVM_VERSION \
     clang-tidy-$LLVM_VERSION \
@@ -18,7 +19,8 @@ RUN wget https://apt.llvm.org/llvm.sh \
  && sudo mv buildifier /usr/local/bin \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-COPY --chown=$USER:$USER ./.vscode/settings-cpp.json /home/$USER/.local/share/code-server/User/settings.json
+COPY --chown=$USER:$USER ./.vscode/settings-cpp.json $XDG_DATA_HOME/code-server/User/settings.json
+
 RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
  && code-server --install-extension xaver.clang-format \
  # && code-server --install-extension notskm.clang-tidy \

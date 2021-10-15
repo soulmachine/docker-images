@@ -15,6 +15,7 @@ RUN mkdir -p ~/.local/bin \
  && curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer-linux \
  && chmod +x ~/.local/bin/rust-analyzer-linux
 
-COPY --chown=$USER:$USER ./.vscode/settings-rust.json /home/$USER/.local/share/code-server/User/settings.json
+COPY --chown=$USER:$USER ./.vscode/settings-rust.json $XDG_DATA_HOME/code-server/User/settings.json
+
 RUN code-server --install-extension matklad.rust-analyzer \
  && code-server --install-extension TabNine.tabnine-vscode # GitHub.copilot

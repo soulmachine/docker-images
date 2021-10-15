@@ -1,6 +1,5 @@
 FROM soulmachine/code-server:base
 
-# Install Anaconda3
 ENV CONDA_HOME="/opt/conda"
 ENV PATH="${CONDA_HOME}/bin:${PATH}"
 
@@ -27,8 +26,9 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
  && find $CONDA_HOME -follow -type f -name '*.js.map' -delete \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-COPY --chown=$USER:$USER ./.vscode/settings-python.json /home/$USER/.local/share/code-server/User/settings.json
-COPY ./.extensions/ms-python.vscode-pylance-2021.10.1.vsix /home/$USER/pylance.vsix
+COPY --chown=$USER:$USER ./.vscode/settings-python.json $XDG_DATA_HOME/code-server/User/settings.json
+
+COPY ./.extensions/ms-python.vscode-pylance-2021.10.1.vsix pylance.vsix
 RUN code-server --install-extension ms-python.python \
  && code-server --install-extension pylance.vsix \
  && rm pylance.vsix \

@@ -2,3 +2,4 @@ bind-addr: 0.0.0.0:8080
 auth: password
 password: passw0rd
 cert: false
+user-data-dir: /data/.local/share/code-server

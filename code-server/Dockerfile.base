@@ -37,6 +37,16 @@ RUN adduser --gecos '' --disabled-password $USERNAME && \
 RUN VERSION="3.12.0" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
  && dpkg -i code-server_"$VERSION"_amd64.deb && rm code-server_"$VERSION"_amd64.deb
 
+# Configure code-server
+ENV XDG_CONFIG_HOME="/data/.config"
+ENV XDG_DATA_HOME="/data/.local/share"
+ENV CODE_SERVER_CONFIG="$XDG_CONFIG_HOME/code-server/config.yaml"
+RUN mkdir -p $XDG_CONFIG_HOME/code-server \
+ && mkdir -p $XDG_DATA_HOME/code-server \
+ && chown -R $USERNAME:$USERNAME $XDG_CONFIG_HOME \
+ && chown -R $USERNAME:$USERNAME $XDG_DATA_HOME
+COPY --chown=$USERNAME:$USERNAME config.yaml $XDG_CONFIG_HOME/code-server/config.yaml
+
 # Install fixuid
 RUN ARCH="$(dpkg --print-architecture)" && \
     curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5.1/fixuid-0.5.1-linux-$ARCH.tar.gz | tar -C /usr/local/bin -xzf - && \
@@ -47,12 +57,10 @@ RUN ARCH="$(dpkg --print-architecture)" && \
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
-COPY --chown=$USERNAME:$USERNAME config.yaml /home/$USERNAME/.config/code-server/config.yaml
-
 EXPOSE 8080
 
 USER $USERNAME:$USERNAME
 ENV USER $USERNAME
 WORKDIR /home/$USERNAME
 
-CMD ["/usr/bin/entrypoint.sh", "--bind-addr", "0.0.0.0:8080", "/project"]
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
