@@ -26,26 +26,46 @@ docker run -d --name code-server-rust --init -u "$(id -u):$(id -g)" -p 8081:8080
 
 And open <http://localhost:8081> in browser, password is `passw0rd`.
 
+### For Python projects
+
+```bash
+# First, cd to the root directoty of your Python project
+docker run -d --name code-server-python --init -u "$(id -u):$(id -g)" -p 8082:8080 -v $(pwd):/project soulmachine/code-server:python
+```
+
+And open <http://localhost:8081> in browser, password is `passw0rd`.
+
+**If you're interested in what the container has done, continue reading.**
+
 ## Build
 
 ```bash
-docker build -t soulmachine/code-server:base -f Dockerfile.base .
+docker build -t soulmachine/code-server:base -f Dockerfile.base . --build-arg USERNAME=coder
 docker push soulmachine/code-server:base
 
-docker build -t soulmachine/code-server:cpp -f Dockerfile.cpp .
+docker build -t soulmachine/code-server:cpp -f Dockerfile.cpp . --build-arg LLVM_VERSION=14
 docker push soulmachine/code-server:cpp
 
 docker build -t soulmachine/code-server:rust -f Dockerfile.rust .
 docker push soulmachine/code-server:rust
+
+docker build -t soulmachine/code-server:python -f Dockerfile.python .
+docker push soulmachine/code-server:python
 ```
 
-If you're interested in what the container has done, keep reading.
+Each language should have the following 3 components:
+
+1. The language server.
+1. The linter.
+1. The formatter.
+
+Each component has a binary and a vscode extension.
 
 ## C++
 
 ### clangd
 
-I choose `clangd` as the language server and accordingly the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) plugin as the IDE. Because `vscode-clangd` is more accurate than the official `vscode-cpptools` plugin from Microsoft and uses less memory.
+Use `clangd` as the language server and accordingly the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) plugin as the IDE. Because `vscode-clangd` is more accurate than the official `vscode-cpptools` plugin from Microsoft and uses less memory.
 
 1. Install the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd)
 
@@ -92,7 +112,7 @@ I choose `clangd` as the language server and accordingly the [vscode-clangd](htt
 
 ### clang-format
 
-To use clang-format to auto format code,
+Use `clang-format` as the formatter to auto format code.
 
 1. Install clang-format on your host machine,
 
@@ -142,7 +162,7 @@ I prefer `lldb` over `gdb` for debugging because `lldb` is more accurate, and mo
 
 ### clang-tidy
 
-Use clang-tidy as the c++ linter.
+Use `clang-tidy` as the C++ linter.
 
 1. Install `clang-tidy`
 
@@ -184,6 +204,40 @@ Use clang-tidy as the c++ linter.
    "bazel.buildifierFixOnFormat": true,
    ```
 
+## Python
+
+### Install the official Python extension
+
+The [Python](https://marketplace.visualstudio.com/items?itemName=ms-python.python) extension will automatically install the Pylance and Jupyter extensions.
+
+- [ms-python.vscode-pylance](https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance) is the Python language server developed by Microsoft.
+- [ms-toolsai.jupyter](https://marketplace.visualstudio.com/items?itemName=ms-toolsai.jupyter) provides support for Jupyter notebooks.
+
+### pylint
+
+Use `pylint` as the linter.
+
+First, install pylint, `conda install pylint -c conda-forge` or `python3 -m pip install -U pylint`
+
+Second, add the following configurations to vscode `settings.json`:
+
+```json
+"python.linting.pylintEnabled": true,
+```
+
+### yapf
+
+Use `yapf` as the formatter.
+
+First, install yapf, `conda install yapf -c conda-forge` or `python3 -m pip install -U yapf`
+
+Second, add the following configurations to vscode `settings.json`:
+
+```json
+"python.formatting.provider": "yapf",
+"python.formatting.yapfArgs": ["--style", "{based_on_style: google}"],
+```
+
 ## Rust
 
 ### cargo
@@ -203,3 +257,5 @@ Use clang-tidy as the c++ linter.
 - <https://apt.llvm.org/>
 - <https://apt.llvm.org/llvm.sh>
 - <https://github.com/linuxserver/docker-code-server>
+- <https://code.visualstudio.com/docs/python/editing>
+- <https://code.visualstudio.com/docs/python/linting>

@@ -1,0 +1,33 @@
+FROM soulmachine/code-server:base
+
+# Install Anaconda3
+ENV CONDA_HOME="/opt/conda"
+ENV PATH="${CONDA_HOME}/bin:${PATH}"
+
+ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh"
+
+# Install Anaconda3
+RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
+    ca-certificates \
+    git \
+    wget \
+ && wget -q $INSTALLER_URL -O ~/installer.sh \
+ && sudo mkdir -p /opt && sudo chown $USER:$USER /opt \
+ && /bin/bash ~/installer.sh -b -p ${CONDA_HOME} \
+ && rm ~/installer.sh \
+ && sudo ln -s ${CONDA_HOME}/etc/profile.d/conda.sh /etc/profile.d/conda.sh \
+ && echo ". ${CONDA_HOME}/etc/profile.d/conda.sh" >> ~/.bashrc \
+ && echo "conda activate base" >> ~/.bashrc \
+ && conda update -y --all \
+ && conda install -y -c conda-forge \
+    pylint \
+    yapf \
+ && conda clean -afy \
+ && find $CONDA_HOME -follow -type f -name '*.a' -delete \
+ && find $CONDA_HOME -follow -type f -name '*.js.map' -delete \
+ && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
+
+COPY --chown=$USER:$USER ./.vscode/settings-python.json /home/$USER/.local/share/code-server/User/settings.json
+RUN code-server --install-extension ms-python.python \
+ && code-server --install-extension ms-toolsai.jupyter \
+ && code-server --install-extension TabNine.tabnine-vscode # GitHub.copilot
