@@ -6,6 +6,9 @@
   "bazel.buildifierFixOnFormat": true,
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
+  "files.associations": {
+    "*.json": "jsonc"
+  },
   "files.autoSave": "onFocusChange",
   "files.autoSaveDelay": 1000,
   "files.exclude": {

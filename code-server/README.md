@@ -259,3 +259,4 @@ Second, add the following configurations to vscode `settings.json`:
 - <https://github.com/linuxserver/docker-code-server>
 - <https://code.visualstudio.com/docs/python/editing>
 - <https://code.visualstudio.com/docs/python/linting>
+- <https://code.visualstudio.com/docs/languages/json>
