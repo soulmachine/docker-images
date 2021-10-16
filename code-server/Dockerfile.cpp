@@ -24,7 +24,7 @@ COPY --chown=$USER:$USER ./.vscode/settings-cpp.json $XDG_DATA_HOME/code-server/
 RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
  && code-server --install-extension xaver.clang-format \
  # && code-server --install-extension notskm.clang-tidy \
- && wget https://github.com/notskm/vscode-clang-tidy/releases/download/v0.5.1/clang-tidy-0.5.1.vsix \
+ && wget --waitretry 15 --tries 5 --no-verbose https://github.com/notskm/vscode-clang-tidy/releases/download/v0.5.1/clang-tidy-0.5.1.vsix \
  && code-server --install-extension clang-tidy-0.5.1.vsix \
  && rm clang-tidy-0.5.1.vsix \
  && code-server --install-extension vadimcn.vscode-lldb \

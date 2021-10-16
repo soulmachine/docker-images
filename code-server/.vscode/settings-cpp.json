@@ -24,12 +24,7 @@
   "C_Cpp.intelliSenseEngine": "Disabled",
   "C_Cpp.autocomplete": "Disabled",
   "C_Cpp.errorSquiggles": "Disabled",
-  "clangd.arguments": [
-    "-log=verbose",
-    "-pretty",
-    "--background-index",
-    "--compile-commands-dir=."
-  ],
+  "clangd.arguments": ["--background-index", "--compile-commands-dir=."],
   "terminal.integrated.defaultProfile.linux": "bash",
   "terminal.integrated.profiles.linux": {
     "bash": {

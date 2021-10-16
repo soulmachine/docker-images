@@ -12,7 +12,7 @@ Then open the root directory using this docker image,
 
 ```bash
 # First, cd to the root directoty of your C++ project
-docker run -d --name code-server-cpp --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp
+docker run -d --name code-server-cpp --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp /project
 ```
 
 And open <http://localhost:8080> in browser, password is `passw0rd`.
@@ -21,7 +21,7 @@ And open <http://localhost:8080> in browser, password is `passw0rd`.
 
 ```bash
 # First, cd to the root directoty of your Rust project
-docker run -d --name code-server-rust --init -u "$(id -u):$(id -g)" -p 8081:8080 -v $(pwd):/project soulmachine/code-server:rust
+docker run -d --name code-server-rust --init -u "$(id -u):$(id -g)" -p 8081:8080 -v $(pwd):/project soulmachine/code-server:rust /project
 ```
 
 And open <http://localhost:8081> in browser, password is `passw0rd`.
@@ -30,7 +30,7 @@ And open <http://localhost:8081> in browser, password is `passw0rd`.
 
 ```bash
 # First, cd to the root directoty of your Python project
-docker run -d --name code-server-python --init -u "$(id -u):$(id -g)" -p 8082:8080 -v $(pwd):/project soulmachine/code-server:python
+docker run -d --name code-server-python --init -u "$(id -u):$(id -g)" -p 8082:8080 -v $(pwd):/project soulmachine/code-server:python /project
 ```
 
 And open <http://localhost:8081> in browser, password is `passw0rd`.
@@ -260,3 +260,4 @@ Second, add the following configurations to vscode `settings.json`:
 - <https://code.visualstudio.com/docs/python/editing>
 - <https://code.visualstudio.com/docs/python/linting>
 - <https://code.visualstudio.com/docs/languages/json>
+- <https://github.com/cdr/code-server/blob/main/docs/FAQ.md>

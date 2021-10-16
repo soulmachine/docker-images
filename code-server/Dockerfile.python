@@ -28,8 +28,10 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
 
 COPY --chown=$USER:$USER ./.vscode/settings-python.json $XDG_DATA_HOME/code-server/User/settings.json
 
-COPY ./.extensions/ms-python.vscode-pylance-2021.10.1.vsix pylance.vsix
 RUN code-server --install-extension ms-python.python \
- && code-server --install-extension pylance.vsix \
- && rm pylance.vsix \
+ && curl -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/vscode-pylance/2021.10.1/vspackage \
+ && mv ms-python.vscode-pylance-2021.10.1.vsix ms-python.vscode-pylance-2021.10.1.vsix.gz \
+ && gzip -d ms-python.vscode-pylance-2021.10.1.vsix.gz \
+ && code-server --install-extension ms-python.vscode-pylance-2021.10.1.vsix \
+ && rm ms-python.vscode-pylance-2021.10.1.vsix \
  && code-server --install-extension TabNine.tabnine-vscode # GitHub.copilot
