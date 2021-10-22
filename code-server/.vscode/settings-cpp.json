@@ -1,5 +1,4 @@
 {
-  "breadcrumbs.enabled": true,
   "editor.defaultFormatter": "xaver.clang-format",
   "clang-format.fallbackStyle": "Google",
   "clang-format.style": "file",

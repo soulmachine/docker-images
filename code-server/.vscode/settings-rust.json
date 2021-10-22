@@ -1,5 +1,4 @@
 {
-  "breadcrumbs.enabled": true,
   "editor.codeActionsOnSave": {
     "source.organizeImports": true
   },
