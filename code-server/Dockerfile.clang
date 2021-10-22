@@ -19,7 +19,7 @@ RUN wget https://apt.llvm.org/llvm.sh \
  && sudo mv buildifier /usr/local/bin \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-COPY --chown=$USER:$USER ./.vscode/settings-cpp.json $XDG_DATA_HOME/code-server/User/settings.json
+COPY --chown=$USER:$USER ./.vscode/settings-clang.json $XDG_DATA_HOME/code-server/User/settings.json
 
 RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
  && code-server --install-extension xaver.clang-format \

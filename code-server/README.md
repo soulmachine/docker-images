@@ -43,8 +43,8 @@ And open <http://localhost:8081> in browser, password is `passw0rd`.
 docker build -t soulmachine/code-server:base -f Dockerfile.base . --build-arg USERNAME=coder
 docker push soulmachine/code-server:base
 
-docker build -t soulmachine/code-server:cpp -f Dockerfile.cpp . --build-arg LLVM_VERSION=14
-docker push soulmachine/code-server:cpp
+docker build -t soulmachine/code-server:clang -f Dockerfile.clang . --build-arg LLVM_VERSION=14
+docker push soulmachine/code-server:clang
 
 docker build -t soulmachine/code-server:rust -f Dockerfile.rust .
 docker push soulmachine/code-server:rust
