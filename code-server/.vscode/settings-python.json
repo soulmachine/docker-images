@@ -17,10 +17,6 @@
     "*.json": "jsonc"
   },
   "files.autoSave": "onFocusChange",
-  "files.autoSaveDelay": 1000,
-  "files.exclude": {
-    "node_modules/": true
-  },
   "files.trimFinalNewlines": true,
   "tabnine.experimentalAutoImports": true,
   "workbench.colorTheme": "Default Dark+",

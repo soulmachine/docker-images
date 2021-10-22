@@ -12,7 +12,12 @@ Then open the root directory using this docker image,
 
 ```bash
 # First, cd to the root directoty of your C++ project
+
+# use Microsoft ms-vscode.cpptools
 docker run -d --name code-server-cpp --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp /project
+
+# or use vscode-clangd
+docker run -d --name code-server-clang --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:clang /project
 ```
 
 And open <http://localhost:8080> in browser, password is `passw0rd`.
@@ -43,6 +48,9 @@ And open <http://localhost:8081> in browser, password is `passw0rd`.
 docker build -t soulmachine/code-server:base -f Dockerfile.base . --build-arg USERNAME=coder
 docker push soulmachine/code-server:base
 
+docker build -t soulmachine/code-server:cpp -f Dockerfile.cpp .
+docker push soulmachine/code-server:cpp
+
 docker build -t soulmachine/code-server:clang -f Dockerfile.clang . --build-arg LLVM_VERSION=14
 docker push soulmachine/code-server:clang
 
@@ -63,9 +71,13 @@ Each component has a binary and a vscode extension.
 
 ## C++
 
+There are two C++ language servers: [ms-vscode.cpptools](https://github.com/microsoft/vscode-cpptools) from Microsoft and [clangd](https://clangd.llvm.org/) from the llvm team.
+
+If your project uses cmake or runs on Windows, go for ms-vscode.cpptools; if your project uses bazel, go for clangd.
+
 ### clangd
 
-Use `clangd` as the language server and accordingly the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) plugin as the IDE. Because `vscode-clangd` is more accurate than the official `vscode-cpptools` plugin from Microsoft and uses less memory.
+Use `clangd` as the language server and accordingly the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) plugin as the IDE. Because `vscode-clangd` is more accurate than the official `ms-vscode.cpptools` plugin from Microsoft and uses less memory.
 
 1. Install the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd)
 
@@ -90,9 +102,9 @@ Use `clangd` as the language server and accordingly the [vscode-clangd](https://
    "clangd.arguments": ["-log=verbose", "-pretty", "--background-index", "--compile-commands-dir=."],
    ```
 
-4. Disable `vscode-cpptools`
+4. Disable `ms-vscode.cpptools`
 
-   Make sure uninstall the `vscode-cpptools` plugin and add the following configuratons to `settings.json`:
+   Make sure uninstall the `ms-vscode.cpptools` plugin and add the following configuratons to `settings.json`:
 
    ```json
    "C_Cpp.intelliSenseEngine": "Disabled",
@@ -175,6 +187,17 @@ Use `clang-tidy` as the C++ linter.
    ```
 
 2. Install the [notskm.clang-tidy](https://marketplace.visualstudio.com/items?itemName=notskm.clang-tidy) plugin
+
+### ms-vscode.cpptools
+
+Install the following extensions:
+
+- [ms-vscode.cpptools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+- [ms-vscode.cpptools-themes](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-themes)
+- [twxs.cmake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake)
+- [ms-vscode.cmake-tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
+- [cschlosser.doxdocgen](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen)
+- [jeff-hykin.better-cpp-syntax](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.better-cpp-syntax)
 
 ### Bazel
 
@@ -261,3 +284,4 @@ Second, add the following configurations to vscode `settings.json`:
 - <https://code.visualstudio.com/docs/python/linting>
 - <https://code.visualstudio.com/docs/languages/json>
 - <https://github.com/cdr/code-server/blob/main/docs/FAQ.md>
+- <https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack>

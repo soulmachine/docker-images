@@ -9,7 +9,6 @@
     "*.json": "jsonc"
   },
   "files.autoSave": "onFocusChange",
-  "files.autoSaveDelay": 1000,
   "files.exclude": {
     "bazel-bin/": true,
     "bazel-gibraltar": true,

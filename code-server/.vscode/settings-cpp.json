@@ -1,18 +1,12 @@
 {
-  "editor.codeActionsOnSave": {
-    "source.organizeImports": true
-  },
+  "cmake.configureOnOpen": true,
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
-  "editor.tabSize": 2,
   "files.associations": {
     "*.json": "jsonc"
   },
   "files.autoSave": "onFocusChange",
   "files.trimFinalNewlines": true,
-  "rust-analyzer.server.path": "~/.local/bin/rust-analyzer-linux",
-  "rust-analyzer.updates.askBeforeDownload": false,
-  "tabnine.experimentalAutoImports": true,
   "workbench.colorTheme": "Default Dark+",
   "workbench.editor.highlightModifiedTabs": true
 }
