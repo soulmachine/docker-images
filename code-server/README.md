@@ -71,13 +71,19 @@ Each component has a binary and a vscode extension.
 
 ## C++
 
-There are two C++ language servers: [ms-vscode.cpptools](https://github.com/microsoft/vscode-cpptools) from Microsoft and [clangd](https://clangd.llvm.org/) from the llvm team.
+### 1. Language Server
+
+There are two popular C++ language servers: [ms-vscode.cpptools](https://github.com/microsoft/vscode-cpptools) from Microsoft and [clangd](https://clangd.llvm.org/) from the LLVM team.
+
+The `Dockerfile.clang` chooses `clangd` as the language server and `Dockerfile.cpp` chooses `ms-vscode.cpptools` as the language server.
 
 If your project uses cmake or runs on Windows, go for ms-vscode.cpptools; if your project uses bazel, go for clangd.
 
-### clangd
+### ms-vscode.cpptools
 
-Use `clangd` as the language server and accordingly the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd) plugin as the IDE. Because `vscode-clangd` is more accurate than the official `ms-vscode.cpptools` plugin from Microsoft and uses less memory.
+- [ms-vscode.cpptools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
+
+### clangd
 
 1. Install the [vscode-clangd](https://marketplace.visualstudio.com/items?itemName=llvm-vs-code-extensions.vscode-clangd)
 
@@ -122,7 +128,23 @@ Use `clangd` as the language server and accordingly the [vscode-clangd](https://
 
    `compile_commands.json` will be written to your build directory.
 
-### clang-format
+### 2. Linter
+
+Use `clang-tidy` as the C++ linter.
+
+1. Install `clang-tidy`
+
+   ```bash
+   # on Ubuntu
+   sudo apt install clang-tidy-14
+   sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-14 100
+   # on macOS
+   brew install llvm
+   ```
+
+2. Install the [notskm.clang-tidy](https://marketplace.visualstudio.com/items?itemName=notskm.clang-tidy) plugin
+
+### 3. Formatter
 
 Use `clang-format` as the formatter to auto format code.
 
@@ -155,7 +177,61 @@ Use `clang-format` as the formatter to auto format code.
    "clang-format.style": "file",
    ```
 
-### lldb
+### 4. Build Tool
+
+#### CMake
+
+CMake is a popular build tool similar to bazel.
+
+First, `sudo apt install make cmake`
+
+Second, install the [ms-vscode.cmake-tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) extension and the - [twxs.cmake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake) extension.
+
+#### Bazel
+
+1. Install bazel
+
+    ```bash
+    wget https://github.com/bazelbuild/bazel/releases/download/4.2.1/bazel-4.2.1-installer-linux-x86_64.sh \
+    chmod +x bazel-4.2.1-installer-linux-x86_64.sh \
+    sudo ./bazel-4.2.1-installer-linux-x86_64.sh
+    ```
+
+2. Install the [vscode-bazel plugin](https://marketplace.visualstudio.com/items?itemName=BazelBuild.vscode-bazel)
+
+3. Install `buildifier` on your host,
+
+   ```bash
+   wget https://github.com/bazelbuild/buildtools/releases/download/4.2.2/buildifier
+   chmod +x buildifier
+   sudo mv buildifier /usr/local/bin
+   ```
+
+4. Add the following confings to vscode `settings.json`:
+
+   ```json
+   "[bazel]": {
+    "editor.defaultFormatter": "BazelBuild.vscode-bazel"
+   },
+   "bazel.buildifierFixOnFormat": true,
+   ```
+
+### 5. Dependency Manager
+
+In C++ world there is no dependency manager for decades, while `maven` tool in Java world has existed for years, sad!
+
+Fortunately, [vcpkg](https://vcpkg.io) from Microsoft is becoming popular.
+
+Install vcpkg:
+
+```bash
+git clone https://github.com/Microsoft/vcpkg.git
+./vcpkg/bootstrap-vcpkg.sh
+```
+
+### 6. Debugger
+
+lldb is a debugger similar to gdb.
 
 I prefer `lldb` over `gdb` for debugging because `lldb` is more accurate, and most of time my C++ code runs on Linux only, Windows is irrelevant.
 
@@ -172,60 +248,11 @@ I prefer `lldb` over `gdb` for debugging because `lldb` is more accurate, and mo
 
 2. Install the [vscode-lldb](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) plugin
 
-### clang-tidy
+### 7. Other utility tools
 
-Use `clang-tidy` as the C++ linter.
-
-1. Install `clang-tidy`
-
-   ```bash
-   # on Ubuntu
-   sudo apt install clang-tidy-14
-   sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-14 100
-   # on macOS
-   brew install llvm
-   ```
-
-2. Install the [notskm.clang-tidy](https://marketplace.visualstudio.com/items?itemName=notskm.clang-tidy) plugin
-
-### ms-vscode.cpptools
-
-Install the following extensions:
-
-- [ms-vscode.cpptools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
 - [ms-vscode.cpptools-themes](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-themes)
-- [twxs.cmake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake)
-- [ms-vscode.cmake-tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
 - [cschlosser.doxdocgen](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen)
 - [jeff-hykin.better-cpp-syntax](https://marketplace.visualstudio.com/items?itemName=jeff-hykin.better-cpp-syntax)
-
-### Bazel
-
-### buildifier
-
-1. Install `buildifier` on your host,
-
-   ```bash
-   # on macOS
-   wget https://github.com/bazelbuild/buildtools/releases/download/4.2.2/buildifier-linux-amd64
-   mv buildifier-linux-amd64 buildifier
-   chmod +x buildifier
-   mv buildifier /usr/local/bin
-   # on Ubuntu
-   wget https://github.com/bazelbuild/buildtools/releases/download/4.2.2/buildifier
-   chmod +x buildifier
-   sudo mv buildifier /usr/local/bin
-   ```
-
-2. Install the [vscode-bazel plugin](https://marketplace.visualstudio.com/items?itemName=BazelBuild.vscode-bazel)
-3. Add the following confings to vscode `settings.json`:
-
-   ```json
-   "[bazel]": {
-    "editor.defaultFormatter": "BazelBuild.vscode-bazel"
-   },
-   "bazel.buildifierFixOnFormat": true,
-   ```
 
 ## Python
 
@@ -285,3 +312,9 @@ Second, add the following configurations to vscode `settings.json`:
 - <https://code.visualstudio.com/docs/languages/json>
 - <https://github.com/cdr/code-server/blob/main/docs/FAQ.md>
 - <https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-extension-pack>
+- <https://code.visualstudio.com/docs/cpp/customize-default-settings-cpp>
+- <https://github.com/microsoft/vscode-cpptools/blob/main/Extension/c_cpp_properties.schema.json>
+- <https://github.com/microsoft/vscode/blob/main/src/vs/workbench/browser/workbench.contribution.ts>
+- <https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference>
+- <https://libcxx.llvm.org>
+- <https://vcpkg.io/en/getting-started.html>

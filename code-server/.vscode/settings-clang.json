@@ -1,34 +1,23 @@
 {
-  "editor.defaultFormatter": "xaver.clang-format",
-  "clang-format.fallbackStyle": "Google",
-  "clang-format.style": "file",
-  "bazel.buildifierFixOnFormat": true,
-  "editor.formatOnSave": true,
-  "editor.tabSize": 2,
-  "files.associations": {
-    "*.json": "jsonc"
-  },
-  "files.autoSave": "onFocusChange",
-  "files.exclude": {
-    "bazel-bin/": true,
-    "bazel-gibraltar": true,
-    "bazel-out/": true,
-    "bazel-testlogs": true
-  },
-  "files.trimFinalNewlines": true,
-  "workbench.colorTheme": "Default Dark+",
-  "workbench.editor.highlightModifiedTabs": true,
-  "editor.inlineSuggest.enabled": true,
-  "C_Cpp.intelliSenseEngine": "Disabled",
-  "C_Cpp.autocomplete": "Disabled",
-  "C_Cpp.errorSquiggles": "Disabled",
-  "clangd.arguments": ["--background-index", "--compile-commands-dir=."],
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "terminal.integrated.profiles.linux": {
-    "bash": {
-      "path": "bash",
-      "args": ["--rcfile", "/tmp/workflow/.bashrc"]
-    }
-  },
-  "cmake.configureOnOpen": false
+	"C_Cpp.autocomplete": "Disabled",
+	"C_Cpp.errorSquiggles": "Disabled",
+	"C_Cpp.intelliSenseEngine": "Disabled",
+	"bazel.buildifierFixOnFormat": true,
+	"clang-format.fallbackStyle": "Google",
+	"clang-format.style": "file",
+	"clangd.arguments": [
+		"--background-index",
+		"--compile-commands-dir=."
+	],
+	"cmake.configureOnOpen": true,
+	"editor.defaultFormatter": "xaver.clang-format",
+	"editor.formatOnSave": true,
+	"editor.inlineSuggest.enabled": true,
+	"files.associations": {
+		"*.json": "jsonc"
+	},
+	"files.autoSave": "onFocusChange",
+	"files.trimFinalNewlines": true,
+	"workbench.colorTheme": "Visual Studio Dark - C++",
+	"workbench.editor.highlightModifiedTabs": true
 }

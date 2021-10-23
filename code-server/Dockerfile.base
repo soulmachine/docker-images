@@ -12,15 +12,26 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
     git \
     gpg \
     gpg-agent \
+    htop \
+    iputils-ping \
     locales \
     lsb-release \
     man \
+    net-tools \
     openssh-client \
     pkg-config \
     procps \
+    socat \
     software-properties-common \
     sudo \
+    sysstat \
+    tar \
+    tmux \
+    tcpdump \
+    tree \
+    unzip \
     wget \
+    zip \
  && apt -qy autoremove && apt clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 # https://wiki.debian.org/Locale#Manually

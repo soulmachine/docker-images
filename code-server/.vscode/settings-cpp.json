@@ -1,12 +1,20 @@
 {
-  "cmake.configureOnOpen": true,
-  "editor.formatOnSave": true,
-  "editor.inlineSuggest.enabled": true,
-  "files.associations": {
-    "*.json": "jsonc"
-  },
-  "files.autoSave": "onFocusChange",
-  "files.trimFinalNewlines": true,
-  "workbench.colorTheme": "Default Dark+",
-  "workbench.editor.highlightModifiedTabs": true
+	"C_Cpp.default.cStandard": "c17",
+	"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
+	"C_Cpp.default.cppStandard": "c++20",
+	"C_Cpp.default.intelliSenseMode": "linux-clang-x64",
+	"bazel.buildifierFixOnFormat": true,
+	"clang-format.fallbackStyle": "Google",
+	"clang-format.style": "file",
+	"cmake.configureOnOpen": true,
+	"editor.defaultFormatter": "xaver.clang-format",
+	"editor.formatOnSave": true,
+	"editor.inlineSuggest.enabled": true,
+	"files.associations": {
+		"*.json": "jsonc"
+	},
+	"files.autoSave": "onFocusChange",
+	"files.trimFinalNewlines": true,
+	"workbench.colorTheme": "Visual Studio Dark - C++",
+	"workbench.editor.highlightModifiedTabs": true
 }
