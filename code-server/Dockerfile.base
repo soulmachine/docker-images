@@ -1,4 +1,5 @@
-FROM debian:stable-slim
+# FROM debian:stable-slim
+FROM ubuntu:hirsute
 
 # References:
 # https://github.com/cdr/code-server/blob/main/ci/release-image/Dockerfile
@@ -73,5 +74,9 @@ EXPOSE 8080
 USER $USERNAME
 ENV USER $USERNAME
 WORKDIR /home/$USERNAME
+
+RUN git config --global pull.rebase true \
+ && git config --global rebase.autoStash true \
+ && git config --global credential.helper store
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]

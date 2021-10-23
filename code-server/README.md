@@ -51,7 +51,7 @@ docker push soulmachine/code-server:base
 docker build -t soulmachine/code-server:cpp -f Dockerfile.cpp .
 docker push soulmachine/code-server:cpp
 
-docker build -t soulmachine/code-server:clang -f Dockerfile.clang . --build-arg LLVM_VERSION=14
+docker build -t soulmachine/code-server:clang -f Dockerfile.clang .
 docker push soulmachine/code-server:clang
 
 docker build -t soulmachine/code-server:rust -f Dockerfile.rust .
@@ -318,3 +318,4 @@ Second, add the following configurations to vscode `settings.json`:
 - <https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference>
 - <https://libcxx.llvm.org>
 - <https://vcpkg.io/en/getting-started.html>
+- [disable IntelliSense when vscode-clangd is detected #4979](https://github.com/microsoft/vscode-cpptools/issues/4979)

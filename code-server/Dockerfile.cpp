@@ -6,34 +6,35 @@ ARG USERNAME=coder
 RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     cmake \
     make \
-    ninja-build
+    ninja-build \
+ && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-ARG LLVM_VERSION=14
+ARG LLVM_VERSION=12
 
 ENV CC=/usr/bin/clang
 ENV CXX=/usr/bin/clang++
 ENV CMAKE_EXPORT_COMPILE_COMMANDS=on
 
 RUN echo "Installing LLVM toolchain" \
- && wget https://apt.llvm.org/llvm.sh \
- && chmod +x llvm.sh \
- && sudo ./llvm.sh $LLVM_VERSION \
- && rm ./llvm.sh \
  && sudo apt -qy update && sudo apt -qy --no-install-recommends install \
+    clang-$LLVM_VERSION \
+    clangd-$LLVM_VERSION \
     clang-format-$LLVM_VERSION \
     clang-tidy-$LLVM_VERSION \
- && echo "Uninstalling clangd-$LLVM_VERSION because ms-vscode.cpptools has its own language server" \
- && sudo apt -qy remove --purge clangd-$LLVM_VERSION \
+    lldb-$LLVM_VERSION \
+    lld-$LLVM_VERSION \
  && sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$LLVM_VERSION 100 \
  && sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-$LLVM_VERSION 100 \
+ && sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-$LLVM_VERSION 100 \
  && sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-$LLVM_VERSION 100 \
  && sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-$LLVM_VERSION 100 \
  && sudo update-alternatives --install /usr/bin/lld lld /usr/bin/lld-$LLVM_VERSION 100 \
- && sudo update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-$LLVM_VERSION 100
+ && sudo update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-$LLVM_VERSION 100 \
+ && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
 # Install common C++ libraries
 RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
-    libstdc++-10-dev \
+    libstdc++-11-dev \
     libboost-dev \
     libgoogle-glog-dev \
     libgoogle-perftools-dev \
@@ -42,7 +43,8 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     liblzma-dev \
     libyaml-dev \
     zlib1g-dev \
-    libssl-dev
+    libssl-dev \
+ && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
 RUN echo "Installing bazel" \
  && wget https://github.com/bazelbuild/bazel/releases/download/4.2.1/bazel-4.2.1-installer-linux-x86_64.sh \
