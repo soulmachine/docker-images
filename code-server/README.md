@@ -4,41 +4,26 @@ This docker image is an out-of-the-box web-based vscode.
 
 ## How to use
 
-### For C++ projects
-
-First, generate a `compile_commands.json` file at the root directory of your C++ project.
-
-Then open the root directory using this docker image,
+Given a C++ project on local disk, you can open this project by running:
 
 ```bash
-# First, cd to the root directoty of your C++ project
-
-# use Microsoft ms-vscode.cpptools
-docker run -d --name code-server-cpp --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp /project
-
-# or use vscode-clangd
-docker run -d --name code-server-clang --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:clang /project
+docker run -d --name code-server --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp /project
 ```
 
-And open <http://localhost:8080> in browser, password is `passw0rd`.
+The command above mounts your local source code to `/project` in the container, and open `/project` in vscode. You can change `/project` to whatever path your prefer.
 
-### For Rust projects
+Use `docker logs -f code-server` to monitor the container, it will print the URL(default <http://localhost:8080>) and the password(default `passw0rd`) after a few seconds.
 
-```bash
-# First, cd to the root directoty of your Rust project
-docker run -d --name code-server-rust --init -u "$(id -u):$(id -g)" -p 8081:8080 -v $(pwd):/project soulmachine/code-server:rust /project
-```
+Open the URL in browser and enjoy!
 
-And open <http://localhost:8081> in browser, password is `passw0rd`.
+All available images:
 
-### For Python projects
-
-```bash
-# First, cd to the root directoty of your Python project
-docker run -d --name code-server-python --init -u "$(id -u):$(id -g)" -p 8082:8080 -v $(pwd):/project soulmachine/code-server:python /project
-```
-
-And open <http://localhost:8081> in browser, password is `passw0rd`.
+| Language | Docker Image                   |
+| -------- | ------------------------------ |
+| C++      | soulmachine/code-server:cpp    |
+| C++      | soulmachine/code-server:clang  |
+| Python   | soulmachine/code-server:python |
+| Rust     | soulmachine/code-server:rust   |
 
 **If you're interested in what the container has done, continue reading.**
 
@@ -46,7 +31,7 @@ And open <http://localhost:8081> in browser, password is `passw0rd`.
 
 ```bash
 docker build -t soulmachine/code-server:base -f Dockerfile.base . --build-arg USERNAME=coder
-docker push soulmachine/code-server:base
+docker build -t soulmachine/code-server:cpp-base -f Dockerfile.cpp-base .
 
 docker build -t soulmachine/code-server:cpp -f Dockerfile.cpp .
 docker push soulmachine/code-server:cpp
@@ -191,11 +176,11 @@ Second, install the [ms-vscode.cmake-tools](https://marketplace.visualstudio.com
 
 1. Install bazel
 
-    ```bash
-    wget https://github.com/bazelbuild/bazel/releases/download/4.2.1/bazel-4.2.1-installer-linux-x86_64.sh \
-    chmod +x bazel-4.2.1-installer-linux-x86_64.sh \
-    sudo ./bazel-4.2.1-installer-linux-x86_64.sh
-    ```
+   ```bash
+   wget https://github.com/bazelbuild/bazel/releases/download/4.2.1/bazel-4.2.1-installer-linux-x86_64.sh \
+   chmod +x bazel-4.2.1-installer-linux-x86_64.sh \
+   sudo ./bazel-4.2.1-installer-linux-x86_64.sh
+   ```
 
 2. Install the [vscode-bazel plugin](https://marketplace.visualstudio.com/items?itemName=BazelBuild.vscode-bazel)
 
@@ -216,20 +201,7 @@ Second, install the [ms-vscode.cmake-tools](https://marketplace.visualstudio.com
    "bazel.buildifierFixOnFormat": true,
    ```
 
-### 5. Dependency Manager
-
-In C++ world there is no dependency manager for decades, while `maven` tool in Java world has existed for years, sad!
-
-Fortunately, [vcpkg](https://vcpkg.io) from Microsoft is becoming popular.
-
-Install vcpkg:
-
-```bash
-git clone https://github.com/Microsoft/vcpkg.git
-./vcpkg/bootstrap-vcpkg.sh
-```
-
-### 6. Debugger
+### 5. Debugger
 
 lldb is a debugger similar to gdb.
 
@@ -248,7 +220,7 @@ I prefer `lldb` over `gdb` for debugging because `lldb` is more accurate, and mo
 
 2. Install the [vscode-lldb](https://marketplace.visualstudio.com/items?itemName=vadimcn.vscode-lldb) plugin
 
-### 7. Other utility tools
+### 6. Other utility tools
 
 - [ms-vscode.cpptools-themes](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools-themes)
 - [cschlosser.doxdocgen](https://marketplace.visualstudio.com/items?itemName=cschlosser.doxdocgen)
@@ -317,5 +289,10 @@ Second, add the following configurations to vscode `settings.json`:
 - <https://github.com/microsoft/vscode/blob/main/src/vs/workbench/browser/workbench.contribution.ts>
 - <https://code.visualstudio.com/docs/cpp/c-cpp-properties-schema-reference>
 - <https://libcxx.llvm.org>
-- <https://vcpkg.io/en/getting-started.html>
 - [disable IntelliSense when vscode-clangd is detected #4979](https://github.com/microsoft/vscode-cpptools/issues/4979)
+- [Allow building in different directories per build type #151](https://github.com/microsoft/vscode-cmake-tools/issues/151)
+- [[feature request] support for vscode-clangd #654](https://github.com/microsoft/vscode-cmake-tools/issues/654)
+- [Implement enhanced integration with clang-tidy #2908](https://github.com/microsoft/vscode-cpptools/issues/2908)
+- [Increase fs.inotify.max_user_watches in docker container #628](https://github.com/cdr/code-server/issues/628)
+- [CMake Kits](https://vector-of-bool.github.io/docs/vscode-cmake-tools/kits.html)
+- [CMAKE_GENERATOR](https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR.html)

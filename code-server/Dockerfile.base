@@ -31,6 +31,7 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
     tcpdump \
     tree \
     unzip \
+    vim-tiny \
     wget \
     zip \
  && apt -qy autoremove && apt clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
@@ -50,14 +51,12 @@ RUN VERSION="3.12.0" && curl -fOL https://github.com/cdr/code-server/releases/do
  && dpkg -i code-server_"$VERSION"_amd64.deb && rm code-server_"$VERSION"_amd64.deb
 
 # Configure code-server
-ENV XDG_CONFIG_HOME="/data/.config"
-ENV XDG_DATA_HOME="/data/.local/share"
-ENV CODE_SERVER_CONFIG="$XDG_CONFIG_HOME/code-server/config.yaml"
-RUN mkdir -p $XDG_CONFIG_HOME/code-server \
- && mkdir -p $XDG_DATA_HOME/code-server \
- && chown -R $USERNAME:$USERNAME $XDG_CONFIG_HOME \
- && chown -R $USERNAME:$USERNAME $XDG_DATA_HOME
-COPY --chown=$USERNAME:$USERNAME config.yaml $XDG_CONFIG_HOME/code-server/config.yaml
+ENV CODE_SERVER_CONFIG="/data/.config/code-server/config.yaml"
+RUN mkdir -p /data/.config/code-server \
+ && mkdir -p /data/.local/share/code-server \
+ && chown -R $USERNAME:$USERNAME /data
+
+COPY --chown=$USERNAME:$USERNAME config.yaml /data/.config/code-server/config.yaml
 
 # Install fixuid
 RUN ARCH="$(dpkg --print-architecture)" && \
@@ -65,7 +64,7 @@ RUN ARCH="$(dpkg --print-architecture)" && \
     chown root:root /usr/local/bin/fixuid && \
     chmod 4755 /usr/local/bin/fixuid && \
     mkdir -p /etc/fixuid && \
-    printf "user: $USERNAME\ngroup: $USERNAME\n" > /etc/fixuid/config.yml
+    printf "user: $USERNAME\ngroup: $USERNAME\npaths:\n  - /home/$USERNAME\n  - /data\n" > /etc/fixuid/config.yml
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 

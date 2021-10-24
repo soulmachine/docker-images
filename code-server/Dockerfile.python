@@ -26,7 +26,7 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
  && find $CONDA_HOME -follow -type f -name '*.js.map' -delete \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-COPY --chown=$USER:$USER ./.vscode/settings-python.json $XDG_DATA_HOME/code-server/User/settings.json
+COPY --chown=$USER:$USER ./.vscode/settings-python.json /data/.local/share/code-server/User/settings.json
 
 RUN code-server --install-extension ms-python.python \
  && curl --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/vscode-pylance/2021.10.2/vspackage \
