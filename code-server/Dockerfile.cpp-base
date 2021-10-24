@@ -40,17 +40,6 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     libssl-dev \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-RUN echo "Installing bazel" \
- && wget https://github.com/bazelbuild/bazel/releases/download/4.2.1/bazel-4.2.1-installer-linux-x86_64.sh \
- && chmod +x bazel-4.2.1-installer-linux-x86_64.sh \
- && sudo ./bazel-4.2.1-installer-linux-x86_64.sh \
- && rm ./bazel-4.2.1-installer-linux-x86_64.sh \
- && echo "Installing buildifier" \
- && wget https://github.com/bazelbuild/buildtools/releases/download/4.2.2/buildifier \
- && chmod +x buildifier \
- && sudo mv buildifier /usr/local/bin \
- && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
-
 COPY --chown=$USER:$USER ./extensions/ms-vscode.cpptools-themes-1.0.0.vsix /tmp/
 COPY --chown=$USER:$USER ./extensions/jeff-hykin.better-cpp-syntax-1.15.10.vsix /tmp/
 
@@ -63,7 +52,6 @@ RUN echo "Install vscode extensions" \
  && code-server --install-extension vadimcn.vscode-lldb \
  && code-server --install-extension twxs.cmake \
  && code-server --install-extension ms-vscode.cmake-tools \
- && code-server --install-extension BazelBuild.vscode-bazel \
  && code-server --install-extension /tmp/ms-vscode.cpptools-themes-1.0.0.vsix \
  && rm /tmp/ms-vscode.cpptools-themes-1.0.0.vsix \
  && code-server --install-extension cschlosser.doxdocgen \
@@ -74,4 +62,4 @@ RUN echo "Install vscode extensions" \
 ENV CC=/usr/bin/clang
 ENV CXX=/usr/bin/clang++
 ENV LD=/usr/bin/lld
-ENV CMAKE_EXPORT_COMPILE_COMMANDS=on
+ENV CMAKE_EXPORT_COMPILE_COMMANDS=TRUE

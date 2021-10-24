@@ -3,7 +3,6 @@
 	"C_Cpp.default.configurationProvider": "ms-vscode.cmake-tools",
 	"C_Cpp.default.cppStandard": "c++20",
 	"C_Cpp.default.intelliSenseMode": "linux-clang-x64",
-	"bazel.buildifierFixOnFormat": true,
 	"clang-format.fallbackStyle": "Google",
 	"clang-format.style": "file",
 	"cmake.configureOnOpen": true,

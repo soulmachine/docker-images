@@ -172,35 +172,6 @@ First, `sudo apt install make cmake`
 
 Second, install the [ms-vscode.cmake-tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools) extension and the - [twxs.cmake](https://marketplace.visualstudio.com/items?itemName=twxs.cmake) extension.
 
-#### Bazel
-
-1. Install bazel
-
-   ```bash
-   wget https://github.com/bazelbuild/bazel/releases/download/4.2.1/bazel-4.2.1-installer-linux-x86_64.sh \
-   chmod +x bazel-4.2.1-installer-linux-x86_64.sh \
-   sudo ./bazel-4.2.1-installer-linux-x86_64.sh
-   ```
-
-2. Install the [vscode-bazel plugin](https://marketplace.visualstudio.com/items?itemName=BazelBuild.vscode-bazel)
-
-3. Install `buildifier` on your host,
-
-   ```bash
-   wget https://github.com/bazelbuild/buildtools/releases/download/4.2.2/buildifier
-   chmod +x buildifier
-   sudo mv buildifier /usr/local/bin
-   ```
-
-4. Add the following confings to vscode `settings.json`:
-
-   ```json
-   "[bazel]": {
-    "editor.defaultFormatter": "BazelBuild.vscode-bazel"
-   },
-   "bazel.buildifierFixOnFormat": true,
-   ```
-
 ### 5. Debugger
 
 lldb is a debugger similar to gdb.
@@ -296,3 +267,4 @@ Second, add the following configurations to vscode `settings.json`:
 - [Increase fs.inotify.max_user_watches in docker container #628](https://github.com/cdr/code-server/issues/628)
 - [CMake Kits](https://vector-of-bool.github.io/docs/vscode-cmake-tools/kits.html)
 - [CMAKE_GENERATOR](https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR.html)
+- [cmake-presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html)

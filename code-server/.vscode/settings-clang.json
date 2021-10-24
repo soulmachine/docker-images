@@ -2,7 +2,6 @@
 	"C_Cpp.autocomplete": "Disabled",
 	"C_Cpp.errorSquiggles": "Disabled",
 	"C_Cpp.intelliSenseEngine": "Disabled",
-	"bazel.buildifierFixOnFormat": true,
 	"clang-format.fallbackStyle": "Google",
 	"clang-format.style": "file",
 	"clangd.arguments": [
