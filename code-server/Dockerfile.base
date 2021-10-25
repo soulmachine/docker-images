@@ -83,7 +83,14 @@ RUN git config --global pull.rebase true \
 RUN echo "Install common vscode extensions" \
 #  && code-server --install-extension yzhang.markdown-all-in-one \
 #  && code-server --install-extension DavidAnson.vscode-markdownlint \
+ && curl --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/redhat/vsextensions/vscode-commons/0.0.6/vspackage \
+ && mv redhat.vscode-commons-0.0.6.vsix redhat.vscode-commons-0.0.6.vsix.gz \
+ && gzip -d redhat.vscode-commons-0.0.6.vsix.gz \
+ && code-server --install-extension redhat.vscode-commons-0.0.6.vsix \
+ && rm redhat.vscode-commons-0.0.6.vsix \
+ && code-server --install-extension redhat.vscode-xml \
  && code-server --install-extension redhat.vscode-yaml \
+ && code-server --install-extension redhat.fabric8-analytics \
  && code-server --install-extension mikestead.dotenv \
  && code-server --install-extension GitHub.vscode-pull-request-github \
 #  && code-server --install-extension /tmp/copilot-1.5.3378.com.vsix \

@@ -24,6 +24,7 @@ All available images:
 | C++      | soulmachine/code-server:clang  |
 | Python   | soulmachine/code-server:python |
 | Rust     | soulmachine/code-server:rust   |
+| Java     | soulmachine/code-server:java   |
 
 **If you're interested in what the container has done, continue reading.**
 
@@ -44,6 +45,9 @@ docker push soulmachine/code-server:rust
 
 docker build -t soulmachine/code-server:python -f Dockerfile.python .
 docker push soulmachine/code-server:python
+
+docker build -t soulmachine/code-server:java -f Dockerfile.java .
+docker push soulmachine/code-server:java
 ```
 
 Each language should have the following 3 components:
@@ -275,3 +279,6 @@ Second, add the following configurations to vscode `settings.json`:
 - [Github Copilot Support? #4363](https://github.com/cdr/code-server/discussions/4363)
 - [googletest/blob/master/.clang-format](https://github.com/google/googletest/blob/master/.clang-format)
 - [google-cloud-cpp/blob/main/.clang-tidy](https://github.com/googleapis/google-cloud-cpp/blob/main/.clang-tidy)
+- [Using VSCode with metals](https://docs.scala-lang.org/getting-started/index.html#using-vscode-with-metals)
+- <https://projectlombok.org/setup/vscode>
+- [vscode-maven-0.21.2: Cannot extract bundle symbolicName or version #2362](https://github.com/cdr/code-server/issues/2362)

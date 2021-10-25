@@ -12,13 +12,15 @@
   },
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
-  "editor.tabSize": 2,
   "files.associations": {
     "*.json": "jsonc"
   },
   "files.autoSave": "onFocusChange",
-  "files.trimFinalNewlines": true,
+  "files.exclude": {
+    "**/__pycache__": true
+  },
   "files.insertFinalNewline": true,
+  "files.trimFinalNewlines": true,
   "redhat.telemetry.enabled": true,
   "tabnine.experimentalAutoImports": true,
   "workbench.colorTheme": "Default Dark+",
