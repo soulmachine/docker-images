@@ -33,5 +33,4 @@ RUN code-server --install-extension ms-python.python \
  && mv ms-python.vscode-pylance-2021.10.2.vsix ms-python.vscode-pylance-2021.10.2.vsix.gz \
  && gzip -d ms-python.vscode-pylance-2021.10.2.vsix.gz \
  && code-server --install-extension ms-python.vscode-pylance-2021.10.2.vsix \
- && rm ms-python.vscode-pylance-2021.10.2.vsix \
- && code-server --install-extension TabNine.tabnine-vscode # GitHub.copilot
+ && rm ms-python.vscode-pylance-2021.10.2.vsix

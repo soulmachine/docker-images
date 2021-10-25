@@ -78,4 +78,16 @@ RUN git config --global pull.rebase true \
  && git config --global rebase.autoStash true \
  && git config --global credential.helper store
 
+# COPY --chown=$USER:$USER ./extensions/copilot-1.5.3378.com.vsix /tmp/
+
+RUN echo "Install common vscode extensions" \
+#  && code-server --install-extension yzhang.markdown-all-in-one \
+#  && code-server --install-extension DavidAnson.vscode-markdownlint \
+ && code-server --install-extension redhat.vscode-yaml \
+ && code-server --install-extension mikestead.dotenv \
+ && code-server --install-extension GitHub.vscode-pull-request-github \
+#  && code-server --install-extension /tmp/copilot-1.5.3378.com.vsix \
+#  && rm /tmp/copilot-1.5.3378.com.vsix \
+ && code-server --install-extension TabNine.tabnine-vscode
+
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]

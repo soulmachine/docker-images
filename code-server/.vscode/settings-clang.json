@@ -6,6 +6,7 @@
 	"clang-format.style": "file",
 	"clangd.arguments": [
 		"--clang-tidy",
+		"--clang-tidy-checks=-*,modernize*",
 		"--background-index",
 		"--compile-commands-dir=build"
 	],
@@ -20,6 +21,8 @@
 	},
 	"files.autoSave": "onFocusChange",
 	"files.trimFinalNewlines": true,
+	"redhat.telemetry.enabled": true,
+	"tabnine.experimentalAutoImports": true,
 	"workbench.colorTheme": "Visual Studio Dark - C++",
 	"workbench.editor.highlightModifiedTabs": true
 }
