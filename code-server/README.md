@@ -273,3 +273,5 @@ Second, add the following configurations to vscode `settings.json`:
 - [What’s the recommended way to setup vscode completion with mbed-tools?](https://forums.mbed.com/t/whats-the-recommended-way-to-setup-vscode-completion-with-mbed-tools/13295)
 - [markdown preview is not working #4101](https://github.com/cdr/code-server/issues/4101)
 - [Github Copilot Support? #4363](https://github.com/cdr/code-server/discussions/4363)
+- [googletest/blob/master/.clang-format](https://github.com/google/googletest/blob/master/.clang-format)
+- [google-cloud-cpp/blob/main/.clang-tidy](https://github.com/googleapis/google-cloud-cpp/blob/main/.clang-tidy)

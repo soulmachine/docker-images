@@ -15,6 +15,7 @@
 	},
 	"files.autoSave": "onFocusChange",
 	"files.trimFinalNewlines": true,
+	"files.insertFinalNewline": true,
 	"redhat.telemetry.enabled": true,
 	"tabnine.experimentalAutoImports": true,
 	"workbench.colorTheme": "Visual Studio Dark - C++",
