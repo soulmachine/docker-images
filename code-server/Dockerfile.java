@@ -28,9 +28,7 @@ ENV JAVA_HOME="/home/$USER/.sdkman/candidates/java/current"
 ENV PATH="$JAVA_HOME/bin:/home/$USER/.sdkman/candidates/scala/current/bin:/home/$USER/.sdkman/candidates/kotlin/current/bin:/home/$USER/.sdkman/candidates/maven/current/bin:/home/$USER/.sdkman/candidates/sbt/current/bin:/home/$USER/.sdkman/candidates/gradle/current/bin:/home/$USER/.sdkman/candidates/springboot/current/bin:$PATH"
 
 RUN code-server --install-extension vscjava.vscode-java-pack \
- && curl --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioExptTeam/vsextensions/vscodeintellicode/1.2.14/vspackage \
- && mv VisualStudioExptTeam.vscodeintellicode-1.2.14.vsix VisualStudioExptTeam.vscodeintellicode-1.2.14.vsix.gz \
- && gzip -d VisualStudioExptTeam.vscodeintellicode-1.2.14.vsix.gz \
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioExptTeam/vsextensions/vscodeintellicode/1.2.14/vspackage \
  && code-server --install-extension VisualStudioExptTeam.vscodeintellicode-1.2.14.vsix \
  && rm VisualStudioExptTeam.vscodeintellicode-1.2.14.vsix \
  && code-server --install-extension Pivotal.vscode-boot-dev-pack \
