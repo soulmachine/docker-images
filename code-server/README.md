@@ -268,3 +268,5 @@ Second, add the following configurations to vscode `settings.json`:
 - [CMake Kits](https://vector-of-bool.github.io/docs/vscode-cmake-tools/kits.html)
 - [CMAKE_GENERATOR](https://cmake.org/cmake/help/latest/variable/CMAKE_GENERATOR.html)
 - [cmake-presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html)
+- [vscode-clangd configuration](https://github.com/clangd/vscode-clangd/blob/master/package.json#L87)
+- [google-cloud-cpp/blob/main/.clang-tidy](https://github.com/googleapis/google-cloud-cpp/blob/main/.clang-tidy)

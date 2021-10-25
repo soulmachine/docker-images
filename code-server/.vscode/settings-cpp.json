@@ -5,6 +5,7 @@
 	"C_Cpp.default.intelliSenseMode": "linux-clang-x64",
 	"clang-format.fallbackStyle": "Google",
 	"clang-format.style": "file",
+	"clang-tidy.buildPath": "build",
 	"cmake.configureOnOpen": true,
 	"editor.defaultFormatter": "xaver.clang-format",
 	"editor.formatOnSave": true,

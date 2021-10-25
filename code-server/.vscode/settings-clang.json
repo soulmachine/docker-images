@@ -5,9 +5,12 @@
 	"clang-format.fallbackStyle": "Google",
 	"clang-format.style": "file",
 	"clangd.arguments": [
+		"--clang-tidy",
 		"--background-index",
-		"--compile-commands-dir=."
+		"--compile-commands-dir=build"
 	],
+	"clangd.checkUpdates": true,
+	"clang-tidy.buildPath": "build",
 	"cmake.configureOnOpen": true,
 	"editor.defaultFormatter": "xaver.clang-format",
 	"editor.formatOnSave": true,
