@@ -8,23 +8,22 @@ ENV PATH="${CONDA_HOME}/bin:${PATH}"
 
 ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh"
 
-# Install Anaconda3
 RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y \
  && apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
-    wget && \
+    wget \
+ && echo "Installing Anaconda3" && \
     wget -q $INSTALLER_URL -O ~/installer.sh && \
     /bin/bash ~/installer.sh -b -p ${CONDA_HOME} && \
     rm ~/installer.sh && \
     ln -s ${CONDA_HOME}/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". ${CONDA_HOME}/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc && \
-    conda update -y --all
-
-# Install JupyterLab and necessary plugins
-RUN conda install nodejs -y -c conda-forge --repodata-fn=repodata.json \
- && conda install -y -c conda-forge \
+    conda update -y --all \
+ && echo "Installing JupyterLab and necessary plugins" && \
+    conda install nodejs -y -c conda-forge --repodata-fn=repodata.json && \
+    conda install -y -c conda-forge \
     ipywidgets \
     jupyterlab \
     nbconvert \
@@ -48,13 +47,9 @@ RUN conda install nodejs -y -c conda-forge --repodata-fn=repodata.json \
     jupyter lab clean && \
     jlpm cache clean && \
     npm cache clean --force && \
-    nbdime config-git --enable --global
-
-# Configure JupyterLab
-COPY .jupyter/ /root/.jupyter
-
-# Install necessary libraries including pandas, numpy, scipy, etc.
-RUN conda install -y -c conda-forge \
+    nbdime config-git --enable --global \
+ && echo "Installing necessary python libraries" && \
+    conda install -y -c conda-forge \
     dask \
     matplotlib \
     numpy \
@@ -65,11 +60,12 @@ RUN conda install -y -c conda-forge \
     scipy \
     seaborn \
     statsmodels \
-    tqdm
-
-# Cleanup
-RUN conda update -y --all && conda clean -afy && \
+    tqdm \
+ && conda update -y --all && conda clean -afy && \
     apt-get autoremove && apt-get autoclean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+
+# Configure JupyterLab
+COPY .jupyter/ /root/.jupyter
 
 RUN mkdir /notebooks
 WORKDIR /notebooks
