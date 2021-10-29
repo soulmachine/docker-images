@@ -1,6 +1,6 @@
 # influxdb
 
-Added fixuid based on the official influxdb image.
+Run influxdb in a non-root user.
 
 ## How to use
 
