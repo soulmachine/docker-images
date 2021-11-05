@@ -7,6 +7,7 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
 ARG LLVM_VERSION=12
+ARG USERNAME=coder
 
 RUN echo "Installing LLVM toolchain" \
  && sudo apt -qy update && sudo apt -qy --no-install-recommends install \
@@ -23,6 +24,12 @@ RUN echo "Installing LLVM toolchain" \
  && sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-$LLVM_VERSION 100 \
  && sudo update-alternatives --install /usr/bin/lld lld /usr/bin/lld-$LLVM_VERSION 100 \
  && sudo update-alternatives --install /usr/bin/lldb lldb /usr/bin/lldb-$LLVM_VERSION 100 \
+ && sudo update-alternatives --install /usr/bin/cc cc /usr/bin/clang-$LLVM_VERSION 100 \
+ && sudo update-alternatives --install /usr/bin/c++ c++ /usr/bin/clang++-$LLVM_VERSION 100 \
+ && sudo update-alternatives --install /usr/bin/ld ld /usr/bin/lld-$LLVM_VERSION 100 \
+ && echo "Installing vcpkg" \
+ && git clone https://github.com/Microsoft/vcpkg.git \
+ && ./vcpkg/bootstrap-vcpkg.sh \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
 # Install common C++ libraries
@@ -62,3 +69,5 @@ ENV CC=/usr/bin/clang
 ENV CXX=/usr/bin/clang++
 ENV LD=/usr/bin/lld
 ENV CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
+ENV VCPKG_ROOT=/home/$USERNAME/vcpkg
+ENV CMAKE_TOOLCHAIN_FILE=/home/$USERNAME/vcpkg/scripts/buildsystems/vcpkg.cmake
