@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -eu
 
 echo "Starting container, please wait...(chown inside docker is slow)"

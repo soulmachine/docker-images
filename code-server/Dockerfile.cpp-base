@@ -30,6 +30,7 @@ RUN echo "Installing LLVM toolchain" \
  && echo "Installing vcpkg" \
  && git clone https://github.com/Microsoft/vcpkg.git \
  && ./vcpkg/bootstrap-vcpkg.sh \
+ && sudo ln -s /home/$USERNAME/vcpkg/vcpkg /usr/local/bin/vcpkg \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
 # Install common C++ libraries
