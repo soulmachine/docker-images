@@ -6,17 +6,17 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     make \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-ARG LLVM_VERSION=12
+ARG LLVM_VERSION=14
 ARG USERNAME=coder
 
 RUN echo "Installing LLVM toolchain" \
+ && wget https://apt.llvm.org/llvm.sh \
+ && chmod +x llvm.sh \
+ && sudo ./llvm.sh $LLVM_VERSION \
+ && rm ./llvm.sh \
  && sudo apt -qy update && sudo apt -qy --no-install-recommends install \
-    clang-$LLVM_VERSION \
-    clangd-$LLVM_VERSION \
     clang-format-$LLVM_VERSION \
     clang-tidy-$LLVM_VERSION \
-    lldb-$LLVM_VERSION \
-    lld-$LLVM_VERSION \
  && sudo update-alternatives --install /usr/bin/clang clang /usr/bin/clang-$LLVM_VERSION 100 \
  && sudo update-alternatives --install /usr/bin/clang++ clang++ /usr/bin/clang++-$LLVM_VERSION 100 \
  && sudo update-alternatives --install /usr/bin/clangd clangd /usr/bin/clangd-$LLVM_VERSION 100 \
@@ -34,16 +34,12 @@ RUN echo "Installing LLVM toolchain" \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
 # Install common C++ libraries
+# https://cmake.org/cmake/help/latest/manual/cmake-modules.7.html#find-modules
 RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
-    libstdc++-11-dev \
+    libstdc++-10-dev \
     libboost-dev \
-    libgoogle-glog-dev \
-    libgoogle-perftools-dev \
-    libgtest-dev \
-    liblmdb-dev \
     liblzma-dev \
     libunwind-dev \
-    libyaml-dev \
     zlib1g-dev \
     libssl-dev \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*

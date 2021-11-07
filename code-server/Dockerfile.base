@@ -1,5 +1,5 @@
 # FROM debian:stable-slim
-FROM ubuntu:hirsute
+FROM ubuntu:latest
 
 # References:
 # https://github.com/cdr/code-server/blob/main/ci/release-image/Dockerfile
