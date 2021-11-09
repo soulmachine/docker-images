@@ -14,9 +14,6 @@
 		"*.json": "jsonc"
 	},
 	"files.autoSave": "onFocusChange",
-	"files.exclude": {
-		"build/": true
-	},
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": true,
 	"redhat.telemetry.enabled": true,
