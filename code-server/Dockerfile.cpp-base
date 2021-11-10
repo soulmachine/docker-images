@@ -6,7 +6,8 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     make \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-ARG LLVM_VERSION=14
+# Available values: 10, 11, 12, 13, 14
+ARG LLVM_VERSION=13
 ARG USERNAME=coder
 
 RUN echo "Installing LLVM toolchain" \
@@ -38,6 +39,9 @@ RUN echo "Installing LLVM toolchain" \
 RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     libstdc++-10-dev \
     libboost-dev \
+    libgoogle-glog-dev \
+    libgoogle-perftools-dev \
+    libgtest-dev \
     liblzma-dev \
     libunwind-dev \
     zlib1g-dev \

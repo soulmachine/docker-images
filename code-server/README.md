@@ -7,7 +7,7 @@ This docker image is an out-of-the-box web-based vscode.
 Given a C++ project on local disk, you can open this project by running:
 
 ```bash
-docker run -d --name code-server --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp /project
+docker run -d --name code-server --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:cpp code-server /project
 ```
 
 The command above mounts your local source code to `/project` in the container, and open `/project` in vscode. You can change `/project` to whatever path your prefer.
