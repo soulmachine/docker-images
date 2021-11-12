@@ -1,0 +1,25 @@
+FROM soulmachine/code-server:cpp-base
+
+# References:
+# * https://github.com/google/sanitizers/wiki/MemorySanitizerLibcxxHowTo
+# * https://clang.llvm.org/docs/MemorySanitizer.html
+# * https://github.com/awslabs/amazon-kinesis-video-streams-webrtc-sdk-c/blob/master/.github/msan-tester.Dockerfile
+
+RUN sudo apt -qy update \
+ && echo -e '\033[92mInstalling libc++\033[0m' \
+ && sudo apt -qy autoremove --purge libstdc++-10-dev \
+ && sudo apt -qy --no-install-recommends install \
+    libc++-dev \
+    ninja-build \
+ && echo -e '\033[92mBuilding both libc++ and libc++abi with MSan\033[0m' \
+ && git clone --depth=1 https://github.com/llvm/llvm-project \
+ && cd ./llvm-project \
+ && mkdir build && cd build \
+ && cmake -GNinja ../llvm \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DLLVM_ENABLE_PROJECTS="libcxx;libcxxabi" \
+  -DCMAKE_C_COMPILER=clang \
+  -DCMAKE_CXX_COMPILER=clang++ \
+  -DLLVM_USE_SANITIZER=MemoryWithOrigins \
+ && cmake --build . -- cxx cxxabi \
+ && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
