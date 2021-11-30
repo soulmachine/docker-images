@@ -48,6 +48,8 @@ docker push soulmachine/code-server:python
 
 docker build -t soulmachine/code-server:java -f Dockerfile.java .
 docker push soulmachine/code-server:java
+
+docker build -t soulmachine/code-server:msan -f Dockerfile.msan .
 ```
 
 Each language should have the following 3 components:

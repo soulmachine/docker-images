@@ -39,6 +39,7 @@ RUN echo "Installing LLVM toolchain" \
 RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     libstdc++-10-dev \
     libboost-dev \
+    libgflags-dev \
     libgoogle-glog-dev \
     libgoogle-perftools-dev \
     libgtest-dev \

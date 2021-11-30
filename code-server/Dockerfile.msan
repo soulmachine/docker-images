@@ -11,6 +11,7 @@ RUN sudo apt -qy update \
  && sudo apt -qy --no-install-recommends install \
     libc++-dev \
     ninja-build \
+ && sudo ln -s /usr/bin/llvm-symbolizer-13 /usr/bin/llvm-symbolizer \
  && echo -e '\033[92mBuilding both libc++ and libc++abi with MSan\033[0m' \
  && git clone --depth=1 https://github.com/llvm/llvm-project \
  && cd ./llvm-project \
