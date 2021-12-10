@@ -20,7 +20,7 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1C52189C923F6CA9 \
  && apt -qy update \
  && apt -qy install solc \
- && npm install -g truffle ganache-cli@latest ethlint solhint surya \
+ && npm install -g truffle ganache-cli@latest ethlint solhint surya prettier prettier-plugin-solidity \
  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
  && echo "Install code-server" \
  && VERSION="3.12.0" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
@@ -55,6 +55,8 @@ RUN git config --global pull.rebase true \
 
 RUN echo "Install vscode extensions" \
  && code-server --install-extension GitHub.vscode-pull-request-github \
+ && code-server --install-extension TabNine.tabnine-vscode \
+ && code-server --install-extension esbenp.prettier-vscode \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/JuanBlanco/vsextensions/solidity/0.0.136/vspackage \
  && code-server --install-extension JuanBlanco.solidity-0.0.136.vsix \
  && rm JuanBlanco.solidity-0.0.136.vsix \
@@ -63,13 +65,6 @@ RUN echo "Install vscode extensions" \
  && rm tintinweb.solidity-visual-auditor-0.1.0.vsix \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/graphviz-interactive-preview/0.0.12/vspackage \
  && code-server --install-extension tintinweb.graphviz-interactive-preview-0.0.12.vsix \
- && rm tintinweb.graphviz-interactive-preview-0.0.12.vsix \
- && code-server --install-extension  beaugunderson.solidity-extended \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/hosho/vsextensions/solidity-debugger/0.2.1/vspackage \
- && code-server --install-extension hosho.solidity-debugger-0.2.1.vsix \
- && rm hosho.solidity-debugger-0.2.1.vsix \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/idrabenia/vsextensions/solidity-solhint/1.1.4/vspackage \
- && code-server --install-extension idrabenia.solidity-solhint-1.1.4.vsix \
- && rm idrabenia.solidity-solhint-1.1.4.vsix
+ && rm tintinweb.graphviz-interactive-preview-0.0.12.vsix
 
 EXPOSE 8080
