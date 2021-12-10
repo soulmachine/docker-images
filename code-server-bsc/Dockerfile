@@ -20,7 +20,7 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1C52189C923F6CA9 \
  && apt -qy update \
  && apt -qy install solc \
- && npm install -g truffle ganache-cli@latest ethlint solhint surya prettier prettier-plugin-solidity \
+ && npm install -g truffle ganache-cli@latest ethlint solhint surya prettier prettier-plugin-solidity solhint-plugin-prettier \
  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
  && echo "Install code-server" \
  && VERSION="3.12.0" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
