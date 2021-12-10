@@ -1,0 +1,11 @@
+{
+	"editor.formatOnSave": true,
+	"editor.inlineSuggest.enabled": true,
+	"files.autoSave": "onFocusChange",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"solidity.formatter": "JuanBlanco.solidity",
+  "solidity.linter": "solhint",
+	"workbench.colorTheme": "Solidity Visual Developer Dark",
+	"workbench.editor.highlightModifiedTabs": true
+}
