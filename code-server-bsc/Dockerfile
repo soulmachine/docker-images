@@ -23,7 +23,7 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
  && npm install -g truffle ganache-cli@latest ethlint solhint surya prettier prettier-plugin-solidity solhint-plugin-prettier \
  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
  && echo "Install code-server" \
- && VERSION="3.12.0" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
+ && VERSION="4.0.1" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
  && dpkg -i code-server_"$VERSION"_amd64.deb && rm code-server_"$VERSION"_amd64.deb \
  && echo "Install fixuid" \
  && ARCH="$(dpkg --print-architecture)" && \
