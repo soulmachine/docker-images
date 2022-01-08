@@ -60,9 +60,9 @@ RUN echo "Install vscode extensions" \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/JuanBlanco/vsextensions/solidity/0.0.136/vspackage \
  && code-server --install-extension JuanBlanco.solidity-0.0.136.vsix \
  && rm JuanBlanco.solidity-0.0.136.vsix \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/solidity-visual-auditor/0.1.0/vspackage \
- && code-server --install-extension tintinweb.solidity-visual-auditor-0.1.0.vsix \
- && rm tintinweb.solidity-visual-auditor-0.1.0.vsix \
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/solidity-visual-auditor/0.1.1/vspackage \
+ && code-server --install-extension tintinweb.solidity-visual-auditor-0.1.1.vsix \
+ && rm tintinweb.solidity-visual-auditor-0.1.1.vsix \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/graphviz-interactive-preview/0.0.12/vspackage \
  && code-server --install-extension tintinweb.graphviz-interactive-preview-0.0.12.vsix \
  && rm tintinweb.graphviz-interactive-preview-0.0.12.vsix
