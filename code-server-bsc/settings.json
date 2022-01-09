@@ -8,9 +8,9 @@
 	"[go]": {
 		"editor.defaultFormatter": "golang.go"
 	},
-	"solidity.formatter": "prettier",
+	"solidity.formatter": "none",
 	"[solidity]": {
-		"editor.defaultFormatter": "JuanBlanco.solidity"
+		"editor.defaultFormatter": "esbenp.prettier-vscode"
 	},
 	"solidity.linter": "solhint",
 	"workbench.colorTheme": "Solidity Visual Developer Dark",
