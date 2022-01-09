@@ -15,8 +15,11 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
     gpg-agent \
     git \
     graphviz \
+    iputils-ping \
+    procps \
     software-properties-common \
     sudo \
+    tmux \
  && add-apt-repository -y ppa:ethereum/ethereum \
  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1C52189C923F6CA9 \
  && apt -qy update \
@@ -85,6 +88,9 @@ RUN echo "Install go tools needed by vscoee" \
  && rm tintinweb.solidity-visual-auditor-0.1.1.vsix \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/vscode-solidity-language/0.0.6/vspackage \
  && code-server --install-extension tintinweb.vscode-solidity-language-0.0.6.vsix \
- && rm tintinweb.vscode-solidity-language-0.0.6.vsix
+ && rm tintinweb.vscode-solidity-language-0.0.6.vsix \
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/graphviz-interactive-preview/0.0.12/vspackage \
+ && code-server --install-extension tintinweb.graphviz-interactive-preview-0.0.12.vsix \
+ && rm tintinweb.graphviz-interactive-preview-0.0.12.vsix
 
 EXPOSE 8080
