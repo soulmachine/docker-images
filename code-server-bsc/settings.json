@@ -1,5 +1,5 @@
 {
-	"editor.defaultFormatter": "prettier",
+	"editor.defaultFormatter": "esbenp.prettier-vscode",
 	"editor.formatOnSave": true,
 	"editor.inlineSuggest.enabled": true,
 	"files.autoSave": "onFocusChange",

@@ -7,7 +7,7 @@ A web-based vscode to develop BSC smart contracts.
 ```bash
 cd /path/to/your/project
 docker run -d --name code-server-bsc --init -u "$(id -u):$(id -g)" -p 8080:8080 -v $(pwd):/project soulmachine/code-server:bsc code-server
-docker logs -f code-server
+docker logs -f code-server-bsc
 # go to http://localhost:8080>
 ```
 

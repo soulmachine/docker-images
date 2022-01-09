@@ -57,12 +57,13 @@ RUN echo "Install vscode extensions" \
  && code-server --install-extension GitHub.vscode-pull-request-github \
  && code-server --install-extension TabNine.tabnine-vscode \
  && code-server --install-extension esbenp.prettier-vscode \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/JuanBlanco/vsextensions/solidity/0.0.136/vspackage \
- && code-server --install-extension JuanBlanco.solidity-0.0.136.vsix \
- && rm JuanBlanco.solidity-0.0.136.vsix \
+ && code-server --install-extension JuanBlanco.solidity \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/solidity-visual-auditor/0.1.1/vspackage \
  && code-server --install-extension tintinweb.solidity-visual-auditor-0.1.1.vsix \
  && rm tintinweb.solidity-visual-auditor-0.1.1.vsix \
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/vscode-solidity-language/0.0.6/vspackage \
+ && code-server --install-extension tintinweb.vscode-solidity-language-0.0.6.vsix \
+ && rm tintinweb.vscode-solidity-language-0.0.6.vsix \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/graphviz-interactive-preview/0.0.12/vspackage \
  && code-server --install-extension tintinweb.graphviz-interactive-preview-0.0.12.vsix \
  && rm tintinweb.graphviz-interactive-preview-0.0.12.vsix
