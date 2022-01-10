@@ -1,0 +1,12 @@
+{
+	"editor.formatOnSave": true,
+	"editor.inlineSuggest.enabled": true,
+	"files.autoSave": "onFocusChange",
+	"files.insertFinalNewline": true,
+	"files.trimFinalNewlines": true,
+	"[go]": {
+		"editor.defaultFormatter": "golang.go"
+	},
+	"workbench.colorTheme": "Visual Studio Dark",
+	"workbench.editor.highlightModifiedTabs": true
+}
