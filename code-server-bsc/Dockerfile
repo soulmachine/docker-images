@@ -2,7 +2,7 @@ FROM node:bullseye-slim
 
 # References:
 #
-# * https://docs.binance.org/smart-chain/developer/deploy/truffle.html
+# * https://hardhat.org/getting-started/
 # * https://docs.soliditylang.org/en/latest/installing-solidity.html#linux-packages
 
 ARG USERNAME=node
@@ -24,7 +24,7 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1C52189C923F6CA9 \
  && apt -qy update \
  && apt -qy install solc \
- && npm install -g truffle ganache-cli@latest ethlint solhint surya prettier prettier-plugin-solidity solhint-plugin-prettier \
+ && npm install -g typescript ts-node hardhat solhint surya prettier prettier-plugin-solidity solhint-plugin-prettier npm-check-updates \
  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
  && echo "Install code-server" \
  && VERSION="4.0.1" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
@@ -92,5 +92,8 @@ RUN echo "Install go tools needed by vscoee" \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/graphviz-interactive-preview/0.0.12/vspackage \
  && code-server --install-extension tintinweb.graphviz-interactive-preview-0.0.12.vsix \
  && rm tintinweb.graphviz-interactive-preview-0.0.12.vsix
+
+# see https://github.com/webpack/webpack/issues/14532#issuecomment-947012063
+ENV NODE_OPTIONS="--openssl-legacy-provider"
 
 EXPOSE 8080
