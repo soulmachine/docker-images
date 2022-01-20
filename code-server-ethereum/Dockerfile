@@ -1,4 +1,4 @@
-FROM node:bullseye-slim
+FROM node:16-bullseye-slim
 
 # References:
 #
@@ -14,7 +14,6 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
     gpg \
     gpg-agent \
     git \
-    graphviz \
     iputils-ping \
     procps \
     software-properties-common \
@@ -81,6 +80,9 @@ RUN echo "Install go tools needed by vscoee" \
  && code-server --install-extension golang.Go \
  && code-server --install-extension GitHub.vscode-pull-request-github \
  && code-server --install-extension TabNine.tabnine-vscode \
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/1.7.4688/vspackage \
+ && code-server --install-extension GitHub.copilot-1.7.4688.vsix \
+ && rm GitHub.copilot-1.7.4688.vsix \
  && code-server --install-extension esbenp.prettier-vscode \
  && code-server --install-extension JuanBlanco.solidity \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/tintinweb/vsextensions/solidity-visual-auditor/0.1.1/vspackage \
@@ -93,7 +95,9 @@ RUN echo "Install go tools needed by vscoee" \
  && code-server --install-extension tintinweb.graphviz-interactive-preview-0.0.12.vsix \
  && rm tintinweb.graphviz-interactive-preview-0.0.12.vsix
 
-# see https://github.com/webpack/webpack/issues/14532#issuecomment-947012063
-ENV NODE_OPTIONS="--openssl-legacy-provider"
+# see:
+# * https://github.com/webpack/webpack/issues/14532#issuecomment-947012063
+# * https://github.com/microsoft/vscode/issues/136599
+# ENV NODE_OPTIONS="--openssl-legacy-provider"
 
 EXPOSE 8080
