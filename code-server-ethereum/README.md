@@ -31,3 +31,4 @@ docker push soulmachine/code-server:ethereum
 - <https://docs.binance.org/smart-chain/developer/deploy/truffle.html>
 - <https://docs.soliditylang.org/en/latest/installing-solidity.html#linux-packages>
 - [How to Setup Linters, Surya, and Test Your Code Coverage in Solidity](https://www.maxgrok.com/posts/how-to-setup-solidity-linters)
+- [Github Copilot Support? #4363](https://github.com/coder/code-server/discussions/4363#discussioncomment-1996997)
