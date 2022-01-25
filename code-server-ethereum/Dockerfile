@@ -19,10 +19,11 @@ RUN apt -qy update && apt -qy --no-install-recommends install \
     software-properties-common \
     sudo \
     tmux \
+ && "Install solc and abigen" \
  && add-apt-repository -y ppa:ethereum/ethereum \
  && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 1C52189C923F6CA9 \
  && apt -qy update \
- && apt -qy install solc \
+ && apt -qy install solc abigen \
  && npm install -g typescript ts-node hardhat solhint surya prettier prettier-plugin-solidity solhint-plugin-prettier npm-check-updates \
  && echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME \
  && echo "Install code-server" \
