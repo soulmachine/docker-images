@@ -29,6 +29,6 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
 COPY --chown=$USER:$USER ./.vscode/settings-python.json /data/.local/share/code-server/User/settings.json
 
 RUN code-server --install-extension ms-python.python \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/vscode-pylance/2021.10.2/vspackage \
- && code-server --install-extension ms-python.vscode-pylance-2021.10.2.vsix \
- && rm ms-python.vscode-pylance-2021.10.2.vsix
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/vscode-pylance/2022.3.1/vspackage \
+ && code-server --install-extension ms-python.vscode-pylance-2022.3.1.vsix \
+ && rm ms-python.vscode-pylance-2022.3.1.vsix

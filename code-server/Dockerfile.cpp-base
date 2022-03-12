@@ -49,9 +49,6 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     libssl-dev \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-COPY --chown=$USER:$USER ./extensions/ms-vscode.cpptools-themes-1.0.0.vsix /tmp/
-COPY --chown=$USER:$USER ./extensions/jeff-hykin.better-cpp-syntax-1.15.10.vsix /tmp/
-
 RUN echo "Install vscode extensions" \
  && code-server --install-extension xaver.clang-format \
  #&& code-server --install-extension notskm.clang-tidy \
@@ -61,11 +58,13 @@ RUN echo "Install vscode extensions" \
  && code-server --install-extension vadimcn.vscode-lldb \
  && code-server --install-extension twxs.cmake \
  && code-server --install-extension ms-vscode.cmake-tools \
- && code-server --install-extension /tmp/ms-vscode.cpptools-themes-1.0.0.vsix \
- && rm /tmp/ms-vscode.cpptools-themes-1.0.0.vsix \
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-vscode/vsextensions/cpptools-themes/1.0.0/vspackage \
+ && code-server --install-extension ms-vscode.cpptools-themes-1.0.0.vsix \
+ && rm ms-vscode.cpptools-themes-1.0.0.vsix \
  && code-server --install-extension cschlosser.doxdocgen \
- && code-server --install-extension /tmp/jeff-hykin.better-cpp-syntax-1.15.10.vsix \
- && rm /tmp/jeff-hykin.better-cpp-syntax-1.15.10.vsix
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/jeff-hykin/vsextensions/better-cpp-syntax/1.15.13/vspackage \
+ && code-server --install-extension jeff-hykin.better-cpp-syntax-1.15.13.vsix \
+ && rm jeff-hykin.better-cpp-syntax-1.15.13.vsix
 
 ENV CC=/usr/bin/clang
 ENV CXX=/usr/bin/clang++

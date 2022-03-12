@@ -1,6 +1,6 @@
 FROM soulmachine/code-server:base
 
-ARG JAVA_VERSION="17.0.1.12.1-amzn"
+ARG JAVA_VERSION="17.0.2.8.1-amzn"
 
 SHELL ["/bin/bash", "-c"] 
 
@@ -28,9 +28,9 @@ ENV JAVA_HOME="/home/$USER/.sdkman/candidates/java/current"
 ENV PATH="$JAVA_HOME/bin:/home/$USER/.sdkman/candidates/scala/current/bin:/home/$USER/.sdkman/candidates/kotlin/current/bin:/home/$USER/.sdkman/candidates/maven/current/bin:/home/$USER/.sdkman/candidates/sbt/current/bin:/home/$USER/.sdkman/candidates/gradle/current/bin:/home/$USER/.sdkman/candidates/springboot/current/bin:$PATH"
 
 RUN code-server --install-extension vscjava.vscode-java-pack \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioExptTeam/vsextensions/vscodeintellicode/1.2.14/vspackage \
- && code-server --install-extension VisualStudioExptTeam.vscodeintellicode-1.2.14.vsix \
- && rm VisualStudioExptTeam.vscodeintellicode-1.2.14.vsix \
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/VisualStudioExptTeam/vsextensions/vscodeintellicode/1.2.17/vspackage \
+ && code-server --install-extension VisualStudioExptTeam.vscodeintellicode-1.2.17.vsix \
+ && rm VisualStudioExptTeam.vscodeintellicode-1.2.17.vsix \
  && code-server --install-extension Pivotal.vscode-boot-dev-pack \
  && code-server --install-extension scalameta.metals \
  && code-server --install-extension fwcd.kotlin \
