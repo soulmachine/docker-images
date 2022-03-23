@@ -20,7 +20,7 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
  && conda update -y --all \
  && conda install -y -c conda-forge \
     pylint \
-    yapf \
+    black \
  && conda clean -afy \
  && find $CONDA_HOME -follow -type f -name '*.a' -delete \
  && find $CONDA_HOME -follow -type f -name '*.js.map' -delete \
