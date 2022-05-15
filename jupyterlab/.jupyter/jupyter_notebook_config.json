@@ -1,0 +1,12 @@
+{
+  "NotebookApp": {
+    "ip": "0.0.0.0",
+    "port": 8080,
+    "password": "sha1:d43e9918d0b2:db370a60b6bb5ce411d506e5bfa86ece1be08b23",
+    "open_browser": false,
+    "allow_root": true,
+    "nbserver_extensions": {
+      "jupyterlab_git": true
+    }
+  }
+}
