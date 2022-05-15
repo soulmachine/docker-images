@@ -6,7 +6,7 @@ ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV CONDA_HOME="/opt/conda"
 ENV PATH="${CONDA_HOME}/bin:${PATH}"
 
-ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2021.05-Linux-x86_64.sh"
+ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2021.11-Linux-x86_64.sh"
 
 RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y \
  && apt-get install -y --no-install-recommends \
@@ -73,5 +73,5 @@ VOLUME [ "/notebooks" ]
 
 EXPOSE 8080
 
-# CMD [ "conda", "run", "--no-capture-output", "-n", "base", "jupyter-lab", "--ip=0.0.0.0", "--allow-root" ]
-CMD [ "conda", "run", "--no-capture-output", "-n", "base", "jupyter-lab" ]
+CMD [ "conda", "run", "--no-capture-output", "-n", "base", "jupyter-lab", "--ip=0.0.0.0", "--allow-root" ]
+#CMD [ "conda", "run", "--no-capture-output", "-n", "base", "jupyter-lab" ]
