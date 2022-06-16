@@ -1,5 +1,5 @@
 # Forked from https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/debian/Dockerfile
-FROM debian:buster-slim
+FROM ubuntu:latest
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -8,35 +8,32 @@ ENV PATH="${CONDA_HOME}/bin:${PATH}"
 
 ARG INSTALLER_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
 
-# Security updates
-RUN apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
-
-# Install Miniconda3
-RUN apt-get install -y --no-install-recommends \
+RUN apt-get update && apt-get upgrade -qy && apt-get dist-upgrade -qy \
+ && apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
     wget && \
-    wget -q $INSTALLER_URL -O ~/installer.sh && \
+    wget -q $INSTALLER_URL -O ~/installer.sh \
+ && echo "Installing Miniconda3" && \
     /bin/bash ~/installer.sh -b -p ${CONDA_HOME} && \
     rm ~/installer.sh && \
     ln -s ${CONDA_HOME}/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
-    echo ". ${CONDA_HOME}/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc && \
+    echo ". ${CONDA_HOME}/etc/profile.d/conda.sh" >> /etc/profile && \
+    echo "conda activate base" >> /etc/profile && \
     echo "Set conda-forge as primary channel to reduce conflicts." && \
     conda config --add channels conda-forge && \
-    conda update -y --all
-
-# Install JupyterLab and necessary plugins
-RUN conda install -y \
+    conda update -y --all \
+ && echo "Installing JupyterLab and necessary plugins" && \
+    conda install nodejs -y -c conda-forge --repodata-fn=repodata.json && \
+    conda install -y -c conda-forge \
     ipywidgets \
     jupyterlab \
-    jupyterlab-git \
-    jupyter_http_over_ws \
     nbconvert \
-    nbdime \
     nb_conda \
     nb_conda_kernels \
-    nodejs && \
+    jupyterlab-git \
+    jupyter_http_over_ws \
+    nbdime && \
     jupyter nbextension install nb_conda --py --sys-prefix --symlink && \
     jupyter nbextension install nbdime --py --sys-prefix --symlink && \
     jupyter nbextension enable nb_conda --py --sys-prefix && \
@@ -45,23 +42,16 @@ RUN conda install -y \
     jupyter serverextension enable nb_conda --py --sys-prefix && \
     jupyter serverextension enable nbdime --py --sys-prefix && \
     jupyter serverextension enable jupyter_http_over_ws --py --sys-prefix && \
-    jupyter serverextension enable jupyterlab_git --py --sys-prefix && \
-    jupyter labextension install @jupyterlab/git --no-build  && \
-    jupyter labextension install @jupyter-widgets/jupyterlab-manager --no-build  && \
     jupyter labextension install nbdime-jupyterlab --no-build  && \
     jupyter labextension install jupyterlab-plotly --no-build  && \
     jupyter labextension install plotlywidget --no-build  && \
-    jupyter lab build && \
+    jupyter lab build --minimize=True && \
     jupyter lab clean && \
     jlpm cache clean && \
     npm cache clean --force && \
-    nbdime config-git --enable --global
-
-# Configure JupyterLab
-COPY .jupyter/ /root/.jupyter
-
-# Install necessary libraries including pandas, numpy, scipy, etc.
-RUN conda install -y \
+    nbdime config-git --enable --global \
+ && echo "Installing necessary python libraries" && \
+    conda install -y -c conda-forge \
     dask \
     matplotlib \
     numpy \
@@ -72,11 +62,12 @@ RUN conda install -y \
     scipy \
     seaborn \
     statsmodels \
-    tqdm
-
-# Cleanup
-RUN conda update -y --all && conda clean -afy && \
+    tqdm \
+ && conda update -y --all && conda clean -afy && \
     apt-get autoremove && apt-get autoclean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+
+# Configure JupyterLab
+COPY .jupyter/ /root/.jupyter
 
 RUN mkdir /notebooks
 WORKDIR /notebooks
@@ -84,5 +75,4 @@ VOLUME [ "/notebooks" ]
 
 EXPOSE 8080
 
-# CMD [ "conda", "run", "--no-capture-output", "-n", "base", "jupyter-lab", "--ip=0.0.0.0", "--allow-root" ]
-CMD [ "conda", "run", "--no-capture-output", "-n", "base", "jupyter-lab" ]
+CMD [ "conda", "run", "--no-capture-output", "-n", "base", "jupyter-lab", "--ip=0.0.0.0", "--allow-root" ]
