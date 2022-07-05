@@ -13,8 +13,6 @@
   },
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
-  "rust-analyzer.server.path": "~/.local/bin/rust-analyzer-linux",
-  "rust-analyzer.updates.askBeforeDownload": false,
   "redhat.telemetry.enabled": true,
   "tabnine.experimentalAutoImports": true,
   "workbench.colorTheme": "Default Dark+",

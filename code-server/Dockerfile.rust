@@ -1,19 +1,11 @@
 FROM soulmachine/code-server:base
 
-# Install Rust
-RUN curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly --component rust-src
-
-# Fix linker `cc` not found
 RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     build-essential \
     libssl-dev \
     pkg-config \
+ && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly --component rust-src --component rust-analyzer-preview \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
-
-# Download rust-analyzer Language Server Binary, optional
-RUN mkdir -p ~/.local/bin \
- && curl -L https://github.com/rust-analyzer/rust-analyzer/releases/latest/download/rust-analyzer-x86_64-unknown-linux-gnu.gz | gunzip -c - > ~/.local/bin/rust-analyzer-linux \
- && chmod +x ~/.local/bin/rust-analyzer-linux
 
 COPY --chown=$USER:$USER ./.vscode/settings-rust.json /data/.local/share/code-server/User/settings.json
 
