@@ -7,7 +7,7 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
 # Available values: 10, 11, 12, 13, 14
-ARG LLVM_VERSION=13
+ARG LLVM_VERSION=14
 ARG USERNAME=coder
 
 RUN echo "Installing LLVM toolchain" \
@@ -62,9 +62,9 @@ RUN echo "Install vscode extensions" \
  && code-server --install-extension ms-vscode.cpptools-themes-1.0.0.vsix \
  && rm ms-vscode.cpptools-themes-1.0.0.vsix \
  && code-server --install-extension cschlosser.doxdocgen \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/jeff-hykin/vsextensions/better-cpp-syntax/1.15.13/vspackage \
- && code-server --install-extension jeff-hykin.better-cpp-syntax-1.15.13.vsix \
- && rm jeff-hykin.better-cpp-syntax-1.15.13.vsix
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/jeff-hykin/vsextensions/better-cpp-syntax/1.15.19/vspackage \
+ && code-server --install-extension jeff-hykin.better-cpp-syntax-1.15.19.vsix \
+ && rm jeff-hykin.better-cpp-syntax-1.15.19.vsix
 
 ENV CC=/usr/bin/clang
 ENV CXX=/usr/bin/clang++
