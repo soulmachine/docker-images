@@ -98,7 +98,6 @@ RUN echo "Install common vscode extensions" \
  && code-server --install-extension GitHub.vscode-pull-request-github \
  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/1.31.6194/vspackage \
  && code-server --install-extension GitHub.copilot-1.31.6194.vsix \
- && rm GitHub.copilot-1.31.6194.vsix \
- && code-server --install-extension TabNine.tabnine-vscode
+ && rm GitHub.copilot-1.31.6194.vsix
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
