@@ -14,7 +14,6 @@
   "files.insertFinalNewline": true,
   "files.trimFinalNewlines": true,
   "redhat.telemetry.enabled": true,
-  "tabnine.experimentalAutoImports": true,
   "workbench.colorTheme": "Default Dark+",
   "workbench.editor.highlightModifiedTabs": true
 }

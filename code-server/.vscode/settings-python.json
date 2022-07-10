@@ -25,7 +25,6 @@
     "analysis.typeCheckingMode": "strict"
   },
   "redhat.telemetry.enabled": true,
-  "tabnine.experimentalAutoImports": true,
   "workbench.colorTheme": "Default Dark+",
   "workbench.editor.highlightModifiedTabs": true
 }

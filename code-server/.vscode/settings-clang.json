@@ -23,7 +23,6 @@
 	"files.insertFinalNewline": true,
 	"files.trimFinalNewlines": true,
 	"redhat.telemetry.enabled": true,
-	"tabnine.experimentalAutoImports": true,
 	"workbench.colorTheme": "Visual Studio Dark - C++",
 	"workbench.editor.highlightModifiedTabs": true
 }
