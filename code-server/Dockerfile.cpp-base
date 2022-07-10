@@ -3,6 +3,7 @@ FROM soulmachine/code-server:base
 # Install common tools
 RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     cmake \
+    cmake-curses-gui \
     make \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
@@ -37,6 +38,8 @@ RUN echo "Installing LLVM toolchain" \
 # Install common C++ libraries
 # https://cmake.org/cmake/help/latest/manual/cmake-modules.7.html#find-modules
 RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
+    doxygen \
+    graphviz \
     libstdc++-10-dev \
     libboost-dev \
     libgflags-dev \
@@ -49,26 +52,25 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     libssl-dev \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
-RUN echo "Install vscode extensions" \
- && code-server --install-extension xaver.clang-format \
- #&& code-server --install-extension notskm.clang-tidy \
- && wget --waitretry 15 --tries 5 --no-verbose https://github.com/notskm/vscode-clang-tidy/releases/download/v0.5.1/clang-tidy-0.5.1.vsix \
- && code-server --install-extension clang-tidy-0.5.1.vsix \
- && rm clang-tidy-0.5.1.vsix \
- && code-server --install-extension vadimcn.vscode-lldb \
- && code-server --install-extension twxs.cmake \
- && code-server --install-extension ms-vscode.cmake-tools \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-vscode/vsextensions/cpptools-themes/1.0.0/vspackage \
- && code-server --install-extension ms-vscode.cpptools-themes-1.0.0.vsix \
- && rm ms-vscode.cpptools-themes-1.0.0.vsix \
- && code-server --install-extension cschlosser.doxdocgen \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/jeff-hykin/vsextensions/better-cpp-syntax/1.15.19/vspackage \
- && code-server --install-extension jeff-hykin.better-cpp-syntax-1.15.19.vsix \
- && rm jeff-hykin.better-cpp-syntax-1.15.19.vsix
-
 ENV CC=/usr/bin/clang
 ENV CXX=/usr/bin/clang++
 ENV LD=/usr/bin/lld
 ENV CMAKE_EXPORT_COMPILE_COMMANDS=TRUE
 ENV VCPKG_ROOT=/home/$USERNAME/vcpkg
 ENV CMAKE_TOOLCHAIN_FILE=/home/$USERNAME/vcpkg/scripts/buildsystems/vcpkg.cmake
+
+# vscode.cpptools has a bundled clang-format, see https://github.com/microsoft/vscode-cpptools/issues/6294
+# vscode.cpptools has a bundled clang-tidy, see https://devblogs.microsoft.com/cppblog/visual-studio-code-c-december-2021-update-clang-tidy/
+# vscode.cpptools also supports other clang tools, see https://github.com/microsoft/vscode-cpptools/issues/2908
+# vscode does NOT support lldb yet https://github.com/microsoft/vscode-cpptools/issues/5415
+
+RUN echo "Install vscode extensions" \
+ && code-server --install-extension vadimcn.vscode-lldb \
+ # Install extensions recommended by ms-vscode.cpptools-extension-pack"
+ && code-server --install-extension twxs.cmake \
+ && code-server --install-extension ms-vscode.cmake-tools \
+ && code-server --install-extension ms-vscode.cpptools-themes \
+ && code-server --install-extension cschlosser.doxdocgen \
+ && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/jeff-hykin/vsextensions/better-cpp-syntax/1.15.19/vspackage \
+ && code-server --install-extension jeff-hykin.better-cpp-syntax-1.15.19.vsix \
+ && rm jeff-hykin.better-cpp-syntax-1.15.19.vsix

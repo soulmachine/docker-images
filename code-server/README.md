@@ -34,8 +34,8 @@ All available images:
 docker build -t soulmachine/code-server:base -f Dockerfile.base . --build-arg USERNAME=coder
 docker build -t soulmachine/code-server:cpp-base -f Dockerfile.cpp-base .
 
-docker build -t soulmachine/code-server:cpp -f Dockerfile.cpp .
-docker push soulmachine/code-server:cpp
+docker build -t soulmachine/code-server:cpptools -f Dockerfile.cpptools .
+docker push soulmachine/code-server:cpptools
 
 docker build -t soulmachine/code-server:clang -f Dockerfile.clang .
 docker push soulmachine/code-server:clang

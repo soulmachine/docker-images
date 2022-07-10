@@ -2,4 +2,7 @@ FROM soulmachine/code-server:cpp-base
 
 COPY --chown=$USER:$USER ./.vscode/settings-clang.json /data/.local/share/code-server/User/settings.json
 
-RUN code-server --install-extension llvm-vs-code-extensions.vscode-clangd
+RUN echo "Install vscode extensions" \
+ && code-server --install-extension llvm-vs-code-extensions.vscode-clangd \
+ && code-server --install-extension xaver.clang-format \
+ && code-server --install-extension notskm.clang-tidy
