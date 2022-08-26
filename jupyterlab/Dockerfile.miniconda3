@@ -1,5 +1,5 @@
 # Forked from https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/debian/Dockerfile
-FROM ubuntu:latest
+FROM debian:bullseye-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
@@ -12,9 +12,9 @@ RUN apt-get update && apt-get upgrade -qy && apt-get dist-upgrade -qy \
  && apt-get install -y --no-install-recommends \
     ca-certificates \
     git \
-    wget && \
-    wget -q $INSTALLER_URL -O ~/installer.sh \
+    wget \
  && echo "Installing Miniconda3" && \
+    wget -q $INSTALLER_URL -O ~/installer.sh && \
     /bin/bash ~/installer.sh -b -p ${CONDA_HOME} && \
     rm ~/installer.sh && \
     ln -s ${CONDA_HOME}/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
