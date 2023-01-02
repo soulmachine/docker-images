@@ -1,4 +1,3 @@
-# FROM debian:stable-slim
 FROM ubuntu:latest
 
 # References:
@@ -8,35 +7,35 @@ ENV DEBIAN_FRONTEND=noninteractive
 ENV DEBCONF_NONINTERACTIVE_SEEN=true
 
 RUN apt -qy update && apt -qy --no-install-recommends install \
-    apt-transport-https \
-    ca-certificates \
-    curl \
-    git \
-    gpg \
-    gpg-agent \
-    htop \
-    iputils-ping \
-    locales \
-    lsb-release \
-    man \
-    net-tools \
-    openssh-client \
-    pkg-config \
-    procps \
-    socat \
-    software-properties-common \
-    sudo \
-    sysstat \
-    tar \
-    tmux \
-    tcpdump \
-    tree \
-    tzdata \
-    unzip \
-    vim-tiny \
-    wget \
-    zip \
- && apt -qy autoremove && apt clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+  apt-transport-https \
+  ca-certificates \
+  curl \
+  git \
+  gpg \
+  gpg-agent \
+  htop \
+  iputils-ping \
+  locales \
+  lsb-release \
+  man \
+  net-tools \
+  openssh-client \
+  pkg-config \
+  procps \
+  socat \
+  software-properties-common \
+  sudo \
+  sysstat \
+  tar \
+  tmux \
+  tcpdump \
+  tree \
+  tzdata \
+  unzip \
+  vim-tiny \
+  wget \
+  zip \
+  && apt -qy autoremove && apt clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 # https://wiki.debian.org/Locale#Manually
 RUN sed -i "s/# en_US.UTF-8/en_US.UTF-8/" /etc/locale.gen && locale-gen
@@ -54,24 +53,24 @@ RUN adduser --gecos '' --disabled-password $USERNAME && \
   echo "$USERNAME ALL=(ALL) NOPASSWD:ALL" > /etc/sudoers.d/$USERNAME
 
 # Install code-server
-RUN VERSION="4.5.0" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
- && dpkg -i code-server_"$VERSION"_amd64.deb && rm code-server_"$VERSION"_amd64.deb
+RUN VERSION="4.9.1" && curl -fOL https://github.com/cdr/code-server/releases/download/v$VERSION/code-server_"$VERSION"_amd64.deb \
+  && dpkg -i code-server_"$VERSION"_amd64.deb && rm code-server_"$VERSION"_amd64.deb
 
 # Configure code-server
 ENV CODE_SERVER_CONFIG="/data/.config/code-server/config.yaml"
 RUN mkdir -p /data/.config/code-server \
- && mkdir -p /data/.local/share/code-server \
- && chown -R $USERNAME:$USERNAME /data
+  && mkdir -p /data/.local/share/code-server \
+  && chown -R $USERNAME:$USERNAME /data
 
 COPY --chown=$USERNAME:$USERNAME config.yaml /data/.config/code-server/config.yaml
 
 # Install fixuid
 RUN ARCH="$(dpkg --print-architecture)" && \
-    curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5.1/fixuid-0.5.1-linux-$ARCH.tar.gz | tar -C /usr/local/bin -xzf - && \
-    chown root:root /usr/local/bin/fixuid && \
-    chmod 4755 /usr/local/bin/fixuid && \
-    mkdir -p /etc/fixuid && \
-    printf "user: $USERNAME\ngroup: $USERNAME\npaths:\n  - /home/$USERNAME\n  - /data\n" > /etc/fixuid/config.yml
+  curl -SsL https://github.com/boxboat/fixuid/releases/download/v0.5.1/fixuid-0.5.1-linux-$ARCH.tar.gz | tar -C /usr/local/bin -xzf - && \
+  chown root:root /usr/local/bin/fixuid && \
+  chmod 4755 /usr/local/bin/fixuid && \
+  mkdir -p /etc/fixuid && \
+  printf "user: $USERNAME\ngroup: $USERNAME\npaths:\n  - /home/$USERNAME\n  - /data\n" > /etc/fixuid/config.yml
 
 COPY entrypoint.sh /usr/bin/entrypoint.sh
 
@@ -81,23 +80,26 @@ USER $USERNAME
 ENV USER $USERNAME
 WORKDIR /home/$USERNAME
 
+# COPY --chown=$USERNAME:$USERNAME redhat.vscode-commons-0.0.6.vsix /home/$USERNAME/redhat.vscode-commons-0.0.6.vsix
+# COPY --chown=$USERNAME:$USERNAME GitHub.copilot-1.65.7705.vsix /home/$USERNAME/GitHub.copilot-1.65.7705.vsix
+
 RUN git config --global pull.rebase true \
- && git config --global rebase.autoStash true \
- && git config --global credential.helper store
+  && git config --global rebase.autoStash true \
+  && git config --global credential.helper store
 
 RUN echo "Install common vscode extensions" \
-#  && code-server --install-extension yzhang.markdown-all-in-one \
-#  && code-server --install-extension DavidAnson.vscode-markdownlint \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/redhat/vsextensions/vscode-commons/0.0.6/vspackage \
- && code-server --install-extension redhat.vscode-commons-0.0.6.vsix \
- && rm redhat.vscode-commons-0.0.6.vsix \
- && code-server --install-extension redhat.vscode-xml \
- && code-server --install-extension redhat.vscode-yaml \
- && code-server --install-extension redhat.fabric8-analytics \
- && code-server --install-extension mikestead.dotenv \
- && code-server --install-extension GitHub.vscode-pull-request-github \
- && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/1.31.6194/vspackage \
- && code-server --install-extension GitHub.copilot-1.31.6194.vsix \
- && rm GitHub.copilot-1.31.6194.vsix
+  #  && code-server --install-extension yzhang.markdown-all-in-one \
+  #  && code-server --install-extension DavidAnson.vscode-markdownlint \
+  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/redhat/vsextensions/vscode-commons/0.0.6/vspackage \
+  && code-server --install-extension redhat.vscode-commons-0.0.6.vsix \
+  && rm redhat.vscode-commons-0.0.6.vsix \
+  && code-server --install-extension redhat.vscode-xml \
+  && code-server --install-extension redhat.vscode-yaml \
+  && code-server --install-extension redhat.fabric8-analytics \
+  && code-server --install-extension mikestead.dotenv \
+  && code-server --install-extension GitHub.vscode-pull-request-github \
+  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/GitHub/vsextensions/copilot/1.65.7705/vspackage \
+  && code-server --install-extension GitHub.copilot-1.65.7705.vsix \
+  && rm GitHub.copilot-1.65.7705.vsix
 
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
