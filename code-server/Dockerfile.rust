@@ -4,7 +4,7 @@ RUN sudo apt -qy update && sudo apt -qy --no-install-recommends install \
     build-essential \
     libssl-dev \
     pkg-config \
- && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly --component rust-src --component rust-analyzer-preview \
+ && curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --default-toolchain nightly --component rust-src --component rust-analyzer \
  && sudo apt -qy autoremove && sudo apt clean && sudo rm -rf /var/lib/apt/lists/* && sudo rm -rf /tmp/*
 
 COPY --chown=$USER:$USER ./.vscode/settings-rust.json /data/.local/share/code-server/User/settings.json
