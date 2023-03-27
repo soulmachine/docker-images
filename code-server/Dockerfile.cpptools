@@ -6,6 +6,12 @@ FROM soulmachine/code-server:cpp-base
 
 COPY --chown=$USER:$USER ./.vscode/settings-cpp.json /data/.local/share/code-server/User/settings.json
 
-RUN wget --waitretry 15 --tries 5 --no-verbose https://github.com/microsoft/vscode-cpptools/releases/download/v1.13.8/cpptools-linux.vsix \
+# COPY --chown=$USER:$USER ms-vscode.cpptools-extension-pack-1.3.0.vsix /home/$USER/ms-vscode.cpptools-extension-pack-1.3.0.vsix
+
+RUN echo "Install vscode extensions" \
+  && wget --waitretry 15 --tries 5 --no-verbose https://github.com/microsoft/vscode-cpptools/releases/download/v1.14.5/cpptools-linux.vsix \
   && code-server --install-extension ./cpptools-linux.vsix \
-  && rm ./cpptools-linux.vsix
+  && rm ./cpptools-linux.vsix \
+  && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-vscode/vsextensions/cpptools-extension-pack/1.3.0/vspackage \
+  && code-server --install-extension ms-vscode.cpptools-extension-pack-1.3.0.vsix \
+  && rm ms-vscode.cpptools-extension-pack-1.3.0.vsix

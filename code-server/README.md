@@ -18,13 +18,13 @@ Open the URL in browser and enjoy!
 
 All available images:
 
-| Language | Docker Image                   |
-| -------- | ------------------------------ |
-| C++      | soulmachine/code-server:cpp    |
-| C++      | soulmachine/code-server:clang  |
-| Python   | soulmachine/code-server:python |
-| Rust     | soulmachine/code-server:rust   |
-| Java     | soulmachine/code-server:java   |
+| Language | Docker Image                     |
+| -------- | -------------------------------- |
+| C++      | soulmachine/code-server:cpptools |
+| C++      | soulmachine/code-server:clang    |
+| Python   | soulmachine/code-server:python   |
+| Rust     | soulmachine/code-server:rust     |
+| Java     | soulmachine/code-server:java     |
 
 **If you're interested in what the container has done, continue reading.**
 
