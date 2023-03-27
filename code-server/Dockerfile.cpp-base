@@ -66,11 +66,5 @@ ENV CMAKE_TOOLCHAIN_FILE=/home/$USERNAME/vcpkg/scripts/buildsystems/vcpkg.cmake
 
 RUN echo "Install vscode extensions" \
    && code-server --install-extension vadimcn.vscode-lldb \
-   # Install extensions recommended by ms-vscode.cpptools-extension-pack"
-   && code-server --install-extension twxs.cmake \
-   && code-server --install-extension ms-vscode.cmake-tools \
-   && code-server --install-extension ms-vscode.cpptools-themes \
    && code-server --install-extension cschlosser.doxdocgen \
-   && curl --compressed --user-agent "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/60.0.3112.113 Safari/537.36" -LJO https://marketplace.visualstudio.com/_apis/public/gallery/publishers/jeff-hykin/vsextensions/better-cpp-syntax/1.17.2/vspackage \
-   && code-server --install-extension jeff-hykin.better-cpp-syntax-1.17.2.vsix \
-   && rm jeff-hykin.better-cpp-syntax-1.17.2.vsix
+   && code-server --install-extension ms-vscode.cpptools-extension-pack
