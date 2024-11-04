@@ -6,9 +6,9 @@ LABEL maintainer=soulmachine
 # https://github.com/np1/docker-tor-clientonly
 # https://help.ubuntu.com/community/Privoxy
 
-RUN apt-get -qy update && apt-get -qy --no-install-recommends install \
-    tor tor-geoipdb nyx privoxy curl \
- && apt-get autoremove && apt-get clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
+RUN apt -qy update && apt -qy --no-install-recommends install \
+    tor tor-geoipdb nyx privoxy curl ca-certificates procps \
+ && apt -qy autoremove && apt clean && rm -rf /var/lib/apt/lists/* && rm -rf /tmp/*
 
 RUN echo "SocksPort 0.0.0.0:9050" >> /etc/tor/torrc && \
     sed -i '/^listen-address/d' /etc/privoxy/config && \

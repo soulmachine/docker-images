@@ -2,11 +2,11 @@
 
 ## Run
 
-    docker run -d --name tor -p 9050:9050 -p 9051:9051 -p 8118:8118 soulmachine/tor
+```bash
+docker run -d --name tor -p 9050:9050 -p 9051:9051 -p 8118:8118 soulmachine/tor
+```
 
 ## Connect to the SOCKS Proxy
-
-Configure your browser/client to use the SOCKS proxy server at at `127.0.0.1:9050`
 
 Validate the SOCKS proxy:
 
@@ -15,9 +15,13 @@ curl --socks5 127.0.0.1:9050 https://check.torproject.org/api/ip
 {"IsTor":true,"IP":"45.64.186.122"}
 ```
 
-## Connect to the HTTP Proxy
+If you see the above output, it means the SOCKS proxy is working.
 
-Configure your browser/client to use the HTTP proxy server at at `127.0.0.1:8118`
+Configure your browser/client to use the SOCKS proxy server at at `127.0.0.1:9050`
+
+
+
+## Connect to the HTTP Proxy
 
 Validate the HTTP proxy:
 
@@ -26,13 +30,20 @@ curl --proxy 127.0.0.1:8118 https://check.torproject.org/api/ip
 {"IsTor":true,"IP":"54.39.50.28"}
 ```
 
+If you see the above output, it means the HTTP proxy is working.
+
+Configure your browser/client to use the HTTP proxy server at at `127.0.0.1:8118`
+
+
 ## Change IP Addresses Dynamically
 
 TOR resets its IP adress every 10 minutes automatically. But when you're crawling a website and this website complains that you have submited too many requests, you need to change your IP address in this scenario. How to make TOR change its IP immediately ?
 
 Basically you need to use [stem](https://stem.torproject.org/). First install stem,
 
-    sudo pip3 install stem
+```bash
+sudo pip3 install stem
+```
 
 And change the IP address with the following code:
 
