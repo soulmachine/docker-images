@@ -20,7 +20,7 @@ html_match = re.search(r"<html.*?>.*?</html>", cleaned_content, flags=re.DOTALL 
 if html_match:
     html_content = html_match.group()
 
-    # Optional: Remove unnecessary spaces and empty lines
+    # Remove unnecessary spaces and empty lines
     html_content = re.sub(r"\n\s*\n", "\n", html_content)
 
     # Step 5: Save the cleaned HTML content
