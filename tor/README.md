@@ -80,6 +80,13 @@ change_ip()
 show_my_ip(socks_proxies)  # CHANGED
 ```
 
+## Build
+
+```bash
+cd tor
+docker build -t soulmachine/tor .
+```
+
 ## References
 
 - [jgamblin/tor](https://github.com/jgamblin/tor)

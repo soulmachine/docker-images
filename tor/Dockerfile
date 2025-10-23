@@ -1,4 +1,4 @@
-FROM debian:buster-slim
+FROM debian:trixie-slim
 LABEL maintainer=soulmachine
 
 # References:
