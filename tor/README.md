@@ -85,6 +85,7 @@ show_my_ip(socks_proxies)  # CHANGED
 ```bash
 cd tor
 docker build -t soulmachine/tor .
+docker push soulmachine/tor
 ```
 
 ## References
