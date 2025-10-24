@@ -28,6 +28,10 @@ Validate the HTTP proxy:
 ```bash
 curl --proxy 127.0.0.1:8118 https://check.torproject.org/api/ip
 {"IsTor":true,"IP":"54.39.50.28"}
+curl --proxy 127.0.0.1:8118 https://checkip.amazonaws.com/
+109.70.100.1
+curl --proxy 127.0.0.1:8118  ifconfig.co/
+109.70.100.1
 ```
 
 If you see the above output, it means the HTTP proxy is working.
