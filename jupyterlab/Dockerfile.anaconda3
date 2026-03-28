@@ -1,12 +1,12 @@
 # Forked from https://github.com/ContinuumIO/docker-images/blob/master/anaconda3/debian/Dockerfile
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV CONDA_HOME="/opt/conda"
 ENV PATH="${CONDA_HOME}/bin:${PATH}"
 
-ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2022.05-Linux-x86_64.sh"
+ARG INSTALLER_URL="https://repo.anaconda.com/archive/Anaconda3-2025.12-2-Linux-x86_64.sh"
 
 RUN apt-get update && apt-get upgrade -qy && apt-get dist-upgrade -qy \
  && apt-get install -y --no-install-recommends \
