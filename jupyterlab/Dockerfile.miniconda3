@@ -1,12 +1,10 @@
 # Forked from https://github.com/ContinuumIO/docker-images/blob/master/miniconda3/debian/Dockerfile
-FROM debian:bullseye-slim
+FROM debian:trixie-slim
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV LANG=C.UTF-8 LC_ALL=C.UTF-8
 ENV CONDA_HOME="/opt/conda"
 ENV PATH="${CONDA_HOME}/bin:${PATH}"
-
-ARG INSTALLER_URL="https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
 
 RUN apt-get update && apt-get upgrade -qy && apt-get dist-upgrade -qy \
  && apt-get install -y --no-install-recommends \
@@ -14,41 +12,33 @@ RUN apt-get update && apt-get upgrade -qy && apt-get dist-upgrade -qy \
     git \
     wget \
  && echo "Installing Miniconda3" && \
-    wget -q $INSTALLER_URL -O ~/installer.sh && \
+    ARCH=$(uname -m) && \
+    wget -q "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${ARCH}.sh" -O ~/installer.sh && \
     /bin/bash ~/installer.sh -b -p ${CONDA_HOME} && \
     rm ~/installer.sh && \
     ln -s ${CONDA_HOME}/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". ${CONDA_HOME}/etc/profile.d/conda.sh" >> /etc/profile && \
     echo "conda activate base" >> /etc/profile && \
+    echo "Accepting Anaconda Terms of Service" && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/main && \
+    conda tos accept --override-channels --channel https://repo.anaconda.com/pkgs/r && \
     echo "Set conda-forge as primary channel to reduce conflicts." && \
     conda config --add channels conda-forge && \
     conda update -y --all \
  && echo "Installing JupyterLab and necessary plugins" && \
-    conda install nodejs -y -c conda-forge --repodata-fn=repodata.json && \
     conda install -y -c conda-forge \
     ipywidgets \
     jupyterlab \
     nbconvert \
-    nb_conda \
     nb_conda_kernels \
     jupyterlab-git \
     jupyter_http_over_ws \
+    plotly \
     nbdime && \
-    jupyter nbextension install nb_conda --py --sys-prefix --symlink && \
-    jupyter nbextension install nbdime --py --sys-prefix --symlink && \
-    jupyter nbextension enable nb_conda --py --sys-prefix && \
-    jupyter nbextension enable nbdime --py --sys-prefix && \
-    jupyter nbextension enable widgetsnbextension --py --sys-prefix && \
-    jupyter serverextension enable nb_conda --py --sys-prefix && \
-    jupyter serverextension enable nbdime --py --sys-prefix && \
-    jupyter serverextension enable jupyter_http_over_ws --py --sys-prefix && \
-    jupyter labextension install nbdime-jupyterlab --no-build  && \
-    jupyter labextension install jupyterlab-plotly --no-build  && \
-    jupyter labextension install plotlywidget --no-build  && \
-    jupyter lab build --minimize=True && \
-    jupyter lab clean && \
-    jlpm cache clean && \
-    npm cache clean --force && \
+    jupyter server extension enable nbdime --py --sys-prefix && \
+    jupyter server extension enable jupyter_http_over_ws --sys-prefix && \
+    jupyter server extension enable jupyterlab_git --sys-prefix && \
+    jupyter labextension list && \
     nbdime config-git --enable --global \
  && echo "Installing necessary python libraries" && \
     conda install -y -c conda-forge \
