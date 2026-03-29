@@ -11,6 +11,8 @@ RUN apt-get update && apt-get upgrade -qy && apt-get dist-upgrade -qy \
     ca-certificates \
     git \
     wget \
+  && echo "For converting notebooks to PDF, see https://nbconvert.readthedocs.io/en/latest/install.html#installing-tex" && \
+    apt-get -y install texlive-xetex texlive-fonts-recommended texlive-plain-generic \
  && echo "Installing Miniconda3" && \
     ARCH=$(uname -m) && \
     wget -q "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-${ARCH}.sh" -O ~/installer.sh && \
